@@ -2,7 +2,7 @@
 
 > Guía interactiva de aprendizaje para construir aplicaciones de clase mundial — con roadmap, proyectos paso a paso, verificación de progreso y recursos 100% gratuitos.
 
-[![GitHub Pages](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-blue?style=flat-square&logo=github)](https://TU_USUARIO.github.io/fullstack-engineer-hub)
+[![GitHub Pages](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-blue?style=flat-square&logo=github)](https://jorgearguellles.github.io/fullStackEngineer_Path/)
 [![Open Source](https://img.shields.io/badge/Stack-Open%20Source%20First-green?style=flat-square)](https://github.com/TU_USUARIO/fullstack-engineer-hub)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
 
@@ -27,9 +27,8 @@ La idea central: en lugar de ver tutoriales pasivamente, el estudiante construye
 
 ## Demo en vivo
 
-🔗 **[TU_USUARIO.github.io/fullstack-engineer-hub](https://TU_USUARIO.github.io/fullstack-engineer-hub)**
+🔗 **[TU_USUARIO.github.io/fullstack-engineer-hub](https://jorgearguellles.github.io/fullStackEngineer_Path/)**
 
-> Reemplaza `TU_USUARIO` con tu nombre de usuario de GitHub después de hacer el deploy.
 
 ---
 
@@ -175,8 +174,6 @@ El hub es intencionalmente un solo archivo HTML. Esta decisión de diseño:
 
 ## Habilidades técnicas desarrolladas
 
-> Esta sección está dirigida a reclutadores y equipos de ingeniería.
-
 ### Ingeniería de Frontend
 
 El desarrollo de este hub implicó construir una SPA completa sin frameworks — solo HTML, CSS y JavaScript vanilla — con arquitectura de componentes, sistema de módulos por datos, renderizado dinámico del DOM y gestión de estado persistente.
@@ -277,8 +274,8 @@ MIT — úsalo, modifícalo y compártelo libremente. Si lo usas como base para 
 
 <div align="center">
 
-Construido como proyecto de portafolio · Ingeniería de Software · 2025
+Construido como proyecto de portafolio · Ingeniería de Software · 2026
 
-**[Ver demo](https://TU_USUARIO.github.io/fullstack-engineer-hub)** · **[Reportar un bug](https://github.com/TU_USUARIO/fullstack-engineer-hub/issues)** · **[Sugerir un proyecto](https://github.com/TU_USUARIO/fullstack-engineer-hub/issues/new)**
+**[Ver demo](https://jorgearguellles.github.io/fullStackEngineer_Path/)** · **[Reportar un bug](https://jorgearguellles.github.io/)** · **[Sugerir un proyecto](https://github.com/TU_USUARIO/fullstack-engineer-hub/issues/new)**
 
 </div>
