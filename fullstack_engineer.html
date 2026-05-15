@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Stack Engineer · World-Class Apps</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080b12;--surface:#0e1220;--card:#121828;--border:#1e2d45;--text:#e8edf5;--muted:#5a6a82;--fe:#00d4ff;--be:#00ff9d;--cl:#bf7aff;--ai:#ff6b35;--gold:#ffd166;--ok:#00ff9d;--r:6px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");opacity:.4}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);background-size:48px 48px;z-index:0}
+
+/* ── HERO ── */
+.hero{position:relative;z-index:1;padding:48px 32px 24px;max-width:1400px;margin:0 auto}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:24px}
+.badge{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);padding:4px 12px;border-radius:20px;display:inline-block;margin-bottom:12px}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,3.6rem);font-weight:800;line-height:1;letter-spacing:-.03em}
+.hero h1 em{font-style:normal;color:var(--fe)}
+.hero-sub{font-size:.75rem;color:var(--muted);margin-top:10px;line-height:1.8;max-width:520px}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#00ff9d;margin-right:6px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,255,157,.5)}50%{box-shadow:0 0 0 6px rgba(0,255,157,0)}}
+
+/* ── OVERALL PROGRESS BADGE (hero) ── */
+.overall-prog{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.overall-prog .op-label{font-size:.56rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+.overall-prog .op-num{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--gold);line-height:1}
+.overall-prog .op-sub{font-size:.6rem;color:var(--muted)}
+.op-ring{width:64px;height:64px;transform:rotate(-90deg)}
+
+/* ── PILLS ── */
+.domains{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
+.dom-pill{display:flex;align-items:center;gap:8px;padding:8px 16px;border-radius:4px;font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;border:1.5px solid;transition:all .2s;text-transform:uppercase;letter-spacing:.06em}
+.dom-pill:hover{filter:brightness(1.3);transform:translateY(-2px)}
+.dom-fe{color:var(--fe);border-color:var(--fe);background:rgba(0,212,255,.08)}.dom-be{color:var(--be);border-color:var(--be);background:rgba(0,255,157,.08)}.dom-cl{color:var(--cl);border-color:var(--cl);background:rgba(191,122,255,.08)}.dom-ai{color:var(--ai);border-color:var(--ai);background:rgba(255,107,53,.08)}.dom-all{color:var(--gold);border-color:var(--gold);background:rgba(255,209,102,.08)}
+.dom-pill.active{filter:brightness(1.5)!important;box-shadow:0 0 18px -4px currentColor}
+
+/* ── MAIN LAYOUT ── */
+.main{max-width:1400px;margin:0 auto;padding:0 32px 80px;display:grid;grid-template-columns:1fr 310px;gap:24px;position:relative;z-index:1}
+.sec-hd{font-family:'Syne',sans-serif;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.sec-hd span{font-size:.6rem;color:var(--muted)}
+
+/* ── STACK CARDS ── */
+.stack-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:14px;margin-bottom:28px}
+.stack-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;cursor:pointer;transition:all .22s;position:relative;overflow:hidden}
+.stack-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .22s}
+.stack-card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.12)}.stack-card:hover::before{opacity:1}
+.fe-card::before{background:linear-gradient(135deg,rgba(0,212,255,.06),transparent 60%)}.be-card::before{background:linear-gradient(135deg,rgba(0,255,157,.06),transparent 60%)}.cl-card::before{background:linear-gradient(135deg,rgba(191,122,255,.06),transparent 60%)}.ai-card::before{background:linear-gradient(135deg,rgba(255,107,53,.06),transparent 60%)}
+.card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.card-domain{font-size:.56rem;letter-spacing:.15em;text-transform:uppercase;padding:3px 8px;border-radius:3px;font-weight:600}
+.card-domain.fe{color:var(--fe);background:rgba(0,212,255,.12)}.card-domain.be{color:var(--be);background:rgba(0,255,157,.12)}.card-domain.cl{color:var(--cl);background:rgba(191,122,255,.12)}.card-domain.ai{color:var(--ai);background:rgba(255,107,53,.12)}
+.card-title{font-family:'Syne',sans-serif;font-size:.92rem;font-weight:700;margin-bottom:5px}
+.card-desc{font-size:.68rem;color:var(--muted);line-height:1.7;margin-bottom:12px}
+.tech-chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{font-size:.56rem;padding:2px 7px;border-radius:3px;border:1px solid var(--border);color:var(--muted);transition:all .15s}
+.stack-card:hover .chip{border-color:rgba(255,255,255,.1);color:var(--text)}
+.card-level{display:flex;align-items:center;gap:6px;margin-top:12px}
+.level-bar{flex:1;height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.level-fill{height:100%;border-radius:2px}
+.level-label{font-size:.56rem;color:var(--muted)}
+
+/* ── PROJECT LIST ── */
+.projects-list{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.proj-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:13px 16px;display:flex;align-items:flex-start;gap:12px;cursor:pointer;transition:all .2s;position:relative}
+.proj-card:hover{border-color:rgba(255,255,255,.1);transform:translateX(4px)}
+.proj-card.done{opacity:.7}
+.proj-card.done .proj-title{text-decoration:line-through;color:var(--muted)}
+.proj-rank{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;color:var(--border);line-height:1;min-width:30px}
+.proj-body{flex:1}
+.proj-title{font-family:'Syne',sans-serif;font-size:.83rem;font-weight:700;margin-bottom:3px}
+.proj-desc{font-size:.66rem;color:var(--muted);line-height:1.65;margin-bottom:7px}
+.proj-tags{display:flex;flex-wrap:wrap;gap:4px}
+.proj-tag{font-size:.54rem;padding:2px 6px;border-radius:2px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.proj-stars{font-size:.58rem;color:var(--gold);flex-shrink:0;align-self:center}
+
+/* Progress mini bar on project card */
+.proj-prog-wrap{display:flex;align-items:center;gap:5px;margin-top:6px}
+.proj-prog-bar{flex:1;height:2px;background:var(--border);border-radius:2px;overflow:hidden}
+.proj-prog-fill{height:100%;border-radius:2px;transition:width .4s ease}
+.proj-prog-pct{font-size:.52rem;color:var(--muted);min-width:24px;text-align:right}
+
+/* ── ROADMAP ── */
+.roadmap{margin-bottom:28px}
+.road-item{display:flex;gap:14px;padding:11px 0;border-bottom:1px solid var(--border)}
+.road-item:last-child{border:none}
+.road-num{font-family:'Syne',sans-serif;font-size:.7rem;font-weight:800;color:var(--muted);min-width:22px}
+.road-title{font-size:.73rem;font-weight:600;margin-bottom:3px}
+.road-detail{font-size:.63rem;color:var(--muted);line-height:1.6}
+.road-status{margin-left:auto;font-size:.56rem;padding:2px 8px;border-radius:20px;align-self:flex-start;flex-shrink:0;font-weight:600}
+.s-master{color:#00ff9d;background:rgba(0,255,157,.1)}.s-advanced{color:#00d4ff;background:rgba(0,212,255,.1)}.s-build{color:var(--gold);background:rgba(255,209,102,.1)}.s-explore{color:var(--ai);background:rgba(255,107,53,.1)}
+
+/* ── MALLA ── */
+.malla-wrap{overflow-x:auto;padding-bottom:8px}
+.malla{display:grid;grid-template-columns:72px repeat(4,minmax(200px,1fr));gap:8px;min-width:880px}
+.malla-col-hd{padding:9px 12px;border-radius:4px;font-family:'Syne',sans-serif;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;text-align:center;border:1.5px solid}
+.malla-col-hd.fe{color:var(--fe);border-color:var(--fe);background:rgba(0,212,255,.08)}.malla-col-hd.be{color:var(--be);border-color:var(--be);background:rgba(0,255,157,.08)}.malla-col-hd.cl{color:var(--cl);border-color:var(--cl);background:rgba(191,122,255,.08)}.malla-col-hd.ai{color:var(--ai);border-color:var(--ai);background:rgba(255,107,53,.08)}
+.malla-row-lbl{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:6px 2px;border-right:1px solid var(--border)}
+.malla-row-lbl .lvl-num{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:var(--border)}
+.malla-row-lbl .lvl-name{font-size:.46rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;text-align:center}
+.mc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:11px 12px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.mc::after{content:'';position:absolute;inset:0;opacity:0;transition:opacity .2s;pointer-events:none}
+.mc:hover{transform:translateY(-2px)}.mc:hover::after{opacity:1}
+.mc.fe-c{border-left:2px solid var(--fe)}.mc.be-c{border-left:2px solid var(--be)}.mc.cl-c{border-left:2px solid var(--cl)}.mc.ai-c{border-left:2px solid var(--ai)}
+.mc.fe-c::after{background:linear-gradient(135deg,rgba(0,212,255,.05),transparent)}.mc.be-c::after{background:linear-gradient(135deg,rgba(0,255,157,.05),transparent)}.mc.cl-c::after{background:linear-gradient(135deg,rgba(191,122,255,.05),transparent)}.mc.ai-c::after{background:linear-gradient(135deg,rgba(255,107,53,.05),transparent)}
+.mc:hover.fe-c{border-color:var(--fe);box-shadow:0 3px 16px rgba(0,212,255,.12)}.mc:hover.be-c{border-color:var(--be);box-shadow:0 3px 16px rgba(0,255,157,.12)}.mc:hover.cl-c{border-color:var(--cl);box-shadow:0 3px 16px rgba(191,122,255,.12)}.mc:hover.ai-c{border-color:var(--ai);box-shadow:0 3px 16px rgba(255,107,53,.12)}
+.mc-title{font-family:'Syne',sans-serif;font-size:.74rem;font-weight:700;margin-bottom:4px;line-height:1.3}
+.mc-desc{font-size:.59rem;color:var(--muted);line-height:1.55;margin-bottom:6px}
+.mc-chips{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:5px}
+.mc-chip{font-size:.5rem;padding:2px 5px;border-radius:2px;border:1px solid var(--border);color:var(--muted)}
+.expand-hint{font-size:.52rem;color:var(--muted);display:flex;align-items:center;gap:4px;border-top:1px solid var(--border);padding-top:5px;margin-top:3px}
+/* mini progress in malla cell */
+.mc-prog{height:2px;background:var(--border);border-radius:2px;margin-top:5px;overflow:hidden}
+.mc-prog-fill{height:100%;border-radius:2px;transition:width .3s}
+.malla-legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r)}
+.ml-item{display:flex;align-items:center;gap:5px;font-size:.6rem;color:var(--muted)}
+.ml-dot{width:9px;height:9px;border-radius:2px}
+
+/* ── SIDEBAR ── */
+.sidebar{display:flex;flex-direction:column;gap:18px}
+.side-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px}
+.skills-chart{margin-top:10px}
+.skill-row{margin-bottom:9px}
+.skill-name{font-size:.63rem;color:var(--muted);margin-bottom:4px;display:flex;justify-content:space-between}
+.skill-name span{color:var(--text)}
+.skill-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.skill-fill{height:100%;border-radius:2px;animation:barIn 1.5s ease forwards}
+@keyframes barIn{from{width:0!important}to{}}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:8px}
+.stat-box{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:11px;text-align:center}
+.stat-num{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;display:block}
+.stat-lbl{font-size:.56rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.arch{position:relative;margin-top:10px}
+.arch-row{display:flex;gap:5px;margin-bottom:5px;justify-content:center}
+.arch-box{font-size:.56rem;padding:5px 8px;border-radius:3px;border:1px solid var(--border);text-align:center;flex:1;max-width:110px}
+.arch-arrow{text-align:center;color:var(--muted);font-size:.65rem;margin:1px 0}
+.arch-fe{border-color:var(--fe);color:var(--fe);background:rgba(0,212,255,.06)}.arch-be{border-color:var(--be);color:var(--be);background:rgba(0,255,157,.06)}.arch-cl{border-color:var(--cl);color:var(--cl);background:rgba(191,122,255,.06)}.arch-ai{border-color:var(--ai);color:var(--ai);background:rgba(255,107,53,.06)}.arch-db{border-color:var(--gold);color:var(--gold);background:rgba(255,209,102,.06)}
+
+/* ── OVERALL PROGRESS SIDE CARD ── */
+.prog-summary{margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.prog-dom-row{display:flex;align-items:center;gap:8px}
+.prog-dom-label{font-size:.6rem;color:var(--muted);min-width:58px}
+.prog-dom-bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.prog-dom-fill{height:100%;border-radius:3px;transition:width .5s ease}
+.prog-dom-pct{font-size:.58rem;min-width:28px;text-align:right}
+
+/* ── MODAL ── */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+.modal-ov.open{display:flex}
+.modal{background:#0c1422;border:1px solid var(--border);border-radius:12px;padding:28px 28px 24px;max-width:720px;width:96vw;max-height:92vh;overflow-y:auto;position:relative;animation:modalIn .22s ease}
+@keyframes modalIn{from{transform:scale(.95);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-close{position:absolute;top:14px;right:18px;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer}
+.modal-close:hover{color:var(--text)}
+.modal h2{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;margin-bottom:6px}
+.modal-domain-tag{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;padding:3px 9px;border-radius:3px;font-weight:600;display:inline-block;margin-bottom:12px}
+.modal-desc{font-size:.71rem;color:var(--muted);line-height:1.8;margin-bottom:16px}
+.modal-section{margin-bottom:14px}
+.modal-section h4{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:9px;padding-bottom:5px;border-bottom:1px solid var(--border)}
+.modal-section ul{list-style:none}
+.modal-section li{font-size:.68rem;color:var(--text);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:flex-start;gap:7px}
+.modal-section li::before{content:'→';color:var(--muted);font-size:.6rem;flex-shrink:0;margin-top:1px}
+
+/* Expand path */
+.expand-track{display:flex;align-items:center;gap:0;margin:12px 0;overflow-x:auto;padding-bottom:4px}
+.expand-step{flex-shrink:0;padding:9px 13px;border-radius:4px;font-family:'Syne',sans-serif;font-size:.62rem;font-weight:700;text-align:center;min-width:90px;border:1.5px solid;cursor:pointer;transition:all .15s}
+.expand-step:hover{filter:brightness(1.3)}
+.expand-step.active-step{filter:brightness(1.6);box-shadow:0 0 14px -2px currentColor}
+.expand-arrow{font-size:1.1rem;color:var(--border);padding:0 3px;flex-shrink:0}
+.expand-detail{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-top:7px}
+.expand-detail h5{font-family:'Syne',sans-serif;font-size:.68rem;font-weight:700;margin-bottom:8px}
+.expand-detail ul{list-style:none}
+.expand-detail li{font-size:.65rem;color:var(--muted);padding:3px 0;display:flex;gap:7px;line-height:1.5}
+.expand-detail li::before{content:'▸';color:var(--muted);flex-shrink:0}
+
+/* ── CHECKLIST + TASK GUIDE ── */
+.checklist-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:14px}
+.checklist-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.checklist-header h4{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.checklist-prog{display:flex;align-items:center;gap:8px}
+.checklist-prog-bar{width:80px;height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.checklist-prog-fill{height:100%;border-radius:2px;background:var(--ok);transition:width .4s ease}
+.checklist-prog-txt{font-size:.6rem;color:var(--ok);font-weight:600}
+.checklist-items{display:flex;flex-direction:column;gap:6px}
+.tg-row{border:1px solid var(--border);border-radius:5px;overflow:hidden;transition:border-color .2s}
+.tg-row:hover{border-color:rgba(255,255,255,.14)}
+.tg-row.checked{border-color:rgba(0,255,157,.2)}
+.tg-header{display:flex;align-items:center;gap:10px;padding:8px 11px;user-select:none;background:rgba(255,255,255,.02)}
+.tg-header:hover{background:rgba(255,255,255,.04)}
+.tg-row.checked .tg-header{background:rgba(0,255,157,.03)}
+.tg-checkbox{width:16px;height:16px;border-radius:3px;border:1.5px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.6rem;transition:all .15s;cursor:pointer}
+.tg-row.checked .tg-checkbox{background:var(--ok);border-color:var(--ok);color:#000}
+.tg-title{font-size:.68rem;color:var(--text);line-height:1.4;flex:1;font-weight:500}
+.tg-row.checked .tg-title{color:var(--muted);text-decoration:line-through}
+.tg-toggle{font-size:.65rem;color:var(--muted);padding:0 4px;transition:transform .2s;flex-shrink:0;cursor:pointer}
+.tg-row.open .tg-toggle{transform:rotate(90deg)}
+.tg-panel{display:none;padding:0 13px 13px 40px;border-top:1px solid var(--border);background:rgba(0,0,0,.18)}
+.tg-row.open .tg-panel{display:block}
+.tg-why{font-size:.63rem;color:var(--muted);line-height:1.7;margin:10px 0 8px;padding:8px 11px;background:rgba(255,209,102,.05);border-left:2px solid var(--gold);border-radius:0 4px 4px 0}
+.tg-why strong{color:var(--gold)}
+.tg-steps{margin:8px 0}
+.tg-step{display:flex;gap:9px;font-size:.63rem;color:var(--muted);padding:4px 0;line-height:1.65;border-bottom:1px solid rgba(255,255,255,.04)}
+.tg-step:last-child{border:none}
+.tg-step-num{flex-shrink:0;width:18px;height:18px;border-radius:3px;background:var(--border);color:var(--text);font-size:.52rem;display:flex;align-items:center;justify-content:center;font-weight:700;margin-top:2px}
+.tg-tip{font-size:.63rem;line-height:1.65;padding:8px 11px;background:rgba(0,212,255,.06);border-left:2px solid var(--fe);border-radius:0 4px 4px 0;margin:8px 0;color:var(--text)}
+.tg-cmd-wrap{font-family:'JetBrains Mono',monospace;font-size:.59rem;background:#080e1a;border:1px solid var(--border);border-radius:4px;padding:8px 11px;margin:6px 0;color:#7ee8a2;display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.tg-cmd-text{flex:1;line-height:1.7;word-break:break-all}
+.tg-copy{flex-shrink:0;background:none;border:1px solid var(--border);color:var(--muted);font-size:.52rem;padding:2px 7px;border-radius:3px;cursor:pointer;font-family:'JetBrains Mono',monospace;transition:all .15s}
+.tg-copy:hover{border-color:var(--fe);color:var(--fe)}
+.tg-links{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.tg-link{font-size:.57rem;padding:3px 9px;border-radius:3px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--muted);text-decoration:none;transition:all .15s}
+.tg-link:hover{border-color:var(--fe);color:var(--fe);background:rgba(0,212,255,.07)}
+.tg-verify{margin-top:10px;border:1px solid rgba(0,255,157,.2);border-radius:5px;overflow:hidden}
+.tg-verify-hd{display:flex;align-items:center;gap:7px;padding:7px 11px;background:rgba(0,255,157,.05);cursor:pointer;user-select:none}
+.tg-verify-hd:hover{background:rgba(0,255,157,.09)}
+.tg-verify-icon{font-size:.8rem}
+.tg-verify-label{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#00ff9d;flex:1}
+.tg-verify-toggle{font-size:.6rem;color:var(--muted);transition:transform .2s}
+.tg-verify.open .tg-verify-toggle{transform:rotate(90deg)}
+.tg-verify-body{display:none;padding:10px 12px 12px}
+.tg-verify.open .tg-verify-body{display:block}
+.tg-verify-cmd{font-family:'JetBrains Mono',monospace;font-size:.58rem;background:#04120a;border:1px solid rgba(0,255,157,.15);border-radius:4px;padding:8px 11px;color:#7ee8a2;display:flex;align-items:flex-start;gap:8px;margin-bottom:8px}
+.tg-verify-cmd-text{flex:1;line-height:1.7;word-break:break-all}
+.tg-verify-expect-lbl{font-size:.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.tg-verify-expect{font-size:.63rem;color:#b8f5d0;line-height:1.65;padding:7px 10px;background:rgba(0,255,157,.04);border-left:2px solid #00ff9d;border-radius:0 4px 4px 0}
+.cl-reset{background:none;border:1px solid var(--border);color:var(--muted);font-size:.56rem;padding:3px 9px;border-radius:3px;cursor:pointer;font-family:'JetBrains Mono',monospace;transition:all .15s}
+.cl-reset:hover{border-color:var(--ai);color:var(--ai)}
+/* ── LEARNING RESOURCES ── */
+.resources-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px}
+.res-item{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:4px;background:var(--card);border:1px solid var(--border);text-decoration:none;transition:all .15s}
+.res-item:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.12)}
+.res-tech{font-size:.52rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.res-name{font-size:.65rem;color:var(--text);font-weight:600;line-height:1.3}
+.res-type{font-size:.5rem;padding:1px 5px;border-radius:2px;margin-top:2px;display:inline-block;width:fit-content}
+.res-docs{color:var(--fe);background:rgba(0,212,255,.1)}
+.res-guide{color:var(--be);background:rgba(0,255,157,.1)}
+.res-course{color:var(--cl);background:rgba(191,122,255,.1)}
+.res-video{color:var(--ai);background:rgba(255,107,53,.1)}
+.res-book{color:var(--gold);background:rgba(255,209,102,.1)}
+
+/* ── TICKER ── */
+.ticker{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface);overflow:hidden;padding:7px 0;position:relative;z-index:1;margin-bottom:20px}
+.ticker-inner{display:flex;gap:48px;white-space:nowrap;animation:ticker 50s linear infinite}
+.ticker-inner:hover{animation-play-state:paused}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tick-item{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:7px}
+.tick-item .dot{width:5px;height:5px;border-radius:50%}
+
+/* ── TABS ── */
+.tab-bar{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:18px;overflow-x:auto}
+.tab{font-size:.61rem;letter-spacing:.09em;text-transform:uppercase;padding:8px 13px;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
+.tab:hover{color:var(--text)}.tab.active{color:var(--text);border-bottom-color:var(--fe)}
+.tab-content{display:none}.tab-content.active{display:block}
+
+.cta-btn{display:inline-block;font-family:'Syne',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:8px 20px;border-radius:4px;border:1.5px solid;cursor:pointer;transition:all .18s;background:none;color:inherit;margin-top:4px;margin-right:8px}
+.cta-btn:hover{transform:translateY(-2px)}
+.cta-fe{color:var(--fe);border-color:var(--fe)}.cta-fe:hover{background:rgba(0,212,255,.1)}.cta-be{color:var(--be);border-color:var(--be)}.cta-be:hover{background:rgba(0,255,157,.1)}.cta-cl{color:var(--cl);border-color:var(--cl)}.cta-cl:hover{background:rgba(191,122,255,.1)}.cta-ai{color:var(--ai);border-color:var(--ai)}.cta-ai:hover{background:rgba(255,107,53,.1)}
+
+@media(max-width:960px){.main{grid-template-columns:1fr}.sidebar{order:-1}}
+@media(max-width:600px){.hero{padding:24px 14px 14px}.main{padding:0 14px 60px}.stack-grid{grid-template-columns:1fr}.resources-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-top">
+    <div>
+      <div class="badge">⚡ World-Class Engineering · Open Source First</div>
+      <h1><em>Full Stack</em><br>Engineer Hub</h1>
+      <p class="hero-sub"><span class="status-dot"></span>All systems operational · Front · Back · Cloud · AI<br>Toolkit open source completo · checklist de progreso persistente.</p>
+    </div>
+    <div class="overall-prog" id="overall-prog-wrap">
+      <div class="op-label">Overall Progress</div>
+      <div class="op-num" id="op-num">0%</div>
+      <div class="op-sub" id="op-sub">0 / 0 tasks</div>
+      <svg class="op-ring" viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="26" fill="none" stroke="#1e2d45" stroke-width="5"/>
+        <circle id="op-ring-fill" cx="32" cy="32" r="26" fill="none" stroke="var(--gold)" stroke-width="5" stroke-dasharray="163.4" stroke-dashoffset="163.4" stroke-linecap="round" style="transition:stroke-dashoffset .6s ease"/>
+      </svg>
+    </div>
+  </div>
+  <div class="domains">
+    <div class="dom-pill dom-all active" onclick="setFilter(this,'all','All Domains','21 projects · 12 stacks')">⚡ All</div>
+    <div class="dom-pill dom-fe" onclick="setFilter(this,'fe','Frontend','5 projects · 3 stacks')">🎨 Frontend</div>
+    <div class="dom-pill dom-be" onclick="setFilter(this,'be','Backend','5 projects · 3 stacks')">⚙️ Backend</div>
+    <div class="dom-pill dom-cl" onclick="setFilter(this,'cl','Cloud & DevOps','5 projects · 3 stacks')">☁️ Cloud</div>
+    <div class="dom-pill dom-ai" onclick="setFilter(this,'ai','AI / ML','5 projects · 3 stacks')">🤖 AI / ML</div>
+  </div>
+</div>
+
+<div class="ticker"><div class="ticker-inner" id="ticker"></div></div>
+
+<div class="main">
+<div class="left-col">
+  <div class="tab-bar">
+    <div class="tab active" onclick="switchTab(this,'stacks')">🧱 Tech Stacks</div>
+    <div class="tab" onclick="switchTab(this,'projects')">🚀 Projects</div>
+    <div class="tab" onclick="switchTab(this,'malla')">🔲 Project Matrix</div>
+    <div class="tab" onclick="switchTab(this,'roadmap')">🗺 Roadmap</div>
+    <div class="tab" onclick="switchTab(this,'patterns')">🧩 Patterns</div>
+  </div>
+  <div id="tab-stacks" class="tab-content active">
+    <div class="sec-hd">Technology Stacks <span id="stack-count">12 stacks</span></div>
+    <div class="stack-grid" id="stack-grid"></div>
+  </div>
+  <div id="tab-projects" class="tab-content">
+    <div class="sec-hd">World-Class Projects <span id="proj-count"></span></div>
+    <div class="projects-list" id="proj-list"></div>
+  </div>
+  <div id="tab-malla" class="tab-content">
+    <div class="sec-hd">Project Growth Matrix <span>↕ Complejidad · → Expansión full-stack</span></div>
+    <div class="malla-legend">
+      <div class="ml-item"><div class="ml-dot" style="background:var(--fe)"></div>Frontend</div>
+      <div class="ml-item"><div class="ml-dot" style="background:var(--be)"></div>Backend</div>
+      <div class="ml-item"><div class="ml-dot" style="background:var(--cl)"></div>Cloud</div>
+      <div class="ml-item"><div class="ml-dot" style="background:var(--ai)"></div>AI/ML</div>
+      <div class="ml-item" style="margin-left:auto;font-size:.57rem">Click → detalle · progreso guardado automáticamente 💾</div>
+    </div>
+    <div class="malla-wrap"><div class="malla" id="malla-grid"></div></div>
+  </div>
+  <div id="tab-roadmap" class="tab-content">
+    <div class="sec-hd">Mastery Roadmap <span>Ordenado por prioridad</span></div>
+    <div class="roadmap" id="roadmap-list"></div>
+  </div>
+  <div id="tab-patterns" class="tab-content">
+    <div class="sec-hd">Architecture & Design Patterns</div>
+    <div class="stack-grid" id="patterns-grid"></div>
+  </div>
+</div>
+
+<div class="sidebar">
+  <div class="side-card">
+    <div class="sec-hd">My Progress <span id="prog-reset-btn" onclick="resetAllProgress()" style="cursor:pointer;color:var(--ai);font-size:.58rem">reset all</span></div>
+    <div class="prog-summary" id="prog-summary"></div>
+  </div>
+  <div class="side-card">
+    <div class="sec-hd">Proficiency Map</div>
+    <div class="skills-chart" id="skills-chart"></div>
+  </div>
+  <div class="side-card">
+    <div class="sec-hd">Stack at a Glance</div>
+    <div class="stats-grid">
+      <div class="stat-box"><span class="stat-num" style="color:var(--fe)">18</span><div class="stat-lbl">FE Tools</div></div>
+      <div class="stat-box"><span class="stat-num" style="color:var(--be)">16</span><div class="stat-lbl">BE Tools</div></div>
+      <div class="stat-box"><span class="stat-num" style="color:var(--cl)">20</span><div class="stat-lbl">Cloud</div></div>
+      <div class="stat-box"><span class="stat-num" style="color:var(--ai)">14</span><div class="stat-lbl">AI/ML</div></div>
+    </div>
+  </div>
+  <div class="side-card">
+    <div class="sec-hd">Reference Architecture</div>
+    <div class="arch">
+      <div class="arch-row"><div class="arch-box arch-fe">React / Next.js</div><div class="arch-box arch-fe">React Native</div></div>
+      <div class="arch-arrow">↕ REST · GraphQL · WebSocket</div>
+      <div class="arch-row"><div class="arch-box arch-be">Node / FastAPI</div><div class="arch-box arch-be">Microservices</div></div>
+      <div class="arch-arrow">↕ SDK · gRPC · MCP</div>
+      <div class="arch-row"><div class="arch-box arch-ai">LLMs / RAG</div><div class="arch-box arch-ai">ML Pipelines</div></div>
+      <div class="arch-arrow">↕ Managed Services</div>
+      <div class="arch-row"><div class="arch-box arch-cl">AWS / GCP / Azure</div></div>
+      <div class="arch-arrow">↕ ORM · Drivers</div>
+      <div class="arch-row"><div class="arch-box arch-db">PostgreSQL</div><div class="arch-box arch-db">Redis</div><div class="arch-box arch-db">S3</div></div>
+    </div>
+  </div>
+  <div class="side-card">
+    <div class="sec-hd">Quick Resources</div>
+    <div id="resources-list"></div>
+  </div>
+</div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-ov" id="modal-ov" onclick="closeModal(event)">
+  <div class="modal"><button class="modal-close" onclick="closeModalDirect()">✕</button><div id="modal-body"></div></div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════
+// CONSTANTS
+// ══════════════════════════════════════════════════════
+const DC={fe:'var(--fe)',be:'var(--be)',cl:'var(--cl)',ai:'var(--ai)'};
+const DL={fe:'Frontend',be:'Backend',cl:'Cloud',ai:'AI/ML'};
+const DI={fe:'🎨',be:'⚙️',cl:'☁️',ai:'🤖'};
+const LS_KEY='fse_hub_v3_progress'; // localStorage key
+
+// ══════════════════════════════════════════════════════
+// FREE LEARNING RESOURCES per technology (open source / free)
+// ══════════════════════════════════════════════════════
+const TECH_RESOURCES={
+  'React':[ {name:'React Official Docs',url:'https://react.dev',type:'docs'},{name:'Full Stack Open (Helsinki)',url:'https://fullstackopen.com/en/',type:'course'},{name:'React Tutorial - freeCodeCamp',url:'https://www.freecodecamp.org/learn/front-end-development-libraries/',type:'course'} ],
+  'Next.js':[ {name:'Next.js Official Docs',url:'https://nextjs.org/docs',type:'docs'},{name:'Next.js 14 Full Course - YouTube',url:'https://www.youtube.com/watch?v=ZjAqacIC_3c',type:'video'},{name:'Learn Next.js (Vercel)',url:'https://nextjs.org/learn',type:'guide'} ],
+  'TypeScript':[ {name:'TypeScript Official Handbook',url:'https://www.typescriptlang.org/docs/handbook/',type:'docs'},{name:'TypeScript Deep Dive (free book)',url:'https://basarat.gitbook.io/typescript/',type:'book'},{name:'Execute Program - TypeScript',url:'https://www.executeprogram.com/courses/typescript',type:'course'} ],
+  'Tailwind CSS':[ {name:'Tailwind CSS Docs',url:'https://tailwindcss.com/docs',type:'docs'},{name:'Tailwind Labs YouTube',url:'https://www.youtube.com/@TailwindLabs',type:'video'} ],
+  'Zustand':[ {name:'Zustand GitHub & Docs',url:'https://github.com/pmndrs/zustand',type:'docs'},{name:'Zustand Guide - LogRocket',url:'https://blog.logrocket.com/managing-react-state-zustand/',type:'guide'} ],
+  'TanStack Query':[ {name:'TanStack Query Docs',url:'https://tanstack.com/query/latest/docs',type:'docs'},{name:'TanStack Query Tutorial',url:'https://tkdodo.eu/blog/practical-react-query',type:'guide'} ],
+  'Framer Motion':[ {name:'Framer Motion Docs',url:'https://www.framer.com/motion/',type:'docs'},{name:'Animation in React - Fireship',url:'https://www.youtube.com/watch?v=2V1WK-3HQNk',type:'video'} ],
+  'Vite':[ {name:'Vite Official Guide',url:'https://vitejs.dev/guide/',type:'docs'},{name:'Vite Crash Course - YouTube',url:'https://www.youtube.com/watch?v=89NJdbYTgJ8',type:'video'} ],
+  'Vitest':[ {name:'Vitest Docs',url:'https://vitest.dev/guide/',type:'docs'} ],
+  'Playwright':[ {name:'Playwright Docs',url:'https://playwright.dev/docs/intro',type:'docs'},{name:'Playwright Full Tutorial',url:'https://www.youtube.com/watch?v=wGr5rz8WKNE',type:'video'} ],
+  'React Native':[ {name:'React Native Official Docs',url:'https://reactnative.dev/docs/getting-started',type:'docs'},{name:'Expo Docs',url:'https://docs.expo.dev/',type:'docs'},{name:'React Native School (free tier)',url:'https://www.reactnativeschool.com/',type:'guide'} ],
+  'Expo':[ {name:'Expo Docs',url:'https://docs.expo.dev',type:'docs'},{name:'Expo SDK Guide',url:'https://docs.expo.dev/versions/latest/',type:'guide'} ],
+  'Node.js':[ {name:'Node.js Official Docs',url:'https://nodejs.org/en/docs',type:'docs'},{name:'The Odin Project - Node',url:'https://www.theodinproject.com/paths/full-stack-javascript',type:'course'},{name:'NodeSchool.io (free exercises)',url:'https://nodeschool.io/',type:'course'} ],
+  'Fastify':[ {name:'Fastify Official Docs',url:'https://fastify.dev/docs/latest/',type:'docs'},{name:'Fastify vs Express - Tutorial',url:'https://www.youtube.com/watch?v=Lk-uVEVGxOA',type:'video'} ],
+  'tRPC':[ {name:'tRPC Docs',url:'https://trpc.io/docs',type:'docs'},{name:'tRPC Full Tutorial',url:'https://www.youtube.com/watch?v=2LYM8gf184U',type:'video'} ],
+  'Prisma':[ {name:'Prisma Docs',url:'https://www.prisma.io/docs',type:'docs'},{name:'Prisma Tutorial - freeCodeCamp',url:'https://www.youtube.com/watch?v=RebA5J-rlwg',type:'video'} ],
+  'Zod':[ {name:'Zod Docs',url:'https://zod.dev',type:'docs'},{name:'Zod Crash Course',url:'https://www.youtube.com/watch?v=L6BE-U3oy80',type:'video'} ],
+  'BullMQ':[ {name:'BullMQ Docs',url:'https://docs.bullmq.io/',type:'docs'} ],
+  'Redis':[ {name:'Redis Official Docs',url:'https://redis.io/docs/',type:'docs'},{name:'Redis University (free)',url:'https://university.redis.com/',type:'course'} ],
+  'FastAPI':[ {name:'FastAPI Official Docs',url:'https://fastapi.tiangolo.com/',type:'docs'},{name:'FastAPI Full Course - freeCodeCamp',url:'https://www.youtube.com/watch?v=0sOvCWFmrtA',type:'video'},{name:'FastAPI Tutorial - TestDriven.io',url:'https://testdriven.io/blog/fastapi-crud/',type:'guide'} ],
+  'Python':[ {name:'Python Official Docs',url:'https://docs.python.org/3/',type:'docs'},{name:'Python for Everybody (free)',url:'https://www.py4e.com/',type:'course'},{name:'Real Python (free articles)',url:'https://realpython.com/',type:'guide'} ],
+  'SQLAlchemy':[ {name:'SQLAlchemy Docs',url:'https://docs.sqlalchemy.org/',type:'docs'} ],
+  'Pydantic':[ {name:'Pydantic v2 Docs',url:'https://docs.pydantic.dev/latest/',type:'docs'} ],
+  'Celery':[ {name:'Celery Docs',url:'https://docs.celeryq.dev/',type:'docs'},{name:'Celery + FastAPI Guide',url:'https://testdriven.io/blog/fastapi-and-celery/',type:'guide'} ],
+  'PostgreSQL':[ {name:'PostgreSQL Official Docs',url:'https://www.postgresql.org/docs/',type:'docs'},{name:'PostgreSQL Tutorial',url:'https://www.postgresqltutorial.com/',type:'guide'},{name:'CMU Database Course (free)',url:'https://15445.courses.cs.cmu.edu/',type:'course'} ],
+  'Kafka':[ {name:'Apache Kafka Docs',url:'https://kafka.apache.org/documentation/',type:'docs'},{name:'Kafka 101 - Confluent (free)',url:'https://developer.confluent.io/courses/apache-kafka/events/',type:'course'} ],
+  'Docker':[ {name:'Docker Official Docs',url:'https://docs.docker.com/',type:'docs'},{name:'Docker for Beginners - Play with Docker',url:'https://training.play-with-docker.com/',type:'course'},{name:'Docker & Kubernetes - freeCodeCamp',url:'https://www.youtube.com/watch?v=kTp5xUtcalw',type:'video'} ],
+  'Kubernetes':[ {name:'Kubernetes Docs',url:'https://kubernetes.io/docs/home/',type:'docs'},{name:'Kubernetes the Hard Way (free)',url:'https://github.com/kelseyhightower/kubernetes-the-hard-way',type:'guide'},{name:'CNCF K8s Training (free tier)',url:'https://training.linuxfoundation.org/resources/free-courses/',type:'course'} ],
+  'gRPC':[ {name:'gRPC Official Docs',url:'https://grpc.io/docs/',type:'docs'} ],
+  'Terraform':[ {name:'Terraform Docs',url:'https://developer.hashicorp.com/terraform/docs',type:'docs'},{name:'Terraform 101 - freeCodeCamp',url:'https://www.youtube.com/watch?v=SLB_c_ayRMo',type:'video'},{name:'HashiCorp Learn (free)',url:'https://developer.hashicorp.com/terraform/tutorials',type:'course'} ],
+  'Pulumi':[ {name:'Pulumi Docs',url:'https://www.pulumi.com/docs/',type:'docs'},{name:'Pulumi Tutorials',url:'https://www.pulumi.com/learn/',type:'guide'} ],
+  'GitHub Actions':[ {name:'GitHub Actions Docs',url:'https://docs.github.com/en/actions',type:'docs'},{name:'GitHub Skills (free)',url:'https://skills.github.com/',type:'course'} ],
+  'ArgoCD':[ {name:'ArgoCD Docs',url:'https://argo-cd.readthedocs.io/',type:'docs'},{name:'ArgoCD Tutorial - YouTube',url:'https://www.youtube.com/watch?v=MeU5_k9ssrs',type:'video'} ],
+  'Helm':[ {name:'Helm Docs',url:'https://helm.sh/docs/',type:'docs'} ],
+  'Prometheus':[ {name:'Prometheus Docs',url:'https://prometheus.io/docs/',type:'docs'},{name:'Prometheus & Grafana Tutorial',url:'https://www.youtube.com/watch?v=h4Sl21AKiDg',type:'video'} ],
+  'Grafana':[ {name:'Grafana Docs',url:'https://grafana.com/docs/',type:'docs'},{name:'Grafana University (free)',url:'https://grafana.com/tutorials/',type:'course'} ],
+  'OpenTelemetry':[ {name:'OpenTelemetry Docs',url:'https://opentelemetry.io/docs/',type:'docs'},{name:'OTel Tutorial - YouTube',url:'https://www.youtube.com/watch?v=r8UvWSX3EdA',type:'video'} ],
+  'Sentry':[ {name:'Sentry Docs',url:'https://docs.sentry.io/',type:'docs'} ],
+  'LangChain':[ {name:'LangChain Docs',url:'https://python.langchain.com/docs/',type:'docs'},{name:'LangChain Crash Course - YouTube',url:'https://www.youtube.com/watch?v=lG7Uxts9SXs',type:'video'} ],
+  'LangGraph':[ {name:'LangGraph Docs',url:'https://langchain-ai.github.io/langgraph/',type:'docs'},{name:'LangGraph Tutorial',url:'https://www.youtube.com/watch?v=R-o_a6dvzQM',type:'video'} ],
+  'pgvector':[ {name:'pgvector GitHub',url:'https://github.com/pgvector/pgvector',type:'docs'},{name:'pgvector + PostgreSQL Guide',url:'https://supabase.com/blog/pgvector-fast-builds',type:'guide'} ],
+  'Hugging Face':[ {name:'HuggingFace Docs',url:'https://huggingface.co/docs',type:'docs'},{name:'HuggingFace Course (free)',url:'https://huggingface.co/learn/nlp-course/',type:'course'} ],
+  'MLflow':[ {name:'MLflow Docs',url:'https://mlflow.org/docs/latest/',type:'docs'},{name:'MLflow Tutorial - YouTube',url:'https://www.youtube.com/watch?v=859OxXrt_TI',type:'video'} ],
+  'Ray':[ {name:'Ray Docs',url:'https://docs.ray.io/',type:'docs'} ],
+  'D3.js':[ {name:'D3 Official Docs',url:'https://d3js.org/',type:'docs'},{name:'Observable D3 (free examples)',url:'https://observablehq.com/@d3',type:'guide'},{name:'D3 Graph Gallery (free)',url:'https://d3-graph-gallery.com/',type:'guide'} ],
+  'Canvas API':[ {name:'MDN Canvas Tutorial',url:'https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial',type:'docs'} ],
+  'WebSockets':[ {name:'MDN WebSockets Guide',url:'https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API',type:'docs'} ],
+  'HLS.js':[ {name:'HLS.js GitHub & API',url:'https://github.com/video-dev/hls.js/',type:'docs'} ],
+  'Storybook':[ {name:'Storybook Docs',url:'https://storybook.js.org/docs',type:'docs'},{name:'Storybook Tutorial',url:'https://storybook.js.org/tutorials/',type:'guide'} ],
+  'Radix UI':[ {name:'Radix UI Docs',url:'https://www.radix-ui.com/docs/primitives/',type:'docs'} ],
+  'JWT':[ {name:'JWT.io Introduction',url:'https://jwt.io/introduction',type:'guide'},{name:'OAuth2 / JWT Explainer',url:'https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc',type:'guide'} ],
+  'GraphQL':[ {name:'GraphQL Official Docs',url:'https://graphql.org/learn/',type:'docs'},{name:'How to GraphQL (free)',url:'https://www.howtographql.com/',type:'course'} ],
+  'Istio':[ {name:'Istio Docs',url:'https://istio.io/latest/docs/',type:'docs'} ],
+  'Vault':[ {name:'Vault Docs',url:'https://developer.hashicorp.com/vault/docs',type:'docs'},{name:'Vault Tutorials (free)',url:'https://developer.hashicorp.com/vault/tutorials',type:'course'} ],
+  'Claude API':[ {name:'Anthropic Docs',url:'https://docs.anthropic.com',type:'docs'},{name:'Anthropic Cookbook (GitHub)',url:'https://github.com/anthropics/anthropic-cookbook',type:'guide'} ],
+  'OpenAI API':[ {name:'OpenAI API Docs',url:'https://platform.openai.com/docs/',type:'docs'},{name:'OpenAI Cookbook (GitHub)',url:'https://github.com/openai/openai-cookbook',type:'guide'} ],
+  'Unstructured.io':[ {name:'Unstructured Docs',url:'https://unstructured-io.github.io/unstructured/',type:'docs'} ],
+  'Neo4j':[ {name:'Neo4j Docs',url:'https://neo4j.com/docs/',type:'docs'},{name:'Neo4j GraphAcademy (free)',url:'https://graphacademy.neo4j.com/',type:'course'} ],
+  'AWS':[ {name:'AWS Docs',url:'https://docs.aws.amazon.com/',type:'docs'},{name:'AWS Skill Builder (free tier)',url:'https://explore.skillbuilder.aws/learn',type:'course'},{name:'AWS in Plain English',url:'https://expeditedsecurity.com/aws-in-plain-english/',type:'guide'} ],
+  'Stripe':[ {name:'Stripe Docs',url:'https://stripe.com/docs',type:'docs'},{name:'Stripe Developer YouTube',url:'https://www.youtube.com/@StripeDevelopers',type:'video'} ],
+  'Socket.io':[ {name:'Socket.io Docs',url:'https://socket.io/docs/v4/',type:'docs'} ],
+  'Yjs':[ {name:'Yjs Docs',url:'https://docs.yjs.dev/',type:'docs'},{name:'CRDTs Explained',url:'https://crdt.tech/',type:'guide'} ],
+  'CrewAI':[ {name:'CrewAI Docs',url:'https://docs.crewai.com/',type:'docs'} ],
+  'Biome':[ {name:'Biome Docs',url:'https://biomejs.dev/guides/getting-started/',type:'docs'} ],
+};
+
+// ══════════════════════════════════════════════════════
+// TASK GUIDE — step-by-step per task, macOS Tahoe aware
+// Each task: { title, why, how[], tip, cmd, links[] }
+// ══════════════════════════════════════════════════════
+const TASK_GUIDE={
+fe1:[
+  {title:'Configurar Vite + React + TypeScript',why:'Vite es el bundler más rápido del ecosistema (HMR < 50ms). Es la base de todo lo que viene.',how:['Abre Terminal (Cmd+Space → Terminal)','Instala Node.js 22 LTS via Homebrew: brew install node','Crea el proyecto: pnpm create vite@latest my-ds -- --template react-ts','cd my-ds && pnpm install && pnpm dev','Abre en VS Code: code .'],tip:'💡 pnpm es la herramienta principal. Para máxima velocidad también puedes probar Bun: curl -fsSL https://bun.sh/install | bash',cmd:'pnpm create vite@latest my-ds -- --template react-ts && cd my-ds && pnpm install',links:[{l:'Vite Getting Started',u:'https://vitejs.dev/guide/'},{l:'Vite + React + TS template',u:'https://vitejs.dev/guide/#scaffolding-your-first-vite-project'}]},
+  {title:'Definir tokens de diseño (color, tipografía, spacing)',why:'Los tokens son la fuente de verdad visual. Sin ellos cada componente hace lo que quiere.',how:['Crea src/tokens/index.css con variables CSS: --color-primary, --space-4, --font-size-sm','Agrupa en categorías: colors, typography, spacing, radius, shadows','Importa el archivo en main.tsx','Define un objeto TypeScript tokens.ts que espeja las CSS vars para uso en JS'],tip:'💡 Sigue el estándar W3C Design Tokens. Herramienta visual gratis: tokens.studio (plugin Figma OSS).',cmd:'mkdir -p src/tokens && touch src/tokens/index.css src/tokens/index.ts',links:[{l:'W3C Design Tokens Format',u:'https://design-tokens.github.io/community-group/format/'},{l:'Tailwind CSS como sistema de tokens',u:'https://tailwindcss.com/docs/customizing-colors'}]},
+  {title:'Construir 10 componentes átomos (Button, Input, Badge…)',why:'Los átomos son la unidad mínima. Todo lo demás se construye combinándolos.',how:['Crea src/components/Button/Button.tsx con variantes: variant (primary|secondary|ghost), size (sm|md|lg)','Usa forwardRef para que el componente sea composable','Exporta tipos: ButtonProps extiende ButtonHTMLAttributes','Repite para: Input, Badge, Avatar, Spinner, Tooltip, Tag, Divider, Icon, Card'],tip:'💡 Radix UI Primitives te da la base accesible gratis. No reinventes ARIA desde cero.',cmd:'pnpm add @radix-ui/react-slot @radix-ui/react-tooltip',links:[{l:'Radix UI Primitives (OSS)',u:'https://www.radix-ui.com/primitives/docs/overview/introduction'},{l:'React TypeScript Cheatsheet',u:'https://react-typescript-cheatsheet.netlify.app/'}]},
+  {title:'Añadir accesibilidad ARIA a todos los componentes',why:'WCAG AA es requerido legalmente en muchos países y duplica el alcance de tu app.',how:['Instala axe-core: pnpm add -D @axe-core/react','En dev mode: importa y llama axe(React, ReactDOM) en index.tsx','Revisa la consola — reporta violaciones en tiempo real','Testea con VoiceOver en macOS: Cmd+F5 activa el lector de pantalla'],tip:'💡 El error más común: botones con solo íconos sin aria-label. Siempre: <button aria-label="Cerrar">✕</button>',cmd:'pnpm add -D @axe-core/react',links:[{l:'WebAIM WCAG Checklist',u:'https://webaim.org/standards/wcag/checklist'},{l:'Radix UI Accessibility',u:'https://www.radix-ui.com/primitives/docs/overview/accessibility'}]},
+  {title:'Configurar Storybook con auto-docs',why:'Storybook es la documentación viva — el equipo puede ver y testear componentes sin correr la app.',how:['Instala: pnpm dlx storybook@latest init','Crea historias: Button.stories.tsx con CSF3 format','Activa autodocs en .storybook/main.ts: tags: ["autodocs"]','Añade addon a11y: pnpm dlx storybook add @storybook/addon-a11y','Corre: pnpm storybook'],tip:'💡 Usa argTypes para que los props sean editables en tiempo real desde la UI. Es el WOW factor para demos.',cmd:'pnpm dlx storybook@latest init',links:[{l:'Storybook Docs',u:'https://storybook.js.org/docs/get-started/install'},{l:'Writing Stories CSF3',u:'https://storybook.js.org/docs/writing-stories'}]},
+  {title:'Añadir pruebas con Vitest + Testing Library',why:'Sin tests no puedes refactorizar con confianza.',how:['Instala: pnpm add -D vitest @testing-library/react @testing-library/user-event jsdom','Configura vite.config.ts: test: { environment: "jsdom" }','Crea Button.test.tsx: renderiza, simula click, verifica resultado','Corre con UI: pnpm dlx vitest --ui (interfaz web en tiempo real)'],tip:'💡 Testing Library te fuerza a testear como el usuario — busca por role y texto, no por clase CSS.',cmd:'pnpm add -D vitest @testing-library/react @testing-library/user-event jsdom',links:[{l:'Vitest Docs',u:'https://vitest.dev/guide/'},{l:'Testing Library — React',u:'https://testing-library.com/docs/react-testing-library/intro/'}]},
+  {title:'Publicar paquete en npm / JSR',why:'Un design system que no se instala con pnpm add no es un design system.',how:['En package.json: name, version, main, module, types, exports','Configura Vite en modo librería: build.lib en vite.config.ts','Login: pnpm login','Publica: pnpm publish --access public --no-git-checks'],tip:'💡 JSR (jsr.io) es el nuevo registro TypeScript-first. Más moderno que npm y mejor para librerías TS.',cmd:'pnpm publish --access public --no-git-checks',links:[{l:'Vite Library Mode',u:'https://vitejs.dev/guide/build#library-mode'},{l:'Changesets (versionado OSS)',u:'https://github.com/changesets/changesets'}]},
+  {title:'Integrar Chromatic para visual regression',why:'Sin visual regression cualquier cambio de CSS puede romper componentes silenciosamente.',how:['Instala: pnpm add -D chromatic','Crea cuenta gratis (5000 snapshots/mes)','Añade GitHub Action: pnpm dlx chromatic --project-token=$CHROMATIC_TOKEN','En cada PR, compara screenshots automáticamente'],tip:'💡 Alternativa OSS sin límites: Playwright visual comparisons.',cmd:'pnpm dlx chromatic --project-token=TU_TOKEN',links:[{l:'Chromatic Docs',u:'https://www.chromatic.com/docs/'},{l:'Playwright Visual Testing',u:'https://playwright.dev/docs/screenshots'}]},
+],
+fe2:[
+  {title:'Setup Vite + Bun como runtime',why:'Bun reemplaza Node + pnpm + pnpm dlx en uno solo. La DX más fluida disponible en macOS.',how:['Instala Bun: curl -fsSL https://bun.sh/install | bash','Reinicia Terminal o: source ~/.zshrc','Verifica: bun --version (debe ser ≥ 1.1)','Crea proyecto: bun create vite my-app --template react-ts','bun install && bun run dev'],tip:'💡 En macOS Tahoe si ves warnings de permisos: sudo xattr -r -d com.apple.quarantine ~/.bun',cmd:'curl -fsSL https://bun.sh/install | bash && bun create vite my-app --template react-ts',links:[{l:'Bun Installation macOS',u:'https://bun.sh/docs/installation'},{l:'Bun + React Guide',u:'https://bun.sh/guides/ecosystem/vite'}]},
+  {title:'Configurar Vitest para unit tests',why:'Vitest comparte la config de Vite — cero overhead, hot reload de tests, 3x más rápido que Jest.',how:['Instala: bun add -d vitest @vitest/ui jsdom @testing-library/react','En vite.config.ts: test: { environment: "jsdom", globals: true }','Scripts: "test": "vitest", "test:ui": "vitest --ui"','Corre con UI: bun run test:ui (dashboard interactivo en browser)'],tip:'💡 Con globals: true puedes usar describe/it/expect sin imports — igual que Jest.',cmd:'bun add -d vitest @vitest/ui jsdom @testing-library/react',links:[{l:'Vitest Config',u:'https://vitest.dev/config/'},{l:'Vitest UI',u:'https://vitest.dev/guide/ui.html'}]},
+  {title:'Configurar Playwright para E2E',why:'Playwright verifica que el flujo completo usuario→UI funciona. Es el más poderoso y gratuito.',how:['Instala: bun add -d @playwright/test','Instala browsers: pnpm dlx playwright install (descarga Chromium, Firefox, WebKit)','Crea playwright.config.ts con baseURL: "http://localhost:5173"','Corre: pnpm dlx playwright test --ui (modo visual interactivo)','En macOS puede necesitar: xcode-select --install'],tip:'💡 playwright codegen graba tus acciones y genera el test automáticamente: pnpm dlx playwright codegen localhost:5173',cmd:'pnpm add -D @playwright/test && pnpm dlx playwright install',links:[{l:'Playwright Getting Started',u:'https://playwright.dev/docs/intro'},{l:'Playwright Codegen',u:'https://playwright.dev/docs/codegen'}]},
+  {title:'Añadir Biome (linting + formatting)',why:'Biome reemplaza ESLint + Prettier en un binario Rust — 100x más rápido y sin conflictos.',how:['Instala: bun add -d @biomejs/biome','Inicializa: pnpm dlx @biomejs/biome init (crea biome.json)','Scripts: "lint": "biome check .", "format": "biome format --write ."','Instala VS Code extension: biomejs.biome'],tip:'💡 Biome tiene reglas de seguridad (no-eval, no-dangerouslySetInnerHTML) activadas por defecto.',cmd:'pnpm add -D @biomejs/biome && pnpm dlx @biomejs/biome init',links:[{l:'Biome Docs',u:'https://biomejs.dev/guides/getting-started/'},{l:'Biome VS Code Extension',u:'https://marketplace.visualstudio.com/items?itemName=biomejs.biome'}]},
+  {title:'Medir bundle size con vite-bundle-visualizer',why:'Sin medir no puedes optimizar. Un bundle mal analizado puede incluir lodash completo.',how:['Instala: bun add -d rollup-plugin-visualizer','En vite.config.ts: plugins: [visualizer({ open: true, gzipSize: true })]','Corre: bun run build (abre el treemap en el browser automáticamente)','Identifica módulos más grandes y busca alternativas'],tip:'💡 El peor ofensor habitual es moment.js (330kb). Reemplázalo con date-fns (tree-shakeable).',cmd:'bun add -d rollup-plugin-visualizer',links:[{l:'rollup-plugin-visualizer',u:'https://github.com/btd/rollup-plugin-visualizer'},{l:'Tree shaking guide',u:'https://web.dev/articles/reduce-javascript-payloads-with-tree-shaking'}]},
+  {title:'Optimizar HMR y cold start < 200ms',why:'Un dev server lento destruye la productividad.',how:['Mide el tiempo actual: time bun run dev','Activa pre-bundling: optimizeDeps: { include: ["react","react-dom"] } en vite.config.ts','Usa import type para importaciones solo de tipos','Verifica que no tienes plugins lentos (babel-plugin-styled-components es el peor)'],tip:'💡 Migra de styled-components a Tailwind o CSS Modules si ese es tu cuello de botella.',cmd:'time bun run dev',links:[{l:'Vite Performance',u:'https://vitejs.dev/guide/performance'},{l:'Vite optimizeDeps',u:'https://vitejs.dev/config/dep-optimization-options'}]},
+  {title:'Configurar build para librería (lib mode)',why:'Para publicar en el npm registry necesitas compilar a ESM+CJS con tipos generados.',how:['En vite.config.ts: build: { lib: { entry: "src/index.ts", formats: ["es","cjs"] }, rollupOptions: { external: ["react"] } }','En tsconfig.json: "declaration": true, "declarationDir": "dist/types"','Crea src/index.ts que exporta todo','bun run build → genera dist/'],tip:'💡 NUNCA incluyas react en el bundle de tu librería. Si lo incluyes, el consumidor tendrá 2 copias de React.',cmd:'bun run build && ls dist/',links:[{l:'Vite Library Mode',u:'https://vitejs.dev/guide/build#library-mode'},{l:'Packaging TS Libraries',u:'https://www.totaltypescript.com/how-to-create-an-npm-package'}]},
+],
+fe3:[
+  {title:'Crear proyecto con Expo + TypeScript',why:'Expo es la forma más rápida de tener una app en iOS Simulator, Android y web simultáneamente.',how:['Instala Expo: pnpm create expo-app@latest MyApp --template blank-typescript','cd MyApp && pnpm exec expo start','Para iOS Simulator: instala Xcode desde App Store (gratis, ~15GB)','Abre iOS Simulator: Cmd+I en la terminal de Expo'],tip:'💡 En macOS con chip M el iOS Simulator corre nativo sin emulación — es muy rápido.',cmd:'pnpm create expo-app@latest MyApp --template blank-typescript',links:[{l:'Expo Getting Started',u:'https://docs.expo.dev/get-started/create-a-project/'},{l:'iOS Simulator en macOS',u:'https://docs.expo.dev/workflow/ios-simulator/'}]},
+  {title:'Configurar NativeWind para estilos',why:'NativeWind trae Tailwind CSS a React Native — mismo sistema de clases que en web.',how:['Instala: pnpm exec expo install nativewind tailwindcss','Crea tailwind.config.js: content: ["./app/**/*.{js,ts,tsx}"]','En babel.config.js: plugins: ["nativewind/babel"]','Usa className: <View className="flex-1 bg-slate-900 p-4">'],tip:'💡 NativeWind v4 requiere Expo SDK 51+. Si ves errores, verifica las versiones.',cmd:'pnpm exec expo install nativewind tailwindcss',links:[{l:'NativeWind Docs',u:'https://www.nativewind.dev/getting-started/expo-router'},{l:'NativeWind v4',u:'https://www.nativewind.dev/v4/overview'}]},
+  {title:'Instalar Reanimated 3 y crear 3 animaciones',why:'Reanimated 3 corre animaciones en el thread de UI a 60/120fps sin el bridge JS.',how:['Instala: pnpm exec expo install react-native-reanimated','En babel.config.js: plugins: ["react-native-reanimated/plugin"] (DEBE ser el último)','Animación 1: fade in (opacity 0→1 con useSharedValue)','Animación 2: spring bounce en press (scale 0.95→1 con withSpring)','Animación 3: slide desde abajo (translateY 50→0)'],tip:'💡 El error más común: olvidar el plugin en babel.config.js. Si no anima, ese es el 90% de los casos.',cmd:'pnpm exec expo install react-native-reanimated',links:[{l:'Reanimated 3 Docs',u:'https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started/'},{l:'withSpring Guide',u:'https://docs.swmansion.com/react-native-reanimated/docs/animations/withSpring'}]},
+  {title:'Conectar con una API real',why:'Una app sin datos reales no tiene valor.',how:['Instala TanStack Query: bun add @tanstack/react-query','QueryClientProvider en app/_layout.tsx','Crea hook: useProducts() con useQuery({ queryKey, queryFn })','Maneja estados: isLoading (Skeleton), isError (ErrorState), data (lista)'],tip:'💡 TanStack Query funciona igual en React Native que en web. La misma API, el mismo hook.',cmd:'bun add @tanstack/react-query',links:[{l:'TanStack Query React Native',u:'https://tanstack.com/query/latest/docs/framework/react/react-native'},{l:'Expo Environment Variables',u:'https://docs.expo.dev/guides/environment-variables/'}]},
+  {title:'Configurar EAS Build para iOS y Android',why:'EAS Build construye el binario en la nube sin necesitar Xcode/Android Studio local.',how:['Instala EAS CLI: bun add -g eas-cli','Login: eas login (crea cuenta gratis en expo.dev)','Inicializa: eas build:configure (crea eas.json)','iOS dev build: eas build --platform ios --profile development','Android APK: eas build --platform android --profile preview'],tip:'💡 Con cuenta gratis tienes 30 builds/mes. Usa "development" profile con expo-dev-client.',cmd:'bun add -g eas-cli && eas login && eas build:configure',links:[{l:'EAS Build Docs',u:'https://docs.expo.dev/build/introduction/'},{l:'EAS Build Profiles',u:'https://docs.expo.dev/build/eas-json/'}]},
+  {title:'Publicar update OTA con Expo Updates',why:'OTA permite hotfixes de JS sin pasar por el App Store — de horas a segundos.',how:['Instala: pnpm exec expo install expo-updates','Configura en app.json: "updates": { "url": "https://u.expo.dev/TU_ID" }','Publica: eas update --branch production --message "fix: crash en login"','Los usuarios ven el update en el próximo arranque'],tip:'💡 Las OTA updates solo actualizan JS. Cambios nativos (nuevos módulos) requieren nuevo build.',cmd:'eas update --branch production --message "fix: descripción"',links:[{l:'Expo Updates Docs',u:'https://docs.expo.dev/eas-update/introduction/'},{l:'EAS Update Tutorial',u:'https://docs.expo.dev/eas-update/getting-started/'}]},
+],
+fe4:[
+  {title:'Implementar canvas básico con zoom/pan',why:'Zoom y pan son la base de cualquier pizarrón. Sin esto el canvas es un rectángulo estático.',how:['Crea un canvas que ocupe el 100% del viewport','Mantén camera: { x, y, scale } en useRef','onWheel: ajusta scale con límites (0.1x a 20x)','onMouseDown+Move: ajusta x/y para pan','Antes de dibujar: ctx.setTransform(scale,0,0,scale,x,y)'],tip:'💡 Guarda camera en useRef, no useState — los re-renders matan el performance.',cmd:'',links:[{l:'Canvas Transform — MDN',u:'https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/setTransform'},{l:'Canvas Zoom/Pan tutorial',u:'https://codepen.io/chengarda/pen/wRxoyB'}]},
+  {title:'Integrar Yjs CRDT para colaboración',why:'Los CRDTs permiten edición simultánea sin conflictos — la misma tecnología que Figma.',how:['Instala: bun add yjs y-webrtc','Crea: const ydoc = new Y.Doc()','Define tipo compartido: const elements = ydoc.getArray("elements")','Para sincronizar P2P: new WebrtcProvider("mi-room", ydoc)','Observa cambios: elements.observeDeep(() => render())'],tip:'💡 Para dev usa y-webrtc (P2P sin servidor). Para producción usa y-websocket.',cmd:'bun add yjs y-webrtc y-protocols',links:[{l:'Yjs Docs',u:'https://docs.yjs.dev/'},{l:'Yjs + Editor tutorial',u:'https://docs.yjs.dev/getting-started/a-collaborative-editor'}]},
+  {title:'Añadir herramienta de dibujo libre (freehand)',why:'El dibujo libre es el feature más demo-able para mostrar colaboración en tiempo real.',how:['Instala: bun add perfect-freehand','onPointerDown: comienza stroke: points = [[x, y, pressure]]','onPointerMove: agrega puntos al stroke','onPointerUp: finaliza y guarda en ydoc','Renderiza con getStroke(points) → path SVG suavizado'],tip:'💡 perfect-freehand usa presión del stylus. En macOS trackpad pointer.pressure es siempre 0.5.',cmd:'bun add perfect-freehand',links:[{l:'perfect-freehand GitHub',u:'https://github.com/steveruizok/perfect-freehand'},{l:'perfect-freehand demo',u:'https://perfect-freehand-example.vercel.app/'}]},
+  {title:'Añadir formas geométricas (rect, circle, arrow)',why:'Las formas son el lenguaje del pensamiento visual.',how:['Tipo Shape: { id, type, x, y, w, h, color, strokeWidth }','Tool selector en UI para rect/circle/arrow','onPointerDown: crea shape provisional en estado local','onPointerMove: actualiza width/height (live preview)','onPointerUp: persiste en ydoc'],tip:'💡 Para arrows usa cubic bezier con punto de control en el centro.',cmd:'',links:[{l:'Drawing Shapes — MDN',u:'https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes'},{l:'Excalidraw source (OSS)',u:'https://github.com/excalidraw/excalidraw'}]},
+  {title:'Implementar undo/redo colaborativo',why:'Sin undo el usuario no puede experimentar. Es una de las features más difíciles en apps colaborativas.',how:['Instala: bun add y-undomanager','const undoManager = new Y.UndoManager(elements)','Undo: undoManager.undo()','Redo: undoManager.redo()','Conecta Cmd+Z y Cmd+Shift+Z en el keydown handler'],tip:'💡 UndoManager trackea solo cambios del usuario local, no los de otros.',cmd:'bun add y-undomanager',links:[{l:'Yjs UndoManager',u:'https://docs.yjs.dev/api/undo-manager'},{l:'CRDTs Future',u:'https://josephg.com/blog/crdts-are-the-future/'}]},
+  {title:'Añadir presencia de usuarios (cursors)',why:'Ver los cursores de otros usuarios en tiempo real es el "aha moment" de cualquier app colaborativa.',how:['En Yjs usa Awareness: provider.awareness','Publica tu posición: awareness.setLocalState({ name, cursor: {x,y}, color })','Suscríbete: awareness.on("change", () => renderCursors())','Renderiza cursores de otros como SVG absolutos sobre el canvas'],tip:'💡 Awareness se borra automáticamente cuando el usuario cierra la pestaña.',cmd:'',links:[{l:'Yjs Awareness',u:'https://docs.yjs.dev/ecosystem/connection-provider/webrtc#awareness'},{l:'Cursor ejemplo Liveblocks',u:'https://liveblocks.io/docs/tutorials/multiplayer-collaborative-canvas'}]},
+  {title:'Exportar a PNG/PDF',why:'Los usuarios necesitan sacar su trabajo del whiteboard.',how:['PNG: crea canvas temporal, dibuja todos los elementos, canvas.toBlob()','Descarga: crea <a> con href=URL.createObjectURL(blob) y click()','PDF: bun add jspdf','const doc = new jsPDF(); doc.addImage(canvas.toDataURL(),"PNG",0,0); doc.save("board.pdf")'],tip:'💡 jsPDF es OSS y gratuito. Para PDFs más complejos prueba pdfkit.',cmd:'bun add jspdf',links:[{l:'Canvas toBlob() — MDN',u:'https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob'},{l:'jsPDF GitHub',u:'https://github.com/parallax/jsPDF'}]},
+],
+fe5:[
+  {title:'Implementar reproductor con HLS.js',why:'HLS es el formato estándar de streaming de iOS/Safari/CDNs. Sin HLS.js no puedes en Chrome/Firefox.',how:['Instala: bun add hls.js','Si Hls.isSupported(): const hls = new Hls(); hls.loadSource(url); hls.attachMedia(videoEl)','Si no soporta HLS.js pero sí HLS nativo (Safari): video.src = url','Maneja errores: hls.on(Hls.Events.ERROR, handler)'],tip:'💡 Safari tiene soporte HLS nativo. HLS.js es para Chrome/Firefox. El if/else es el patrón correcto.',cmd:'bun add hls.js',links:[{l:'HLS.js API',u:'https://github.com/video-dev/hls.js/blob/master/docs/API.md'},{l:'HLS.js Demo',u:'https://hlsjs.video-dev.org/demo/'}]},
+  {title:'Añadir adaptive bitrate (quality selector)',why:'ABR elige la calidad según el ancho de banda. Sin esto el video se congela con conexiones lentas.',how:['HLS.js hace ABR automático por defecto','Para selector manual: hls.levels devuelve la lista de calidades','Fuerza calidad: hls.currentLevel = index (o -1 para auto)','Muestra indicador: "Auto (720p)" cuando autoLevelEnabled'],tip:'💡 No desactives el ABR automático por defecto. El manual es solo para usuarios avanzados.',cmd:'',links:[{l:'HLS.js Quality Selection',u:'https://github.com/video-dev/hls.js/blob/master/docs/API.md#quality-switch-control-api'},{l:'ABR explainer',u:'https://www.cloudflare.com/learning/video/what-is-adaptive-bitrate-streaming/'}]},
+  {title:'Construir controles custom (progress, volume, fullscreen)',why:'Los controles nativos del browser son feos y no-brandeables.',how:['Oculta controles nativos: <video controls={false}','Barra de progreso: <input type="range" value={currentTime/duration*100}>','Al cambiar: video.currentTime = (value/100) * duration','Volume: video.volume = value/100','Fullscreen: videoContainer.requestFullscreen()'],tip:'💡 En iOS Safari usa webkitEnterFullscreen() como fallback.',cmd:'',links:[{l:'HTMLVideoElement API',u:'https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement'},{l:'Fullscreen API',u:'https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API'}]},
+  {title:'Añadir subtítulos WebVTT',why:'Los subtítulos son accesibilidad básica y permiten búsqueda en el contenido.',how:['Crea .vtt: WEBVTT\\n\\n00:00:01.000 --> 00:00:04.000\\nTexto','Agrega: <track kind="subtitles" src="/sub.vtt" srcLang="es" default>','Para múltiples idiomas: un <track> por idioma','Selector de idioma: textTracks[0].mode = "showing"/"hidden"'],tip:'💡 Los VTT se sirven con Content-Type: text/vtt. En Vite dev, colócalos en /public.',cmd:'',links:[{l:'WebVTT API — MDN',u:'https://developer.mozilla.org/en-US/docs/Web/API/WebVTT_API'},{l:'HTML Track Element',u:'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track'}]},
+  {title:'Implementar preview thumbnails en seek bar',why:'El preview al hover en la seekbar (como YouTube) es una feature de UX muy valorada.',how:['Genera sprite con FFmpeg en macOS (brew install ffmpeg)','ffmpeg -i video.mp4 -vf fps=1/5,scale=160:-1,tile=10x10 thumbs.jpg','Crea VTT de thumbnails mapeando tiempos a coordenadas del sprite','En hover de seekbar: calcula tiempo → coordenada en VTT → background-position'],tip:'💡 Sprites de thumbnails ahorran 90% de requests vs imágenes individuales.',cmd:'brew install ffmpeg && ffmpeg -i input.mp4 -vf "fps=1/5,scale=160:-1,tile=10x10" thumbs.jpg',links:[{l:'FFmpeg Docs',u:'https://ffmpeg.org/documentation.html'},{l:'Thumbnail VTT format',u:'https://developer.jwplayer.com/jwplayer/docs/jw8-add-thumbnail-previews'}]},
+  {title:'Añadir Picture-in-Picture',why:'PiP permite ver el video mientras navegas otras partes de la app.',how:['Activa: await videoEl.requestPictureInPicture()','Sal: await document.exitPictureInPicture()','Verifica soporte: document.pictureInPictureEnabled','Escucha: video.addEventListener("enterpictureinpicture", handler)'],tip:'💡 En macOS Chrome y Safari soportan PiP. Firefox desde v116.',cmd:'',links:[{l:'PiP API — MDN',u:'https://developer.mozilla.org/en-US/docs/Web/API/Picture-in-Picture_API'},{l:'Web.dev PiP Guide',u:'https://web.dev/articles/picture-in-picture'}]},
+  {title:'Optimizar para Core Web Vitals (LCP < 2.5s)',why:'Core Web Vitals afectan el SEO y la experiencia. Google los usa como ranking factor.',how:['Mide con Lighthouse: Chrome DevTools → Lighthouse → Mobile','LCP: añade poster al video y precarga: <link rel="preload" as="image" href="/thumb.jpg">','CLS: reserva espacio con aspect-ratio: 16/9 en CSS','Usa Network throttling de Chrome para simular 3G'],tip:'💡 En macOS usa el Network throttling de DevTools para detectar el LCP real de usuarios con conexión lenta.',cmd:'',links:[{l:'Core Web Vitals',u:'https://web.dev/explore/learn-core-web-vitals'},{l:'Lighthouse Docs',u:'https://developer.chrome.com/docs/lighthouse/overview/'}]},
+],
+be1:[
+  {title:'Crear proyecto Fastify + TypeScript',why:'Fastify es 2x más rápido que Express y tiene validación de schema integrada.',how:['Instala Node 22: brew install node@22','mkdir auth-service && cd auth-service && bun init','bun add fastify @fastify/sensible','bun add -d typescript @types/node','Crea src/server.ts: const app = Fastify({ logger: true })','bun --watch src/server.ts'],tip:'💡 Aprende el sistema de plugins de Fastify desde el inicio — es la clave de la arquitectura.',cmd:'mkdir auth-service && cd auth-service && bun init && bun add fastify',links:[{l:'Fastify Getting Started',u:'https://fastify.dev/docs/latest/Guides/Getting-Started/'},{l:'Fastify TypeScript',u:'https://fastify.dev/docs/latest/Reference/TypeScript/'}]},
+  {title:'Implementar registro y login con argon2',why:'argon2 ganó el Password Hashing Competition 2015. Más seguro que bcrypt y resistente a GPUs.',how:['bun add argon2','Registro: const hash = await argon2.hash(password)','Login: const valid = await argon2.verify(storedHash, password)','Usa argon2id (por defecto) con: memoryCost:65536, timeCost:3'],tip:'💡 NUNCA uses MD5/SHA1/bcrypt para passwords nuevos en 2024+. argon2 es el único estándar aceptable.',cmd:'bun add argon2',links:[{l:'argon2 (npm registry)',u:'https://github.com/ranisalt/node-argon2'},{l:'OWASP Password Storage',u:'https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html'}]},
+  {title:'Añadir JWT (access + refresh tokens)',why:'JWT de vida corta + refresh token es el patrón más seguro para auth stateless.',how:['bun add @fastify/jwt','Access token: expira en 15 min. Payload: { sub: userId, role }','Refresh token: expira en 7 días. Guárdalo hasheado en Redis','Refresh token rotation: cuando se usa, emite uno nuevo y revoca el anterior'],tip:'💡 El refresh token DEBE estar en httpOnly cookie, nunca en localStorage.',cmd:'bun add @fastify/jwt @fastify/cookie',links:[{l:'Fastify JWT Plugin',u:'https://github.com/fastify/fastify-jwt'},{l:'JWT Best Practices RFC 8725',u:'https://datatracker.ietf.org/doc/html/rfc8725'}]},
+  {title:'Implementar OAuth2 con GitHub (PKCE)',why:'OAuth2 PKCE es el estándar actual para auth con providers externos.',how:['Crea GitHub OAuth App: github.com/settings/developers','bun add @fastify/oauth2','Flujo: GET /auth/github → redirect → callback /auth/github/callback','En callback: intercambia code por access_token','Obtén perfil: GET api.github.com/user con Bearer token'],tip:'💡 NUNCA hagas la llamada a la API de GitHub desde el frontend — expones tu client_secret.',cmd:'bun add @fastify/oauth2',links:[{l:'GitHub OAuth Docs',u:'https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps'},{l:'PKCE Explainer',u:'https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow-with-pkce'}]},
+  {title:'Añadir MFA con TOTP (QR code)',why:'MFA reduce el riesgo de cuenta comprometida en un 99.9%.',how:['bun add speakeasy qrcode','Setup: speakeasy.generateSecret({ name: "MiApp" })','QR: qrcode.toDataURL(secret.otpauth_url) → imagen base64 al cliente','El usuario escanea con Google Authenticator / Authy','Verifica: speakeasy.totp.verify({ secret, token: userCode })'],tip:'💡 Guarda también 10 recovery codes (1 sola vez) para cuando el usuario pierde su teléfono.',cmd:'bun add speakeasy qrcode',links:[{l:'speakeasy (npm registry)',u:'https://github.com/speakeasyjs/speakeasy'},{l:'TOTP RFC 6238',u:'https://datatracker.ietf.org/doc/html/rfc6238'}]},
+  {title:'Implementar RBAC con roles y permisos',why:'Sin RBAC, cualquier usuario puede acceder a todo.',how:['Define roles: ADMIN, MANAGER, USER, VIEWER','Tabla permissions: { role, resource, action (CREATE/READ/UPDATE/DELETE) }','Middleware: extrae role del JWT, verifica permiso para la ruta','Plugin Fastify con decorador: @Authorize("posts", "CREATE")'],tip:'💡 Empieza con roles simples. RBAC se complica rápido. Si necesitas granularidad extrema, investiga ABAC.',cmd:'',links:[{l:'RBAC en PostgreSQL',u:'https://www.postgresql.org/docs/current/ddl-rowsecurity.html'},{l:'OWASP Access Control',u:'https://cheatsheetseries.owasp.org/cheatsheets/Access_Control_Cheat_Sheet.html'}]},
+  {title:'Añadir rate limiting por IP con Redis',why:'Sin rate limiting tu login puede recibir millones de intentos de fuerza bruta.',how:['brew install redis && brew services start redis','bun add @fastify/rate-limit ioredis','Configura: max: 5, timeWindow: "1 minute", keyGenerator: (req) => req.ip','Para IPs de confianza (proxy): trustProxy: true'],tip:'💡 En macOS detrás de localhost, req.ip es "::1". Configura trustProxy: true si usas proxy.',cmd:'brew install redis && brew services start redis && bun add @fastify/rate-limit ioredis',links:[{l:'Fastify Rate Limit',u:'https://github.com/fastify/fastify-rate-limit'},{l:'Redis macOS',u:'https://redis.io/docs/getting-started/installation/install-redis-on-mac-os/'}]},
+  {title:'Escribir tests de integración para auth flows',why:'Los bugs de auth son los más costosos. Los tests de integración verifican el flujo completo.',how:['bun add -d vitest supertest','Test 1: POST /register → 201','Test 2: POST /login correcto → 200 + JWT','Test 3: POST /login incorrecto → 401','Test 4: GET /me con JWT → 200','Test 5: GET /me sin JWT → 401'],tip:'💡 Usa vitest --coverage. Apunta a >90% en módulos de seguridad.',cmd:'bun add -d vitest supertest @types/supertest',links:[{l:'Fastify Testing',u:'https://fastify.dev/docs/latest/Guides/Testing/'},{l:'Supertest Docs',u:'https://github.com/ladjs/supertest'}]},
+],
+be2:[
+  {title:'Crear servicio de notificaciones con BullMQ',why:'BullMQ garantiza que las notificaciones se envíen aunque el servidor se reinicie.',how:['brew services start redis','bun add bullmq ioredis','Queue: const emailQueue = new Queue("emails", { connection })','Worker: new Worker("emails", async (job) => { await sendEmail(job.data) }, { connection })','Agrega jobs: emailQueue.add("welcome", { to, subject, body }, { attempts: 3, backoff: { type: "exponential" } })'],tip:'💡 Separa workers en procesos distintos. Si el worker falla, la API sigue funcionando.',cmd:'brew services start redis && bun add bullmq ioredis',links:[{l:'BullMQ Docs',u:'https://docs.bullmq.io/'},{l:'BullMQ Patterns',u:'https://docs.bullmq.io/patterns/adding-jobs-in-bulk'}]},
+  {title:'Integrar AWS SES para email',why:'AWS SES es el servicio más barato ($0.10 por 1000 emails). Sin él los emails van a spam.',how:['Crea cuenta AWS (free tier)','SES → Verify email address (sandbox mode)','bun add @aws-sdk/client-ses','new SESClient({ region, credentials })','Envía: sesClient.send(new SendEmailCommand({ Destination, Message, Source }))'],tip:'💡 En desarrollo usa Mailhog para interceptar emails localmente: brew install mailhog && mailhog',cmd:'brew install mailhog && bun add @aws-sdk/client-ses',links:[{l:'AWS SES Docs',u:'https://docs.aws.amazon.com/ses/latest/dg/send-email-api.html'},{l:'Mailhog (email testing)',u:'https://github.com/mailhog/MailHog'}]},
+  {title:'Integrar Firebase FCM para push mobile',why:'Firebase FCM es gratuito e ilimitado para push en iOS y Android.',how:['Crea proyecto en Firebase Console → Cloud Messaging','bun add firebase-admin','admin.initializeApp({ credential: admin.credential.cert(serviceAccount) })','Envía: admin.messaging().send({ token: deviceToken, notification: { title, body } })'],tip:'💡 Los device tokens cambian. Guárdalos en DB con updatedAt y actualízalos en cada apertura de app.',cmd:'bun add firebase-admin',links:[{l:'Firebase FCM',u:'https://firebase.google.com/docs/cloud-messaging/send-message'},{l:'Expo Push Notifications',u:'https://docs.expo.dev/push-notifications/sending-notifications/'}]},
+  {title:'Crear sistema de plantillas con Handlebars',why:'Las plantillas separan contenido del código. Marketing puede cambiar emails sin tocar el código.',how:['bun add handlebars','Crea templates/welcome.hbs: <h1>Bienvenido, {{name}}!</h1>','Compila: const template = Handlebars.compile(fs.readFileSync("welcome.hbs", "utf8"))','Renderiza: const html = template({ name: "Juan", url: "..." })'],tip:'💡 Usa mjml.io para emails responsivos con sintaxis simplificada. Es OSS y gratuito.',cmd:'bun add handlebars mjml',links:[{l:'Handlebars Docs',u:'https://handlebarsjs.com/guide/'},{l:'MJML email templates',u:'https://mjml.io/documentation/'}]},
+  {title:'Implementar preferencias por usuario en DB',why:'Sin preferencias envías notificaciones a usuarios que no las quieren.',how:['Tabla notification_preferences: { userId, channel, type, enabled }','GET /preferences → preferencias del usuario','PATCH /preferences → actualiza','Verifica antes de enviar: usuario tiene canal+tipo habilitado'],tip:'💡 Ofrece un "digest" diario/semanal como alternativa. Reduce el churn por fatiga.',cmd:'',links:[{l:'PostgreSQL JSON',u:'https://www.postgresql.org/docs/current/functions-json.html'},{l:'CAN-SPAM compliance',u:'https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business'}]},
+  {title:'Añadir retry con exponential backoff',why:'Los servicios externos fallan. Sin retry, una caída de 1 min de SES pierde miles de emails.',how:['BullMQ tiene retry nativo: { attempts: 5, backoff: { type: "exponential", delay: 1000 } }','Reintenta en: 1s, 2s, 4s, 8s, 16s','Jobs que fallan 5 veces van a cola "failed"','UI de monitoreo: bun add @bull-board/fastify'],tip:'💡 No reintentes errores 4xx (bad request). Solo reintenta 5xx y errores de red.',cmd:'bun add @bull-board/fastify @bull-board/api',links:[{l:'BullMQ Retrying',u:'https://docs.bullmq.io/guide/retrying-failing-jobs'},{l:'Bull Board UI',u:'https://github.com/felixmosh/bull-board'}]},
+  {title:'Implementar deduplicación de notificaciones',why:'Sin deduplicación, un bug puede enviar el mismo email 1000 veces al mismo usuario.',how:['Idempotency key: SHA256(userId + type + timestamp.floor(5min))','Antes de encolar: SET processed:{key} 1 EX 300 NX en Redis','Si retorna nil: ya fue procesado, descarta','Para auditoría permanente: guarda en PostgreSQL también'],tip:'💡 El key basado en tiempo (floor 5min) previene duplicados por reintentos pero permite reenvío legítimo después.',cmd:'',links:[{l:'Idempotency patterns — Stripe',u:'https://stripe.com/blog/idempotency'},{l:'Redis SET NX',u:'https://redis.io/docs/latest/commands/set/'}]},
+  {title:'Dashboard de métricas de entrega',why:'Sin métricas no sabes si tus emails llegan o si hay problemas de deliverability.',how:['BullMQ Board: vista de todas las colas y jobs','SES: activa SNS bounce/complaint notifications en AWS Console','Webhook /ses/events recibe bounces','Métricas: delivery_rate = delivered/sent * 100','Visualiza con Grafana + PostgreSQL data source (OSS)'],tip:'💡 Tasa de bounce > 5% puede suspender tu cuenta de SES. Limpia tu lista regularmente.',cmd:'bun add @bull-board/fastify @bull-board/api',links:[{l:'AWS SES Deliverability',u:'https://docs.aws.amazon.com/ses/latest/dg/send-email-concepts-deliverability.html'},{l:'BullMQ Board',u:'https://github.com/felixmosh/bull-board'}]},
+],
+be3:[
+  {title:'Configurar Apollo Server 4 con TypeScript',why:'Apollo Server 4 tiene mejor TypeScript support y performance que v3.',how:['bun add @apollo/server graphql @as-integrations/fastify','Crea typeDefs y resolvers básicos','const server = new ApolloServer({ typeDefs, resolvers })','Abre: http://localhost:4000/graphql'],tip:'💡 Si ves ejemplos con ApolloServerPluginLandingPageGraphQLPlayground son de v3.',cmd:'bun add @apollo/server graphql @as-integrations/fastify',links:[{l:'Apollo Server 4',u:'https://www.apollographql.com/docs/apollo-server/getting-started'},{l:'Apollo + Fastify',u:'https://www.apollographql.com/docs/apollo-server/integrations/integration-index'}]},
+  {title:'Diseñar schema GraphQL para dominio real',why:'Un schema mal diseñado es costoso de cambiar. Invierte tiempo aquí.',how:['Schema-first: escribe el .graphql primero, implementa después','Usa Input types: CreatePostInput, UpdatePostInput','Añade paginación: Connection + Edge + PageInfo (Relay spec)','Documenta: """Descripción""" encima de cada campo'],tip:'💡 Aprende Relay Cursor Connections. Es más robusto que offset/limit para listas dinámicas.',cmd:'',links:[{l:'GraphQL Schema',u:'https://graphql.org/learn/schema/'},{l:'Relay Cursor Connections',u:'https://relay.dev/graphql/connections.htm'}]},
+  {title:'Implementar DataLoader para eliminar N+1',why:'El N+1 es el bug de performance más común en GraphQL. 100 posts = 101 queries sin DataLoader.',how:['bun add dataloader','const userLoader = new DataLoader(async (ids) => db.users.findMany({ where: { id: { in: ids } } }))','En resolver Post.author: return context.loaders.user.load(post.authorId)','Pasa loaders en el context de Apollo'],tip:'💡 DataLoader hace batch por "tick" del event loop. Un await intermedio rompe el batching.',cmd:'bun add dataloader',links:[{l:'DataLoader GitHub',u:'https://github.com/graphql/dataloader'},{l:'GraphQL N+1 explainer',u:'https://hygraph.com/blog/graphql-n-1-problem'}]},
+  {title:'Añadir GraphQL Shield para autorización',why:'La autorización inline en resolvers es difícil de mantener. Shield centraliza las reglas.',how:['bun add graphql-shield graphql-middleware','const isAuthenticated = rule()(async (_, __, ctx) => ctx.user !== null)','shield({ Query: { me: isAuthenticated }, Mutation: { createPost: isAuthenticated } })','Para roles: rule()(async (_, __, ctx) => ctx.user?.role === "ADMIN")'],tip:'💡 Shield deniega todo por defecto (whitelist). Cambia con allowExternalErrors:true si necesitas pasar errores de DB.',cmd:'bun add graphql-shield graphql-middleware',links:[{l:'GraphQL Shield',u:'https://the-guild.dev/graphql/shield'},{l:'GraphQL Authorization',u:'https://graphql.org/learn/authorization/'}]},
+  {title:'Configurar persisted queries con Redis',why:'Persisted queries reducen el tamaño del request y permiten bloquear queries no autorizadas.',how:['bun add ioredis','En Apollo Server: define persistedQueriesCache con cliente Redis','Con @apollo/client: usa createPersistedQueryLink()','El cliente envía SHA-256 del query','Si no está en Redis: el cliente reenvía la query completa (APQ)'],tip:'💡 Persisted queries mejoran el CDN caching — los queries son GET requests cacheables.',cmd:'bun add ioredis @apollo/server',links:[{l:'Apollo Persisted Queries',u:'https://www.apollographql.com/docs/apollo-server/performance/apq/'},{l:'Redis + Node.js',u:'https://redis.io/docs/clients/nodejs/'}]},
+  {title:'Implementar subscriptions con WebSockets',why:'Subscriptions permiten que el servidor empuje datos en tiempo real — esencial para chats y feeds.',how:['bun add graphql-ws ws graphql-subscriptions','Define: type Subscription { messageAdded: Message! }','Resolver: pubsub.asyncIterator(["MESSAGE_ADDED"])','Al enviar mensaje: pubsub.publish("MESSAGE_ADDED", { messageAdded })'],tip:'💡 Para producción usa Redis PubSub en vez de in-memory — el in-memory no escala con múltiples instancias.',cmd:'bun add graphql-ws ws graphql-subscriptions',links:[{l:'GraphQL Subscriptions',u:'https://www.apollographql.com/docs/apollo-server/data/subscriptions'},{l:'graphql-ws',u:'https://the-guild.dev/graphql/ws'}]},
+  {title:'Añadir query complexity y depth limits',why:'Sin límites, una query maliciosa anidada puede agotar tu DB en segundos.',how:['bun add graphql-query-complexity','Plugin de validación con complexity < 1000, depth < 5','Cada campo tiene un costo base, los resolvers de listas multiplican','Si se excede: error 400 antes de ejecutar'],tip:'💡 Empieza con límites generosos y endurece después. Mejor permisivo al inicio.',cmd:'bun add graphql-query-complexity',links:[{l:'graphql-query-complexity',u:'https://github.com/slicknode/graphql-query-complexity'},{l:'GraphQL Security',u:'https://cheatsheetseries.owasp.org/cheatsheets/GraphQL_Cheat_Sheet.html'}]},
+  {title:'Documentar con GraphQL Playground',why:'Buena documentación reduce el onboarding de developers de días a horas.',how:['Apollo Server 4 incluye Apollo Sandbox en dev: http://localhost:4000/graphql','Añade descripciones: """Descripción""" a todos los tipos','NUNCA dejes introspection activa en producción','bun add -d @graphql-codegen/cli para generar tipos TypeScript automáticamente'],tip:'💡 En producción NUNCA dejes introspection activa. Expone toda la estructura de tu API.',cmd:'bun add -d @graphql-codegen/cli @graphql-codegen/typescript',links:[{l:'GraphQL Code Generator',u:'https://the-guild.dev/graphql/codegen/docs/getting-started'},{l:'Apollo Studio (free)',u:'https://studio.apollographql.com/'}]},
+],
+be4:[
+  {title:'Diseñar schema multi-tenant con RLS en PostgreSQL',why:'Row Level Security es la forma más segura de aislar datos de tenants — el aislamiento ocurre en la DB.',how:['brew install postgresql@16 && brew services start postgresql@16','Añade tenant_id a TODAS las tablas','ALTER TABLE posts ENABLE ROW LEVEL SECURITY','CREATE POLICY tenant_isolation ON posts USING (tenant_id = current_setting("app.tenant_id")::uuid)','En tu conexión: SET app.tenant_id = "uuid-del-tenant"'],tip:'💡 Usa connection pool separada por tenant en apps de alto tráfico. Para empezar, SET en cada request es suficiente.',cmd:'brew install postgresql@16 && brew services start postgresql@16',links:[{l:'PostgreSQL Row Level Security',u:'https://www.postgresql.org/docs/current/ddl-rowsecurity.html'},{l:'Multi-tenancy patterns',u:'https://docs.aws.amazon.com/prescriptive-guidance/latest/saas-multitenant-strategies/overview.html'}]},
+  {title:'Implementar middleware de tenant extraction',why:'El tenant_id debe estar disponible en cada request antes de cualquier operación de DB.',how:['Extrae tenant de: subdominio (acme.miapp.com), header (X-Tenant-Id), o JWT','Middleware Fastify: app.addHook("preHandler", async (req) => { req.tenantId = extractTenant(req) })','Valida que el tenant existe en DB (cache en Redis)','SET app.tenant_id en la sesión de DB'],tip:'💡 El subdominio es la UX más limpia para B2B. El header es más fácil para API clients.',cmd:'',links:[{l:'Fastify Hooks',u:'https://fastify.dev/docs/latest/Reference/Hooks/'},{l:'Multi-tenant middleware',u:'https://blog.logrocket.com/building-multi-tenant-application-node-js/'}]},
+  {title:'Integrar Stripe Billing (subscriptions)',why:'Stripe maneja la complejidad legal y técnica de billing global.',how:['Instala Stripe CLI en macOS: brew install stripe/stripe-cli/stripe && stripe login','bun add stripe','Crea productos en Stripe Dashboard','stripe.subscriptions.create({ customer, items: [{ price: priceId }] })','Configura webhook: stripe listen --forward-to localhost:3000/webhooks/stripe'],tip:'💡 Stripe CLI es esencial para desarrollo. Instálalo desde el inicio.',cmd:'brew install stripe/stripe-cli/stripe && bun add stripe',links:[{l:'Stripe Subscriptions',u:'https://docs.stripe.com/billing/subscriptions/overview'},{l:'Stripe CLI',u:'https://docs.stripe.com/stripe-cli'}]},
+  {title:'Crear sistema de webhooks outbound con retry',why:'Tus clientes B2B necesitan recibir eventos de tu sistema en sus propios sistemas.',how:['Tabla webhooks: { id, tenant_id, url, events[], secret, active }','Firma el payload: X-Webhook-Signature: HMAC-SHA256(payload, secret)','Encola con BullMQ, POST al URL del cliente','Si falla: retry con exponential backoff hasta 5 intentos'],tip:'💡 El HMAC signature es lo primero que preguntan los clientes. Documenta cómo verificarlo.',cmd:'bun add bullmq crypto',links:[{l:'Webhook Best Practices',u:'https://docs.github.com/en/webhooks/using-webhooks/best-practices-for-using-webhooks'},{l:'Stripe Webhook pattern',u:'https://docs.stripe.com/webhooks'}]},
+  {title:'Implementar usage metering por tenant',why:'El usage-based billing es el modelo más escalable para SaaS B2B.',how:['Define qué medir: API calls, storage GB, usuarios activos','Tabla usage_events: { tenant_id, metric, quantity, timestamp }','Registra: db.usageEvents.create({ tenantId, metric: "api_call", quantity: 1 })','Agrega por período con SQL: SELECT metric, SUM(quantity) WHERE tenant_id=? AND timestamp > ?'],tip:'💡 Considera TimescaleDB para usage_events — puede crecer a billones de filas.',cmd:'',links:[{l:'Stripe Usage-Based Billing',u:'https://docs.stripe.com/billing/subscriptions/usage-based'},{l:'Stripe Meters API',u:'https://docs.stripe.com/billing/subscriptions/usage-based/recording-usage'}]},
+  {title:'Añadir plan limits enforcement',why:'Sin límites, usuarios del free tier usan recursos ilimitados.',how:['Define límites por plan: { free: { users: 5, storage: 1GB }, pro: { users: 50 } }','Middleware: antes de crear recurso, verifica conteo vs límite','Si se excede: 402 Payment Required con link al upgrade','Cache los conteos en Redis (TTL 1 min)'],tip:'💡 El 402 Payment Required es el código HTTP correcto para "necesitas una cuenta paga".',cmd:'',links:[{l:'HTTP 402',u:'https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402'},{l:'Feature flags + limits',u:'https://posthog.com/docs/feature-flags'}]},
+  {title:'Construir admin panel básico',why:'Los administradores necesitan gestionar tenants sin tocar la DB directamente.',how:['Rutas /admin/* protegidas con rol SUPERADMIN','Endpoints: GET /admin/tenants, PATCH /admin/tenants/:id/suspend','Dashboard: total tenants, MRR, top tenants por uso','React Admin (OSS) genera CRUD completo: bun add react-admin'],tip:'💡 React Admin es 100% OSS y genera CRUD completo desde REST/GraphQL. Ahorra semanas.',cmd:'bun add react-admin',links:[{l:'React Admin (OSS)',u:'https://marmelab.com/react-admin/documentation.html'},{l:'Admin security',u:'https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html'}]},
+  {title:'Tests de aislamiento entre tenants',why:'Un bug que filtre datos entre tenants es catastrófico legalmente.',how:['Crea tenantA y tenantB con datos diferentes','Test 1: con JWT de A, GET /posts → SOLO posts de A','Test 2: con JWT de A, GET /posts/:idDePostDeB → 404 o 403','Test 3: POST con A, consulta desde B → invisible','Corre en CI y bloquea merges si falla'],tip:'💡 Si un test de aislamiento falla en CI, BLOQUEA el merge. No es un bug menor.',cmd:'',links:[{l:'RLS Testing',u:'https://www.postgresql.org/docs/current/ddl-rowsecurity.html'},{l:'Multi-tenant testing',u:'https://www.postgresql.org/docs/current/ddl-rowsecurity.html'}]},
+],
+be5:[
+  {title:'Diseñar eventos del dominio',why:'Los eventos del dominio son el lenguaje del negocio. Un buen diseño hace todo más simple.',how:['Lista eventos: OrderPlaced, InventoryReserved, PaymentProcessed, OrderShipped, Cancelled','Cada evento: { eventId, eventType, aggregateId, payload, timestamp, version }','Inmutables: nunca modifiques un evento pasado','Tipos TypeScript por evento: interface OrderPlacedEvent { orderId, items, total }'],tip:'💡 Haz event storming con tu equipo antes de codificar. 2h que evitan semanas de refactoring.',cmd:'',links:[{l:'Domain Events — Fowler',u:'https://martinfowler.com/eaaDev/DomainEvent.html'},{l:'Event Storming Guide',u:'https://www.eventstorming.com/'}]},
+  {title:'Implementar event store en PostgreSQL',why:'El event store es la fuente de verdad inmutable del sistema.',how:['Tabla: { id, aggregate_id, event_type, payload JSONB, version INTEGER, occurred_at }','Índice UNIQUE: (aggregate_id, version) — previene duplicados','Para leer estado: SELECT * WHERE aggregate_id=? ORDER BY version ASC','NUNCA hagas UPDATE ni DELETE en events — es append-only'],tip:'💡 Si necesitas "corregir" un evento, emite un evento de corrección. Nunca modifiques.',cmd:'',links:[{l:'Event Sourcing — Fowler',u:'https://martinfowler.com/eaaDev/EventSourcing.html'},{l:'PostgreSQL JSONB',u:'https://www.postgresql.org/docs/current/datatype-json.html'}]},
+  {title:'Configurar Kafka y crear topics',why:'Kafka garantiza que los eventos lleguen a todos los servicios aunque estén caídos.',how:['macOS con Docker (más fácil): docker run -p 9092:9092 apache/kafka:latest','Crea topics: kafka-topics.sh --create --topic orders --partitions 3','bun add kafkajs','Verifica: kafka-topics.sh --list'],tip:'💡 En macOS Tahoe, Docker Desktop es la forma más fácil de correr Kafka localmente.',cmd:'docker run -d -p 9092:9092 --name kafka apache/kafka:latest && bun add kafkajs',links:[{l:'KafkaJS Docs',u:'https://kafka.js.org/docs/getting-started'},{l:'Kafka Quickstart',u:'https://kafka.apache.org/quickstart'}]},
+  {title:'Implementar Saga orchestrator',why:'La Saga reemplaza transacciones distribuidas. El orchestrator coordina los servicios.',how:['Define pasos: [ReserveInventory, ProcessPayment, CreateShipment]','Estado de la Saga en Redis: { orderId, step, status }','Publica comando → espera respuesta → avanza o compensa','Con BullMQ: cada paso es un job con timeout de 30s'],tip:'💡 Empieza con Orchestration (coordinador central) — es más fácil de debuggear que Choreography.',cmd:'bun add kafkajs bullmq',links:[{l:'Saga Pattern',u:'https://microservices.io/patterns/data/saga.html'},{l:'Saga implementations',u:'https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/saga/saga'}]},
+  {title:'Codificar compensating transactions',why:'Cuando un paso falla, debes deshacer lo que ya se hizo.',how:['Para cada paso, define su compensación: ReserveInventory → ReleaseInventory','La compensación debe ser idempotente','Si pago falló: publica "ReleaseInventoryCommand"','Registra en event store: { OrderCompensated, reason: "PaymentFailed" }'],tip:'💡 Las compensaciones no son rollbacks — no deshacen efectos externos (email enviado). Diseña considerando esto.',cmd:'',links:[{l:'Compensating Transactions',u:'https://docs.microsoft.com/en-us/azure/architecture/patterns/compensating-transaction'},{l:'Saga failure handling',u:'https://microservices.io/patterns/data/saga.html'}]},
+  {title:'Garantizar idempotencia de consumidores',why:'Kafka puede entregar el mismo mensaje más de una vez. Sin idempotencia, una orden se procesaría duplicada.',how:['Antes de procesar: SET processed:{messageId} 1 EX 86400 NX en Redis','Si SET retorna nil: ya fue procesado, descarta','INSERT ... ON CONFLICT DO NOTHING con eventId como clave','enable.auto.commit = false, commit manual después de procesar'],tip:'💡 Idempotencia no es "no procesar dos veces" — es "procesar dos veces da el mismo resultado".',cmd:'',links:[{l:'Kafka Exactly-Once',u:'https://kafka.apache.org/documentation/#semantics'},{l:'Idempotent consumers',u:'https://microservices.io/patterns/communication/idempotent-consumer.html'}]},
+  {title:'Añadir tracing distribuido con OpenTelemetry',why:'Con microservicios, sin tracing no puedes saber dónde está el cuello de botella.',how:['bun add @opentelemetry/api @opentelemetry/sdk-node @opentelemetry/auto-instrumentations-node','Inicializa el SDK ANTES de cualquier otro import','Instala Jaeger local: docker run -p 16686:16686 -p 4317:4317 jaegertracing/all-in-one','Cada span: traceId (atraviesa servicios), spanId, parentSpanId'],tip:'💡 Instala all-in-one de Jaeger para desarrollo. En producción usa Grafana Tempo (OSS gratis).',cmd:'docker run -d -p 16686:16686 jaegertracing/all-in-one && bun add @opentelemetry/sdk-node',links:[{l:'OpenTelemetry Node.js',u:'https://opentelemetry.io/docs/languages/js/getting-started/nodejs/'},{l:'Jaeger Tracing (OSS)',u:'https://www.jaegertracing.io/docs/1.57/getting-started/'}]},
+  {title:'Tests de chaos (fallos en mitad del flujo)',why:'La resiliencia solo se prueba rompiendo cosas. Verifica que la Saga se compensa correctamente.',how:['Test: falla el servicio de pago después de reservar inventario → verifica que se liberó el inventario','Test de timeout: retarda > 30s → verifica compensación automática','Test de duplicados: mismo OrderPlaced 3 veces → orden creada 1 sola vez','bun add -d testcontainers para Kafka+PostgreSQL reales en tests'],tip:'💡 Empieza con fault injection simple: un flag en el código. Chaos Monkey es para producción.',cmd:'bun add -d testcontainers',links:[{l:'Testcontainers Node (OSS)',u:'https://testcontainers.com/guides/getting-started-with-testcontainers-for-nodejs/'},{l:'Chaos Engineering',u:'https://principlesofchaos.org/'}]},
+],
+cl1:[
+  {title:'Crear pipeline CI con GitHub Actions',why:'CI automático convierte cada push en un ciclo de feedback inmediato.',how:['Crea .github/workflows/ci.yml','on: [push, pull_request], jobs: [lint, test, build]','Lint: bun run lint (Biome)','Test: bun run test (Vitest) con --coverage','Build: bun run build','Cache bun install: actions/cache con hashFiles("bun.lockb")'],tip:'💡 En macOS desarrollas en arm64 pero CI corre en linux/amd64. Verifica módulos nativos.',cmd:'mkdir -p .github/workflows && touch .github/workflows/ci.yml',links:[{l:'GitHub Actions Docs',u:'https://docs.github.com/en/actions/quickstart'},{l:'GitHub Actions Node.js',u:'https://docs.github.com/en/actions/use-cases-and-examples/building-and-testing/building-and-testing-nodejs'}]},
+  {title:'Configurar Docker + ECR',why:'Docker garantiza que "funciona en mi máquina" = "funciona en producción".',how:['Instala Docker Desktop para macOS: docker.com/products/docker-desktop','Dockerfile multistage: build (bun install) + runtime (imagen mínima)','docker build -t mi-app . && docker run -p 3000:3000 mi-app','Crea repositorio ECR en AWS Console','Autentica con aws ecr get-login-password y push'],tip:'💡 Usa distroless o alpine como base. 50MB vs 500MB — 10x más rápido de deployar.',cmd:'docker build -t mi-app . && docker run -p 3000:3000 mi-app',links:[{l:'Docker Getting Started',u:'https://docs.docker.com/get-started/'},{l:'AWS ECR Docs',u:'https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-cli.html'}]},
+  {title:'Crear Helm chart para la aplicación',why:'Helm es el package manager de Kubernetes. Un chart permite deployar con un solo comando.',how:['brew install helm','helm create mi-app (genera estructura base)','Edita values.yaml: imagen, replicas, resources, env vars','Renderiza: helm template mi-app . (YAML final sin aplicar)','Instala: helm install mi-app . --namespace produccion'],tip:'💡 Empieza con el chart de helm create. No lo escribas desde cero.',cmd:'brew install helm && helm create mi-app',links:[{l:'Helm Getting Started',u:'https://helm.sh/docs/chart_template_guide/getting_started/'},{l:'Helm Best Practices',u:'https://helm.sh/docs/chart_best_practices/'}]},
+  {title:'Instalar ArgoCD en cluster K8s',why:'ArgoCD implementa GitOps — el estado del cluster se sincroniza automáticamente con Git.',how:['brew install kind argocd','kind create cluster (K8s en Docker, sin VM)','kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml','kubectl port-forward svc/argocd-server -n argocd 8080:443','argocd admin initial-password -n argocd'],tip:'💡 kind es la forma más simple de K8s local en macOS. No necesitas Minikube ni VMs.',cmd:'brew install kind argocd && kind create cluster',links:[{l:'ArgoCD Getting Started',u:'https://argo-cd.readthedocs.io/en/stable/getting_started/'},{l:'kind Docs',u:'https://kind.sigs.k8s.io/docs/user/quick-start/'}]},
+  {title:'Configurar sync automático GitOps',why:'GitOps hace que git push sea suficiente para deployar en producción.',how:['Crea Application en ArgoCD: repo Git + directorio de manifests','Activa: syncPolicy.automated.prune: true y selfHeal: true','selfHeal: revierte cambios manuales en el cluster','prune: elimina recursos que ya no están en Git'],tip:'💡 selfHeal protege contra cambios manuales accidentales en producción. La feature más importante de GitOps.',cmd:'',links:[{l:'ArgoCD Automated Sync',u:'https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/'},{l:'GitOps Principles',u:'https://opengitops.dev/'}]},
+  {title:'Implementar preview environments por PR',why:'Preview environments permiten a QA y PM revisar features antes del merge.',how:['En GitHub Actions al abrir PR: kubectl create namespace pr-${PR_NUMBER}','Deploy Helm chart en ese namespace con imagen taggeada con el SHA','Postea el URL como comentario en el PR','Al cerrar PR: kubectl delete namespace pr-${PR_NUMBER}','Timeout: si el PR no se mergea en 7 días, borra el env'],tip:'💡 Preview environments son el feature de productividad más impactante para equipos frontend+QA.',cmd:'',links:[{l:'GitHub Actions Environments',u:'https://docs.github.com/en/actions/deployment/targeting-different-environments'},{l:'ArgoCD ApplicationSets',u:'https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/'}]},
+  {title:'Configurar Argo Rollouts (canary/blue-green)',why:'Los deployments sin estrategia pueden causar downtime. Canary detecta problemas antes de afectar a todos.',how:['kubectl apply -n argo-rollouts -f https://github.com/argoproj/argo-rollouts/releases/latest/download/install.yaml','brew install argoproj/tap/kubectl-argo-rollouts','Cambia Deployment por Rollout en tu manifest','strategy.canary.steps: [setWeight: 20, pause: {}, setWeight: 100]','Si OK: kubectl argo rollouts promote mi-app'],tip:'💡 El análisis automático puede aprobar/rechazar el canary basado en métricas Prometheus. Sin intervención humana.',cmd:'kubectl apply -n argo-rollouts -f https://github.com/argoproj/argo-rollouts/releases/latest/download/install.yaml',links:[{l:'Argo Rollouts',u:'https://argoproj.github.io/rollouts/'},{l:'Canary Deployments',u:'https://argoproj.github.io/rollouts/features/canary/'}]},
+  {title:'Añadir rollback automático por métricas',why:'Rollback manual tarda minutos. Automático tarda segundos — la diferencia es el impacto al usuario.',how:['Crea AnalysisTemplate que consulta Prometheus','Métrica: error_rate < 1% durante 5 min después del deploy','Si falla: rollback automático al deploy anterior','bun add prom-client para exponer métricas desde tu app','Alerta en Slack cuando ocurre rollback'],tip:'💡 Combina con Sentry: si la tasa de errores sube, el rollback se activa automáticamente.',cmd:'bun add prom-client',links:[{l:'Argo Rollouts Analysis',u:'https://argoproj.github.io/rollouts/features/analysis/'},{l:'prom-client Node.js',u:'https://github.com/siimon/prom-client'}]},
+],
+ai1:[
+  {title:'Configurar pipeline de parsing con Unstructured.io',why:'Los PDFs reales son sucios. Unstructured.io los normaliza en texto limpio.',how:['brew install python@3.12 poppler tesseract','python3.12 -m venv .venv && source .venv/bin/activate','pip install "unstructured[all-docs]"','from unstructured.partition.pdf import partition_pdf; elements = partition_pdf("doc.pdf")','Cada elemento: type (Title, Text, Table, Image), text, metadata'],tip:'💡 Unstructured.io tiene API cloud con free tier si no quieres instalar dependencias nativas.',cmd:'brew install python@3.12 poppler tesseract && pip install "unstructured[all-docs]"',links:[{l:'Unstructured.io Docs',u:'https://docs.unstructured.io/open-source/introduction/overview'},{l:'Unstructured API',u:'https://docs.unstructured.io/api-reference/api-services/free-api'}]},
+  {title:'Implementar chunking estratégico (overlap)',why:'Chunks muy grandes pierden precisión. Muy pequeños pierden contexto. Overlap preserva coherencia.',how:['pip install langchain langchain-text-splitters','RecursiveCharacterTextSplitter(chunk_size=512, chunk_overlap=50)','Para código: CodeTextSplitter (por función/clase)','Para tablas: mantén la tabla completa en un chunk','Añade metadata: { source, page, section, chunk_index }'],tip:'💡 Para text-embedding-3-small puedes ir hasta 1024 tokens por chunk.',cmd:'pip install langchain langchain-text-splitters',links:[{l:'LangChain Text Splitters',u:'https://python.langchain.com/docs/how_to/recursive_text_splitter/'},{l:'Chunking strategies',u:'https://www.pinecone.io/learn/chunking-strategies/'}]},
+  {title:'Generar embeddings con text-embedding-3-small',why:'Los embeddings convierten texto en vectores que capturan significado semántico.',how:['pip install openai','from openai import OpenAI; client = OpenAI()','resp = client.embeddings.create(model="text-embedding-3-small", input=chunk_text)','Batch: pasa lista de textos en input (hasta 2048 por llamada)','Costo: $0.02 por millón de tokens'],tip:'💡 Alternativa GRATUITA: Ollama local con nomic-embed-text. brew install ollama && ollama pull nomic-embed-text',cmd:'brew install ollama && ollama pull nomic-embed-text',links:[{l:'OpenAI Embeddings',u:'https://platform.openai.com/docs/guides/embeddings'},{l:'Ollama local embeddings',u:'https://ollama.com/library/nomic-embed-text'}]},
+  {title:'Almacenar vectores en pgvector',why:'pgvector convierte PostgreSQL en base de datos vectorial. Sin costo extra.',how:['brew install postgresql@16','CREATE EXTENSION vector','CREATE TABLE documents (id BIGSERIAL, content TEXT, embedding vector(1536), metadata JSONB)','Índice HNSW: CREATE INDEX ON documents USING hnsw (embedding vector_cosine_ops)','pip install pgvector psycopg2-binary'],tip:'💡 HNSW tiene mejor performance que ivfflat para < 1M vectores.',cmd:'brew install postgresql@16 && pip install pgvector psycopg2-binary',links:[{l:'pgvector GitHub',u:'https://github.com/pgvector/pgvector'},{l:'pgvector + Python',u:'https://github.com/pgvector/pgvector-python'}]},
+  {title:'Implementar búsqueda híbrida (BM25 + vector)',why:'Búsqueda solo vectorial falla con términos exactos. BM25+vector combina lo mejor de ambos.',how:['BM25 en PG: ts_rank(to_tsvector(content), plainto_tsquery(query))','Vector: SELECT 1 - (embedding <=> query_vector) AS cos_sim','Reciprocal Rank Fusion: (1/(60+rank_bm25) + 1/(60+rank_vector))','Ordena por combined_score DESC LIMIT k'],tip:'💡 Hybrid search mejora el recall un 20-30% vs solo vectorial.',cmd:'pip install rank-bm25',links:[{l:'pgvector Hybrid Search',u:'https://github.com/pgvector/pgvector?tab=readme-ov-file#hybrid-search'},{l:'Hybrid Search Guide',u:'https://www.pinecone.io/learn/hybrid-search-intro/'}]},
+  {title:'Crear Q&A endpoint con Claude + citas',why:'El usuario quiere respuestas en NL, no una lista de fragmentos.',how:['pip install anthropic','Flujo RAG: embed pregunta → busca top-5 en pgvector → construye prompt → llama a Claude','Prompt: "Basándote SOLO en el contexto: {chunks}\\n\\nResponde: {pregunta}\\nCita con [1], [2]"','Streaming: claude.messages.stream() + SSE al cliente','Si Claude no tiene info: devuelve ese mensaje, no inventes'],tip:'💡 Incluye "Si no puedes responder con el contexto dado, dilo explícitamente" en el prompt.',cmd:'pip install anthropic',links:[{l:'Anthropic Python SDK',u:'https://github.com/anthropics/anthropic-sdk-python'},{l:'RAG Cookbook',u:'https://github.com/anthropics/anthropic-cookbook/tree/main/third_party/LlamaIndex'}]},
+  {title:'Añadir evaluación con RAGAS',why:'Sin evaluación no sabes si tu RAG es bueno.',how:['pip install ragas datasets','Prepara 20-50 preguntas con respuesta esperada','from ragas import evaluate; from ragas.metrics import faithfulness, answer_relevancy','result = evaluate(dataset, metrics=[faithfulness, answer_relevancy])','Objetivo: faithfulness > 0.85, answer_relevancy > 0.8'],tip:'💡 Construye el dataset de evaluación ANTES de modificar el RAG. Sin baseline no puedes saber si mejoraste.',cmd:'pip install ragas datasets',links:[{l:'RAGAS Docs',u:'https://docs.ragas.io/en/latest/getstarted/install.html'},{l:'RAG evaluation metrics',u:'https://docs.ragas.io/en/latest/concepts/metrics/available_metrics/'}]},
+  {title:'Construir UI de chat con streaming',why:'El streaming hace la UX mucho mejor — el usuario ve la respuesta llegando en tiempo real.',how:['pip install sse-starlette','Backend FastAPI: async def stream(query): yield { "data": chunk } por cada token','Frontend React: EventSource API nativa: const es = new EventSource("/api/chat?q=...")','Acumula chunks: setResponse(prev => prev + chunk)','Stop button: es.close()'],tip:'💡 SSE es más simple que WebSockets para streaming unidireccional.',cmd:'pip install sse-starlette',links:[{l:'FastAPI SSE',u:'https://github.com/sysid/sse-starlette'},{l:'Server-Sent Events MDN',u:'https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events'}]},
+],
+ai4:[
+  {title:'Construir agente con LangGraph (nodos + edges)',why:'LangGraph modela el agente como grafo de estados — más controlable que cadenas lineales.',how:['pip install langgraph langchain-anthropic','Define estado: class AgentState(TypedDict): messages, plan, sources, report','Crea nodos: plan_research, search_web, read_page, synthesize, report','Edges condicionales: plan → loop search → synthesize → report','graph = StateGraph(AgentState).compile()'],tip:'💡 Usa checkpointers de LangGraph para guardar estado en PostgreSQL y reanudar investigaciones largas.',cmd:'pip install langgraph langchain-anthropic langgraph-checkpoint-postgres',links:[{l:'LangGraph Quickstart',u:'https://langchain-ai.github.io/langgraph/tutorials/introduction/'},{l:'LangGraph Concepts',u:'https://langchain-ai.github.io/langgraph/concepts/'}]},
+  {title:'Integrar Tavily Search como herramienta',why:'Tavily devuelve contenido limpio optimizado para LLMs.',how:['Cuenta gratis en tavily.com (1000 searches/mes)','pip install tavily-python','from langchain_community.tools import TavilySearchResults','tool = TavilySearchResults(max_results=5)','results = await tool.ainvoke({"query": query})'],tip:'💡 Alternativa OSS gratuita: pip install duckduckgo-search. Sin límites pero menos calidad.',cmd:'pip install tavily-python duckduckgo-search',links:[{l:'Tavily API Docs',u:'https://docs.tavily.com/docs/python-sdk/getting-started'},{l:'DuckDuckGo Search (OSS)',u:'https://github.com/deedy5/duckduckgo_search'}]},
+  {title:'Implementar web scraping con Browser Use',why:'Muchas páginas no tienen API. Browser Use automatiza el navegador como un humano.',how:['pip install browser-use && playwright install chromium','from browser_use import Agent, Browser','browser = Browser()','agent = Agent(task="Extrae el abstract de arxiv.org/...", llm=claude, browser=browser)','result = await agent.run()'],tip:'💡 En macOS Tahoe Playwright usa Chromium empaquetado, no el Chrome del sistema.',cmd:'pip install browser-use && playwright install chromium',links:[{l:'Browser Use Docs',u:'https://docs.browser-use.com/quickstart'},{l:'Playwright Python',u:'https://playwright.dev/python/docs/intro'}]},
+  {title:'Añadir memoria persistente en pgvector',why:'Sin memoria el agente empieza de cero cada vez.',how:['Cada investigación genera summary + embedding','Antes de iniciar: busca memorias similares en pgvector','Si encuentra relevantes: inclúyelas en contexto inicial','LangGraph PostgresStore como checkpointer','Expire memorias > 90 días'],tip:'💡 LangGraph tiene memoria cross-thread integrada. Usa la doc oficial.',cmd:'pip install langgraph-checkpoint-postgres',links:[{l:'LangGraph Memory',u:'https://langchain-ai.github.io/langgraph/concepts/memory/'},{l:'LangGraph Persistence',u:'https://langchain-ai.github.io/langgraph/concepts/persistence/'}]},
+  {title:'Implementar reflexión y self-critique',why:'La reflexión mejora la calidad — el agente evalúa su propio trabajo.',how:['Nodo "critique" después de "generate_report"','Prompt: "¿Tiene vacíos? ¿Fuentes confiables? Lista 3 mejoras"','Si hay problemas: vuelve a "search_web"','Máximo 3 iteraciones para evitar loops','Si el score no mejora entre iteraciones: para'],tip:'💡 El paper Reflexion (Shinn et al., 2023) es la referencia académica de este approach.',cmd:'',links:[{l:'Reflexion Paper (arXiv)',u:'https://arxiv.org/abs/2303.11366'},{l:'LangGraph Reflection',u:'https://langchain-ai.github.io/langgraph/tutorials/reflexion/reflexion/'}]},
+  {title:'Añadir verificación de hechos cross-source',why:'Un agente sin verificación puede afirmar falsedades con confianza.',how:['Para cada claim importante: busca en 2+ fuentes independientes','Si coinciden: marca como verificado ✓','Si discrepan: presenta ambas versiones','Para papers: verifica en Semantic Scholar (API gratuita)','Nodo "verify_claims" después de "generate_draft"'],tip:'💡 Semantic Scholar API es gratuita y da acceso a 200M+ papers.',cmd:'pip install semanticscholar',links:[{l:'Semantic Scholar API',u:'https://api.semanticscholar.org/api-docs/'},{l:'Fact-checking con LLMs',u:'https://github.com/anthropics/anthropic-cookbook'}]},
+  {title:'Streaming del proceso de investigación al frontend',why:'Una investigación tarda 2-5 min. Sin streaming el usuario no sabe qué está pasando.',how:['pip install sse-starlette','Tipos de eventos SSE: planning, searching, reading, writing, done','LangGraph: callbacks para emitir SSE en cada transición de nodo','Frontend: EventSource escucha y actualiza "thought trace" visual','Contador de tiempo transcurrido'],tip:'💡 La transparencia del proceso aumenta la confianza del usuario en el resultado.',cmd:'pip install sse-starlette',links:[{l:'LangGraph Streaming',u:'https://langchain-ai.github.io/langgraph/how-tos/streaming-content/'},{l:'SSE + React',u:'https://developer.mozilla.org/en-US/docs/Web/API/EventSource'}]},
+  {title:'Evaluar con AgentBench o benchmark propio',why:'Sin evaluación no sabes si tu agente mejora o empeora entre versiones.',how:['Crea 20-50 preguntas con respuesta esperada','4 dimensiones: completitud, accuracy, fuentes, concisión','Claude como juez: "Evalúa en 1-10 según estos criterios"','Guarda resultados en SQLite para comparar versiones','Corre en CI antes de cada merge a main'],tip:'💡 Claude-as-a-judge es el método más costo-efectivo. 50 preguntas ≈ $0.50.',cmd:'pip install weave',links:[{l:'W&B Weave (eval OSS)',u:'https://weave-docs.wandb.ai/tutorial-eval'},{l:'LangSmith eval',u:'https://docs.smith.langchain.com/evaluation'}]},
+],
+all1:[
+  {title:'Configurar monorepo (Turborepo)',why:'Turborepo unifica frontend, backend y tipos compartidos con builds incrementales.',how:['pnpm dlx create-turbo@latest mi-saas','Estructura: apps/web (Next.js), apps/api (FastAPI), packages/ui, packages/config','turbo.json: pipeline build → test → lint con dependencias','bun install en la raíz (Bun workspace)','bun turbo dev (todos los servicios en paralelo)'],tip:'💡 Turborepo tiene cache remoto. Configura con --token en CI para builds 10x más rápidos.',cmd:'pnpm dlx create-turbo@latest mi-saas',links:[{l:'Turborepo Docs',u:'https://turbo.build/repo/docs'},{l:'Monorepo handbook',u:'https://monorepo.tools/'}]},
+  {title:'Construir UI con Next.js App Router + Tailwind',why:'El App Router habilita React Server Components — renders del servidor sin JS al cliente.',how:['pnpm create next-app@latest web --typescript --tailwind --app','Server Components por defecto; añade "use client" para interactividad','Instala shadcn/ui: pnpm dlx shadcn-ui@latest init (componentes OSS)','Data fetching: async function getData() { return fetch("...") } en el Server Component'],tip:'💡 Aprende la diferencia "use client" vs server antes de escribir código. Es el cambio más importante de React.',cmd:'pnpm create next-app@latest web --typescript --tailwind --app && pnpm dlx shadcn-ui@latest init',links:[{l:'Next.js App Router',u:'https://nextjs.org/docs/app'},{l:'React Server Components',u:'https://react.dev/reference/rsc/server-components'}]},
+  {title:'Implementar auth multi-tenant (JWT + RLS)',why:'La auth multi-tenant es la pieza más crítica. Un error puede filtrar datos de todos los clientes.',how:['pip install fastapi python-jose passlib[bcrypt] sqlalchemy asyncpg','JWT payload: { sub: user_id, tenant_id, role, exp }','Middleware FastAPI: extrae tenant_id, configura SET app.tenant_id','Next.js middleware.ts: verifica JWT antes de servir cualquier página'],tip:'💡 Prueba el RLS con 2 tenants el primer día. Si puedes ver datos del otro tenant, tienes un bug crítico.',cmd:'pip install fastapi python-jose[cryptography] passlib[bcrypt] sqlalchemy asyncpg',links:[{l:'FastAPI Security',u:'https://fastapi.tiangolo.com/tutorial/security/'},{l:'Next.js Middleware Auth',u:'https://nextjs.org/docs/app/building-your-application/authentication'}]},
+  {title:'Crear API FastAPI con docs OpenAPI',why:'FastAPI genera documentación interactiva automáticamente. Cero código extra.',how:['pip install fastapi uvicorn pydantic','Pydantic models para request/response','@app.post("/users", response_model=UserResponse, status_code=201)','Activa docs solo en dev: docs_url="/docs" if DEV else None','Genera cliente TS: bun add -d openapi-typescript'],tip:'💡 openapi-typescript genera tipos perfectos desde tu schema. Úsalo en el monorepo para tipos automáticos.',cmd:'pip install fastapi uvicorn pydantic && bun add -d openapi-typescript',links:[{l:'FastAPI Docs',u:'https://fastapi.tiangolo.com/tutorial/path-operation-configuration/'},{l:'openapi-typescript',u:'https://openapi-ts.dev/'}]},
+  {title:'Integrar Stripe Billing + webhooks',why:'Stripe es el estándar de billing SaaS. Su free tier en dev es completo.',how:['brew install stripe/stripe-cli/stripe && stripe login','pip install stripe','Productos: Free, Pro ($29/mes), Enterprise en Stripe Dashboard','Checkout: POST /billing/create-session → Stripe Checkout → webhook confirma','stripe listen --forward-to localhost:8000/webhooks/stripe'],tip:'💡 Usa Stripe Customer Portal para gestión de suscripción self-service. Sin código extra.',cmd:'brew install stripe/stripe-cli/stripe && pip install stripe',links:[{l:'Stripe Checkout',u:'https://docs.stripe.com/payments/checkout'},{l:'Stripe Webhooks',u:'https://docs.stripe.com/webhooks'}]},
+  {title:'Añadir Claude API con RAG pipeline',why:'RAG sobre los datos del tenant es la feature AI más poderosa para SaaS.',how:['pip install anthropic langchain-anthropic pgvector psycopg2-binary','Pipeline: upload → parse → chunk → embed → pgvector (por tenant_id)','Chat: embed query → busca pgvector (filtra por tenant) → prompt → Claude streaming','Precio: 1000 queries/mes ≈ $2-5 con claude-haiku'],tip:'💡 Usa claude-haiku-4-5 para RAG — 10x más barato que Sonnet y suficiente para Q&A sobre docs.',cmd:'pip install anthropic langchain-anthropic',links:[{l:'Anthropic Python SDK',u:'https://github.com/anthropics/anthropic-sdk-python'},{l:'Claude API Pricing',u:'https://www.anthropic.com/pricing'}]},
+  {title:'Deploy en AWS ECS Fargate con Terraform',why:'ECS Fargate elimina gestión de servidores. Terraform hace el infra reproducible.',how:['brew install terraform awscli','aws configure (Access Key de IAM)','main.tf: VPC, ECS Cluster, Task Definition, Service, ALB, RDS, ElastiCache','terraform init && terraform plan && terraform apply','Guarda state en S3 + DynamoDB (locking) — NUNCA en Git'],tip:'💡 El state de Terraform contiene secrets. NUNCA lo commits a Git.',cmd:'brew install terraform awscli && terraform init',links:[{l:'Terraform AWS ECS',u:'https://developer.hashicorp.com/terraform/tutorials/aws/aws-ecs-alb'},{l:'AWS Free Tier',u:'https://aws.amazon.com/free/'}]},
+  {title:'Configurar CI/CD con GitHub Actions + ArgoCD',why:'CI/CD cierra el ciclo: push → tests → build → deploy automático.',how:['CI: lint → test → docker build → push a ECR con tag = commit SHA','CD: actualiza values.yaml del Helm chart con el nuevo tag → git push','ArgoCD detecta el cambio y sincroniza el cluster','Tiempo objetivo: push → producción en < 10 minutos','Protege main: PR + CI verde + 1 approval obligatorios'],tip:'💡 Si el deploy tarda > 10 min, optimiza Docker layer caching.',cmd:'',links:[{l:'GitHub Actions + ECR',u:'https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/deploying-to-amazon-elastic-container-service'},{l:'ArgoCD App of Apps',u:'https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/'}]},
+],
+};
+// Build PROJECT_CHECKLIST from TASK_GUIDE for backward compat
+const PROJECT_CHECKLIST={};
+Object.keys(TASK_GUIDE).forEach(pid=>{PROJECT_CHECKLIST[pid]=TASK_GUIDE[pid].map(t=>t.title);});
+
+// ══════════════════════════════════════════════════════
+// STACKS DATA
+// ══════════════════════════════════════════════════════
+const STACKS=[
+  {id:'fe1',domain:'fe',title:'Modern React Ecosystem',desc:'SPAs y SSR apps con el meta-framework stack de React.',chips:['React 19','Next.js 14','TypeScript','Zustand','TanStack Query','Tailwind CSS','Framer Motion'],level:95,detail:'El ecosistema React sigue siendo dominante para UIs. App Router de Next.js para SSR/SSG híbrido, Zustand para estado liviano, TanStack Query para server-state y Tailwind para estilos utility-first.',tips:['React Server Components = cero JS por defecto','TanStack Query elimina boilerplate de fetching','Framer Motion para animaciones de producción','Storybook para component-driven development']},
+  {id:'fe2',domain:'fe',title:'Next-Gen Frontend Tooling',desc:'Pipelines de build ultra-rápidos con Vite, Bun y edge rendering.',chips:['Vite 5','Bun','Vitest','Playwright','Biome','Storybook'],level:90,detail:'Modern tooling reduce build times de minutos a segundos. Bun como runtime + package manager + bundler simplifica toda la cadena.',tips:['Vite HMR en sub-50ms','Bun test 3x más rápido que Jest','Playwright E2E en todos los browsers','Biome reemplaza ESLint + Prettier']},
+  {id:'fe3',domain:'fe',title:'Mobile & Cross-Platform',desc:'iOS, Android y Web desde un único codebase TypeScript.',chips:['React Native','Expo SDK 51','NativeWind','Reanimated 3','EAS Build','Expo Router'],level:82,detail:'Expo + EAS convierte React Native en plataforma production-ready. NativeWind trae Tailwind a native, Reanimated 3 para 60fps sin bridge.',tips:['EAS Build reemplaza Xcode/Android Studio','Expo Router unifica web y native nav','Nueva Arquitectura JSI sin bridge JS']},
+  {id:'be1',domain:'be',title:'Node.js API Platform',desc:'APIs REST y GraphQL de alto throughput con Node.js y TypeScript.',chips:['Node.js 22','Fastify','tRPC','Prisma','Zod','JWT','BullMQ','Redis'],level:93,detail:'Fastify supera a Express por 2x. tRPC habilita APIs con type-safety end-to-end. Prisma provee ORM tipado. BullMQ para jobs en background.',tips:['Schema validation de Fastify 10x más rápido','tRPC elimina boilerplate de REST','Prisma genera types desde DB schema']},
+  {id:'be2',domain:'be',title:'Python AI Backend',desc:'Backends con FastAPI optimizados para cargas de trabajo AI/ML.',chips:['FastAPI','Python 3.12','SQLAlchemy','Pydantic','Celery','PostgreSQL'],level:88,detail:'FastAPI es el gold standard para APIs Python. Pydantic v2 (core en Rust) valida datos 5-50x más rápido. Ideal para servir modelos AI.',tips:['Pydantic v2 el validador Python más rápido','Async SQLAlchemy para ops no-bloqueantes','Celery + Redis para colas de ML jobs']},
+  {id:'be3',domain:'be',title:'Microservices & Event-Driven',desc:'Servicios desacoplados comunicándose vía Kafka y gRPC.',chips:['gRPC','Kafka','Docker','Kubernetes','Istio'],level:80,detail:'Event-driven escala horizontalmente. Kafka para streams durables, gRPC para inter-servicio, Istio service mesh para observabilidad y mTLS.',tips:['gRPC 7x más rápido que REST internamente','Kafka garantiza at-least-once delivery','Saga pattern para transacciones distribuidas']},
+  {id:'cl1',domain:'cl',title:'AWS Production Stack',desc:'Servicios AWS battle-tested para compute, storage y networking.',chips:['ECS Fargate','RDS Aurora','S3','CloudFront','SQS/SNS','Route53','WAF'],level:87,detail:'ECS Fargate elimina gestión de servidores. Aurora Serverless v2 escala a cero. CloudFront + S3 para edge caching global.',tips:['Fargate sobre EC2 para workloads containerizados','Aurora Serverless v2 para tráfico variable','Terraform o CDK para infra-as-code']},
+  {id:'cl2',domain:'cl',title:'Infrastructure as Code',desc:'Infra reproducible y versionada con Terraform, Pulumi y GitOps.',chips:['Terraform','Pulumi','AWS CDK','GitHub Actions','ArgoCD','Helm'],level:84,detail:'Terraform es el estándar de facto. Pulumi permite escribir infra en TypeScript. GitHub Actions + ArgoCD crea un pipeline GitOps completo.',tips:['Módulos Terraform para infra reutilizable','ArgoCD para GitOps declarativo en K8s','Atlantis para automatización de PRs']},
+  {id:'cl3',domain:'cl',title:'Observability & SRE',desc:'Observabilidad full-stack con el stack LGTM open source.',chips:['OpenTelemetry','Grafana','Prometheus','Loki','Sentry'],level:79,detail:'OpenTelemetry es el estándar abierto. Stack LGTM: Grafana + Loki + Tempo + Mimir — observabilidad 100% open source y gratuita.',tips:['Instrumenta con OpenTelemetry desde el día 1','LGTM stack vs Datadog = $0','Alertas basadas en SLOs no en umbrales fijos']},
+  {id:'ai1',domain:'ai',title:'LLM Integration & RAG',desc:'Apps LLM de producción con pipelines RAG sobre datos propios.',chips:['Claude API','LangChain','LlamaIndex','pgvector','Unstructured.io'],level:91,detail:'RAG = recuperación + generación. Embeds datos, almacena en pgvector, recupera top-k e inyecta en contexto. Open source end-to-end posible con Ollama + pgvector.',tips:['pgvector gratis en PostgreSQL','Búsqueda híbrida BM25+vector supera a vector puro','RAGAS para evaluar calidad del RAG']},
+  {id:'ai2',domain:'ai',title:'ML Ops & Model Serving',desc:'Deploy, monitoreo e iteración de modelos ML a escala con OSS.',chips:['MLflow','DVC','Hugging Face','Ray Serve','Prometheus'],level:75,detail:'MLflow (open source) rastrea experimentos, DVC versiona datos, Ray Serve escala inferencia, Prometheus monitorea métricas del modelo.',tips:['MLflow 100% open source y self-hosteable','DVC para versionar datasets en S3/GCS','Ray Serve para escalar inferencia GPU']},
+  {id:'ai3',domain:'ai',title:'AI Agents & Automation',desc:'Agentes AI autónomos con LangGraph, MCP y herramientas open source.',chips:['LangGraph','CrewAI','Browser Use','MCP','Ollama'],level:85,detail:'LangGraph para workflows cíclicos stateful. MCP como estándar abierto para herramientas. Ollama para correr LLMs localmente sin costo.',tips:['LangGraph sobre LangChain para agentes complejos','MCP = estándar abierto para tool use','Ollama para dev local sin costo de API']},
+];
+
+// ══════════════════════════════════════════════════════
+// PROJECTS DATA
+// ══════════════════════════════════════════════════════
+const PROJECTS=[
+  {id:'fe1',rank:'F1',domain:'fe',title:'Design System & Component Library',stars:3,desc:'Sistema de diseño con tokens, 40+ componentes accesibles, Storybook y distribución en npm registry.',tags:[{t:'React',c:'var(--fe)'},{t:'Storybook',c:'var(--fe)'},{t:'Tailwind',c:'var(--fe)'}],detail:'Tokens de diseño (color, tipografía, espaciado), componentes WCAG AA, Chromatic para visual regression, distribución en npm registry con tree-shaking. Fundación reutilizable para cualquier producto.',stack:['React + TypeScript + Vite (OSS)','Tailwind CSS + CSS variables como tokens (OSS)','Storybook 8 + Chromatic (free tier OSS)','Radix UI primitives (OSS, MIT)','Changesets para versionado semántico (OSS)','Vitest + Testing Library (OSS)'],challenges:['Accesibilidad WCAG AA en todos los componentes','Tree-shaking sin side effects','Documentación automática desde JSDoc','Versionado semántico automatizado'],expandPath:{fe:{title:'Design System',desc:'Tokens, componentes, Storybook.',stack:['React + Vite','Storybook 8','Tailwind + tokens','Radix UI']},be:{title:'+ Tokens API',desc:'Backend dinámico para temas multi-tenant.',stack:['Node.js + Fastify','REST API tokens','PostgreSQL themes','WebSockets preview']},cl:{title:'+ CDN + Registry',desc:'Publicación con CDN y CI/CD automático.',stack:['AWS CloudFront','pnpm publish → npm registry','GitHub Actions','Semantic versioning']},ai:{title:'+ AI Theming',desc:'Generación automática de tokens desde imagen de marca.',stack:['Claude API Vision','Multimodal analysis','Figma plugin','Auto token gen']}}},
+  {id:'fe2',rank:'F2',domain:'fe',title:'Real-Time Analytics Dashboard',stars:3,desc:'Dashboard con gráficas D3 en tiempo real, filtros, exportación y widgets drag & drop.',tags:[{t:'React',c:'var(--fe)'},{t:'D3.js',c:'var(--fe)'},{t:'WebSockets',c:'var(--fe)'}],detail:'React + D3.js para visualizaciones custom, react-grid-layout para drag & drop, WebSockets para datos en tiempo real, React Virtual para listas de millones de rows.',stack:['React + TypeScript (OSS)','D3.js + Recharts (OSS, MIT)','react-grid-layout (OSS)','WebSockets API nativa','React Virtual (OSS)','Zustand para estado (OSS)'],challenges:['Performance con miles de puntos de datos simultáneos','Drag & drop con persistencia de layout','WebSocket reconnect logic robusto','Exportar PDF/Excel desde el browser'],expandPath:{fe:{title:'Dashboard UI',desc:'Gráficas D3, filtros y widgets personalizables.',stack:['React + D3.js','react-grid-layout','WebSocket client','React Virtual']},be:{title:'+ Data API',desc:'APIs de datos en tiempo real y aggregations.',stack:['Node.js + Fastify','TimescaleDB (OSS)','Redis cache','WebSocket server']},cl:{title:'+ Streaming Pipeline',desc:'Ingestión de millones de eventos en la nube.',stack:['AWS Kinesis','Lambda processors','DynamoDB Streams','CloudWatch']},ai:{title:'+ AI Insights',desc:'Anomalías automáticas y narrativas en lenguaje natural.',stack:['Claude API','Anomaly detection','NL narratives','Predictive charts']}}},
+  {id:'fe3',rank:'F3',domain:'fe',title:'PWA E-Commerce Platform',stars:3,desc:'E-commerce PWA con offline-first, carrito persistente y checkout sin fricciones.',tags:[{t:'Next.js',c:'var(--fe)'},{t:'PWA',c:'var(--fe)'},{t:'IndexedDB',c:'var(--fe)'}],detail:'Service Worker para offline-first, IndexedDB para persistencia local, Workbox para estrategias de cache, Web Push para notificaciones y Core Web Vitals perfectos.',stack:['Next.js 14 + App Router (OSS)','Workbox (OSS, Google)','Dexie.js para IndexedDB (OSS)','Web Push API nativa','Stripe.js para pagos','Sharp + next/image (OSS)'],challenges:['Estrategia de cache offline-first robusta','Sincronización de carrito online/offline','Core Web Vitals: LCP < 2.5s, CLS < 0.1','Web Push en iOS Safari 16.4+'],expandPath:{fe:{title:'PWA Shell',desc:'Offline completo con Service Worker y Web Push.',stack:['Next.js 14','Workbox','IndexedDB Dexie','Web Push API']},be:{title:'+ Commerce API',desc:'Catálogo, inventario, órdenes y pagos.',stack:['Node.js + Fastify','PostgreSQL + Prisma','Redis carrito','Stripe webhooks']},cl:{title:'+ CDN + Edge',desc:'Edge functions para personalización sin latencia.',stack:['Vercel Edge / CloudFront','Image CDN','Edge Middleware']},ai:{title:'+ Recommendations',desc:'Recomendaciones personalizadas y búsqueda semántica.',stack:['Collaborative filtering','pgvector search','Claude descriptions','A/B AI']}}},
+  {id:'fe4',rank:'F4',domain:'fe',title:'Collaborative Whiteboard App',stars:4,desc:'Pizarrón tipo Miro con Canvas API, CRDTs Yjs y presencia de usuarios en tiempo real.',tags:[{t:'React',c:'var(--fe)'},{t:'Canvas API',c:'var(--fe)'},{t:'Yjs',c:'var(--fe)'}],detail:'Canvas API para renderizado a 60fps, Yjs CRDTs para colaboración sin conflictos, transformaciones de viewport, selection engine y undo/redo colaborativo.',stack:['React + TypeScript (OSS)','Canvas API nativa','Yjs + y-webrtc (OSS, MIT)','Perfect Freehand (OSS)','Konva.js (OSS)','Rough.js (OSS)'],challenges:['Renderizado de miles de objetos a 60fps','Resolución de conflictos CRDT en tiempo real','Hit testing eficiente en canvas','Undo/redo con historial colaborativo'],expandPath:{fe:{title:'Canvas Engine',desc:'Motor de canvas colaborativo con viewport y selection.',stack:['Canvas API','Yjs CRDTs','Perfect Freehand','Viewport transforms']},be:{title:'+ Rooms & Persistence',desc:'Rooms, presencia de usuarios y persistencia de boards.',stack:['Node.js + Socket.io','PostgreSQL boards','Redis presencia','S3 exports']},cl:{title:'+ WebSocket Scale',desc:'Escalar WebSockets con Redis Pub/Sub.',stack:['Redis Pub/Sub','ECS + ALB sticky','CloudFront assets']},ai:{title:'+ AI Assistant',desc:'Generación de diagramas desde texto.',stack:['Claude API vision','Text-to-diagram','Smart shapes','Auto-layout']}}},
+  {id:'fe5',rank:'F5',domain:'fe',title:'Video Streaming Platform UI',stars:4,desc:'Plataforma de streaming HLS adaptativo con reproductor custom, upload y subtítulos.',tags:[{t:'Next.js',c:'var(--fe)'},{t:'HLS.js',c:'var(--fe)'},{t:'Video.js',c:'var(--fe)'}],detail:'Reproductor HLS adaptativo con quality selection, thumbnails de preview, subtítulos WebVTT, Picture-in-Picture, Media Session API. Todo el player stack es OSS.',stack:['Next.js 14 (OSS)','HLS.js (OSS, MIT)','Video.js (OSS)','MediaSource Extensions nativo','Web Workers nativos','Intersection Observer nativo'],challenges:['Adaptive bitrate según ancho de banda','Preview thumbnails en seek bar (VTT sprite)','Fullscreen cross-browser','Media Session API para notificación OS'],expandPath:{fe:{title:'Video Player',desc:'Reproductor HLS adaptativo completo.',stack:['HLS.js + Video.js','MSE + Web Workers','Picture-in-Picture','Media Session API']},be:{title:'+ Transcoding API',desc:'Pipeline de transcoding a múltiples resoluciones.',stack:['Node.js + BullMQ','FFmpeg (OSS)','PostgreSQL metadata','WebSockets progress']},cl:{title:'+ CDN + Storage',desc:'AWS MediaConvert + CloudFront para HLS global.',stack:['AWS S3 + MediaConvert','CloudFront streaming','Lambda@Edge']},ai:{title:'+ AI Features',desc:'Transcripciones, capítulos automáticos y moderación.',stack:['Whisper (OSS)','Claude chapters','Content moderation']}}},
+  {id:'be1',rank:'B1',domain:'be',title:'Auth & Identity Service',stars:3,desc:'Auth production-grade: JWT, refresh tokens, OAuth2 PKCE, MFA con TOTP y RBAC granular.',tags:[{t:'Node.js',c:'var(--be)'},{t:'JWT',c:'var(--be)'},{t:'OAuth2',c:'var(--be)'}],detail:'JWT de corta vida + refresh tokens en httpOnly cookies, OAuth2 PKCE (GitHub/Google), MFA con TOTP, RBAC granular y brute force protection con Redis rate limiting.',stack:['Node.js + Fastify + TypeScript (OSS)','PostgreSQL (OSS)','Redis (OSS)','argon2 (OSS)','speakeasy para TOTP (OSS)','Zod para validación (OSS)'],challenges:['Refresh token reuse detection','OAuth2 PKCE flow correcto','Rate limiting por IP y usuario','Audit logging completo de eventos auth'],expandPath:{fe:{title:'← Auth UI',desc:'Login, registro, MFA setup y OAuth consent.',stack:['React + React Hook Form','Magic links UI','MFA QR setup','OAuth2 buttons']},be:{title:'Auth Service',desc:'Servicio completo de identidad.',stack:['Fastify + JWT','Redis sessions','PostgreSQL + argon2','TOTP + RBAC']},cl:{title:'+ HA Deploy',desc:'Alta disponibilidad con WAF y auditoría.',stack:['ECS multi-AZ','ElastiCache Redis','RDS Aurora Multi-AZ','WAF + Shield']},ai:{title:'+ Fraud Detection',desc:'Scoring de riesgo y alertas inteligentes.',stack:['Anomaly detection','Risk scoring','Behavioral analysis','Claude alerts']}}},
+  {id:'be2',rank:'B2',domain:'be',title:'Real-Time Notification Engine',stars:3,desc:'Engine multi-canal: push, email, SMS, in-app con templates, segmentación y analytics.',tags:[{t:'Node.js',c:'var(--be)'},{t:'BullMQ',c:'var(--be)'},{t:'WebSockets',c:'var(--be)'}],detail:'BullMQ para colas async, plantillas Handlebars, preferencias por usuario, retry con exponential backoff y analytics de delivery con bounce tracking.',stack:['Node.js + Fastify (OSS)','BullMQ + Redis (OSS)','PostgreSQL (OSS)','Nodemailer (OSS)','Firebase FCM (free tier)','Socket.io para in-app (OSS)'],challenges:['Garantías at-least-once delivery','Retry con exponential backoff','Deduplicación de notificaciones','Gestión de unsubscribes y bounces'],expandPath:{fe:{title:'← Notification Center',desc:'Centro in-app, preferences y flow de permisos push.',stack:['React notification center','Toast system','Preferences panel','Push permission flow']},be:{title:'Notification Engine',desc:'Motor multi-canal con colas y tracking.',stack:['BullMQ + Redis','Nodemailer + FCM','Handlebars templates','Delivery tracking']},cl:{title:'+ Serverless',desc:'SQS/Lambda para escalar a millones de envíos.',stack:['AWS SQS + Lambda','SES email','SNS fan-out','CloudWatch metrics']},ai:{title:'+ Smart Timing',desc:'Send-time optimization y personalización ML.',stack:['Send-time ML','Personalization','A/B automático','Churn prediction']}}},
+  {id:'be3',rank:'B3',domain:'be',title:'GraphQL API Gateway',stars:3,desc:'API Gateway con Federation, DataLoader para N+1, subscriptions y rate limiting.',tags:[{t:'Node.js',c:'var(--be)'},{t:'GraphQL',c:'var(--be)'},{t:'Federation',c:'var(--be)'}],detail:'Apollo Server 4 + Federation para micro-schemas, DataLoader para N+1, complexity limits, persisted queries y subscriptions con WebSockets.',stack:['Node.js + Apollo Server 4 (OSS)','GraphQL (OSS)','DataLoader (OSS, Meta)','Redis para persisted queries (OSS)','Prisma (OSS)','GraphQL Shield (OSS)'],challenges:['N+1 con DataLoader correcto','Query depth y complexity limiting','Subscriptions a escala','Schema versioning sin breaking changes'],expandPath:{fe:{title:'← GraphQL Client',desc:'Cliente con cache normalizado y suscripciones.',stack:['Apollo Client 3 (OSS)','urql (OSS)','GraphQL Codegen (OSS)','Fragment colocation']},be:{title:'GraphQL Gateway',desc:'Gateway completo con federation.',stack:['Apollo Server 4','Federation supergraph','DataLoader','GraphQL Shield']},cl:{title:'+ Schema Registry',desc:'Checks automáticos en PRs y métricas por operación.',stack:['Apollo Studio free tier','GitHub Actions checks','Canary schema deploys']},ai:{title:'+ AI Schema Tools',desc:'Generación de resolvers y NL to GraphQL.',stack:['Claude schema gen','NL to GraphQL','Auto-documentation']}}},
+  {id:'be4',rank:'B4',domain:'be',title:'Multi-Tenant SaaS Backend',stars:4,desc:'Backend B2B con Row Level Security, Stripe billing, webhooks y admin panel.',tags:[{t:'Node.js',c:'var(--be)'},{t:'PostgreSQL RLS',c:'var(--be)'},{t:'Stripe',c:'var(--be)'}],detail:'RLS en PostgreSQL para aislamiento perfecto, Stripe para subscriptions y usage-based billing, sistema de webhooks outbound y portal de administración.',stack:['Node.js + Fastify + TypeScript (OSS)','PostgreSQL + RLS (OSS)','Prisma (OSS)','Stripe Billing (free dev)','BullMQ (OSS)','Zod + OpenAPI (OSS)'],challenges:['RLS para aislamiento perfecto de datos','Usage metering granular','Webhook delivery con retry garantizado','Plan limits enforcement en tiempo real'],expandPath:{fe:{title:'← SaaS Dashboard',desc:'Dashboard, billing portal y usage meters.',stack:['Next.js App Router','TanStack Query','Stripe Portal','Billing UI']},be:{title:'Multi-Tenant Core',desc:'Core con aislamiento, billing y webhooks.',stack:['PostgreSQL + RLS','Stripe Billing','BullMQ','Usage metering']},cl:{title:'+ Per-Tenant Scale',desc:'Recursos dedicados y monitoreo por tenant.',stack:['ECS per region','Aurora schemas','ElastiCache','CloudWatch per tenant']},ai:{title:'+ AI Features',desc:'Predicción de churn y recomendaciones de plan.',stack:['Claude API','Usage prediction','Churn scoring','Feature flags AI']}}},
+  {id:'be5',rank:'B5',domain:'be',title:'Event-Driven Order System',stars:4,desc:'Sistema de órdenes con Saga pattern, event sourcing y compensating transactions.',tags:[{t:'Node.js',c:'var(--be)'},{t:'Kafka',c:'var(--be)'},{t:'Event Sourcing',c:'var(--be)'}],detail:'Saga para transacciones distribuidas: reserva de inventario, pago y logística como servicios independientes coordinados por eventos Kafka. Event store para audit trail.',stack:['Node.js + TypeScript (OSS)','Apache Kafka (OSS)','PostgreSQL event store (OSS)','Redis saga state (OSS)','Docker + K8s (OSS)'],challenges:['Atomicidad en transacciones distribuidas','Compensating transactions en fallos','Idempotencia de consumidores Kafka','Exactly-once semantics'],expandPath:{fe:{title:'← Order Tracking UI',desc:'Timeline de estado en tiempo real.',stack:['React + React Query','WebSocket status','Order timeline','Error/retry UI']},be:{title:'Order Processing',desc:'Saga, event sourcing y idempotencia.',stack:['Kafka + Saga','Event store','Compensating tx','Idempotent consumers']},cl:{title:'+ MSK + Tracing',desc:'Kafka gestionado + tracing distribuido.',stack:['AWS MSK','ECS microservices','X-Ray (OSS SDK)','CloudWatch Insights']},ai:{title:'+ Fraud Detection',desc:'Scoring de fraude en tiempo real.',stack:['ML fraud scoring','Anomaly detection','Auto-refund decisions','Demand forecasting']}}},
+  {id:'cl1',rank:'C1',domain:'cl',title:'GitOps CI/CD Platform',stars:3,desc:'Pipeline CI/CD con GitOps, preview environments, blue/green y rollback automático.',tags:[{t:'GitHub Actions',c:'var(--cl)'},{t:'ArgoCD',c:'var(--cl)'},{t:'Kubernetes',c:'var(--cl)'}],detail:'GitHub Actions para CI, ArgoCD para CD declarativo (100% OSS), preview environments automáticos por PR, Argo Rollouts para estrategias de deployment avanzadas.',stack:['GitHub Actions (OSS/free)','ArgoCD (OSS, CNCF)','Kubernetes (OSS, CNCF)','Helm (OSS, CNCF)','Argo Rollouts (OSS)','Terraform (OSS)'],challenges:['Preview environments eficientes y económicos','Rollback automático en métricas degradadas','Gestión de secrets en GitOps','Progressive delivery canary'],expandPath:{fe:{title:'← DevOps Dashboard',desc:'Estado de deploys, pipelines y aprobaciones.',stack:['React deployment status','Pipeline visualization','Metrics per deploy','Approval UI']},be:{title:'← Webhooks API',desc:'Webhooks de GitHub, métricas y notificaciones.',stack:['Node.js webhooks','Deploy notifications','Metrics aggregator','Audit log API']},cl:{title:'GitOps Platform',desc:'Pipeline GitOps completo con estrategias avanzadas.',stack:['GitHub Actions + ArgoCD','K8s + Helm','Argo Rollouts','Terraform base']},ai:{title:'+ Deployment Guard',desc:'Guardián que evalúa si es seguro desplegar.',stack:['Anomaly detection','Claude PR review','Auto-rollback AI','Incident prediction']}}},
+  {id:'cl2',rank:'C2',domain:'cl',title:'Serverless Data Pipeline',stars:3,desc:'Pipeline ETL serverless con Step Functions, S3 data lake y quality checks.',tags:[{t:'AWS Lambda',c:'var(--cl)'},{t:'Step Functions',c:'var(--cl)'},{t:'S3',c:'var(--cl)'}],detail:'S3 como landing zone, Lambda para transformaciones, Step Functions para orquestación, Glue para catálogo, Athena para queries y Great Expectations para calidad.',stack:['AWS Lambda (serverless)','AWS Step Functions','S3 data lake','AWS Glue (OSS Spark)','Amazon Athena (Presto)','Great Expectations (OSS)'],challenges:['Exactly-once en pipelines distribuidos','Datos malformados sin detener pipeline','Cost optimization Lambda + S3','Dependencias entre pipelines'],expandPath:{fe:{title:'← Pipeline Monitor',desc:'Lineage graph, alertas y métricas de calidad.',stack:['React + D3 lineage','Step Functions viz','Data quality metrics','Alert management']},be:{title:'← Quality API',desc:'API de calidad de datos y validación de contratos.',stack:['FastAPI + Great Expectations','Data contracts','Anomaly API','Metadata service']},cl:{title:'Serverless Pipeline',desc:'Pipeline completo con orquestación y catálogo.',stack:['Lambda + Step Functions','S3 data lake','Glue + Athena','CloudWatch alerts']},ai:{title:'+ AI DataOps',desc:'Schema inference automática y NL to SQL.',stack:['Auto schema inference','Data anomaly ML','LLM lineage explain','NL to SQL (Claude)']}}},
+  {id:'cl3',rank:'C3',domain:'cl',title:'Multi-Region HA Platform',stars:4,desc:'Plataforma activo-activo con failover automático, Aurora Global y chaos engineering.',tags:[{t:'AWS',c:'var(--cl)'},{t:'Terraform',c:'var(--cl)'},{t:'Route53',c:'var(--cl)'}],detail:'Activo-activo en 2 regiones, Route53 con health checks, Aurora Global Database, Redis Global Datastore y AWS Fault Injection Simulator para chaos testing.',stack:['AWS Route53 (geolocation + health checks)','Aurora Global Database','ElastiCache Global Datastore','AWS Global Accelerator','Terraform multi-region modules (OSS)','AWS Fault Injection Simulator'],challenges:['Conflictos de write en activo-activo','RTO < 1min y RPO < 30s','Costo de replicación cross-region','Chaos testing sin impactar producción'],expandPath:{fe:{title:'← Status Page',desc:'Página pública con uptime por región.',stack:['Next.js status page','Real-time uptime','Incident timeline','Subscribe updates']},be:{title:'← Health APIs',desc:'Synthetics, SLOs y gestión de incidentes.',stack:['Node.js synthetic monitors','SLO tracking API','PagerDuty integration','Incident API']},cl:{title:'Multi-Region Platform',desc:'Failover automático y chaos testing.',stack:['Aurora Global DB','Route53 failover','Terraform multi-region','AWS FIS chaos']},ai:{title:'+ Predictive Ops',desc:'Predicción de fallos y clasificación de incidentes.',stack:['Failure prediction ML','Predictive auto-scaling','Incident AI classification','Root cause analysis']}}},
+  {id:'cl4',rank:'C4',domain:'cl',title:'Zero-Trust Security Platform',stars:4,desc:'mTLS entre servicios, OPA para políticas, Vault para secrets y SAST en CI.',tags:[{t:'Istio',c:'var(--cl)'},{t:'HashiCorp Vault',c:'var(--cl)'},{t:'OPA',c:'var(--cl)'}],detail:'Istio service mesh con mTLS automático, OPA para políticas como código, Vault para secrets dinámicos, Falco para runtime security y Trivy para SAST. Todo OSS.',stack:['Istio (OSS, CNCF)','HashiCorp Vault (OSS)','Open Policy Agent (OSS, CNCF)','SPIFFE/SPIRE (OSS, CNCF)','Trivy (OSS)','Falco (OSS, CNCF)'],challenges:['mTLS sin degradación de performance','OPA policies sin false positives','Vault lease rotation sin downtime','Audit trail completo para compliance'],expandPath:{fe:{title:'← Security Dashboard',desc:'Alertas de violaciones y auditoría de seguridad.',stack:['React vulns list','Policy alerts UI','Secrets audit','Compliance reports']},be:{title:'← Security Events API',desc:'Agrega eventos Falco y correlaciona amenazas.',stack:['Node.js + Falco events','SIEM integration','Alert correlation','Incident response API']},cl:{title:'Zero Trust Platform',desc:'Plataforma zero-trust completa.',stack:['Istio + mTLS','HashiCorp Vault','OPA policies','Falco runtime']},ai:{title:'+ Threat Intelligence',desc:'Detección de anomalías en tráfico y remediación.',stack:['Traffic anomaly ML','Claude log analysis','Auto-remediation','Threat hunting AI']}}},
+  {id:'cl5',rank:'C5',domain:'cl',title:'FinOps Cost Intelligence',stars:3,desc:'Optimización cloud: alertas, rightsizing, chargebacks y forecasting por equipo.',tags:[{t:'AWS Cost Explorer',c:'var(--cl)'},{t:'Terraform',c:'var(--cl)'},{t:'Grafana',c:'var(--cl)'}],detail:'Cost & Usage Report de AWS, Athena para análisis, Grafana (OSS) para dashboards, alertas por anomalías, rightsizing y chargeback granular por equipo y microservicio.',stack:['AWS Cost Explorer API','AWS CUR + Athena (Presto)','Grafana (OSS)','AWS Budgets + SNS','Terraform tagging policy (OSS)','Python + pandas para análisis (OSS)'],challenges:['Granularidad de chargeback por microservicio','Anomaly detection en spikes de costo','Forecast accuracy en cargas variables','Rightsizing sin afectar performance'],expandPath:{fe:{title:'← Cost Dashboard',desc:'Breakdown por equipo, alertas y proyecciones.',stack:['React + Recharts','Cost breakdown UI','Budget alerts','Forecast charts']},be:{title:'← Cost API',desc:'Procesa CUR, calcula chargebacks y genera forecasts.',stack:['Python + FastAPI','CUR pipeline','Chargeback calc','Forecast API']},cl:{title:'FinOps Platform',desc:'Análisis, alertas y optimización automática.',stack:['AWS CUR + Athena','Cost Explorer API','Grafana dashboards','Rightsizing auto']},ai:{title:'+ AI Cost Advisor',desc:'Advisor que recomienda optimizaciones en NL.',stack:['Anomaly detection','Claude recomendaciones','Predictive scaling','Architecture analysis']}}},
+  {id:'ai1',rank:'A1',domain:'ai',title:'Document Intelligence Platform',stars:3,desc:'Extracción, clasificación, Q&A y búsqueda semántica sobre documentos propios.',tags:[{t:'Claude API',c:'var(--ai)'},{t:'pgvector',c:'var(--ai)'},{t:'LangChain',c:'var(--ai)'}],detail:'Unstructured.io para parsing, chunking óptimo, embeddings en pgvector, búsqueda híbrida BM25+vector y Q&A con Claude + citas precisas. Stack mayormente OSS.',stack:['Python + FastAPI (OSS)','Unstructured.io (OSS)','LangChain (OSS)','PostgreSQL + pgvector (OSS)','Celery + Redis (OSS)','Claude API / Ollama para dev local'],challenges:['Chunking óptimo para distintos tipos de doc','Accuracy de citas en respuestas','Docs con tablas y figuras complejas','Latencia de indexado en docs grandes'],expandPath:{fe:{title:'← Document UI',desc:'Upload, chat streaming y citas resaltadas en PDF.',stack:['React + PDF viewer','Upload progress UI','Chat streaming','Citation highlight']},be:{title:'← Processing API',desc:'Pipeline de procesamiento con Q&A streaming.',stack:['FastAPI + Celery','Unstructured pipeline','pgvector storage','Streaming endpoint']},cl:{title:'← Deploy + Scale',desc:'Procesamiento serverless y vectores escalables.',stack:['AWS ECS + S3','RDS + pgvector','SQS queue','Lambda parsing']},ai:{title:'Document Intelligence',desc:'RAG completo con extracción de entidades.',stack:['Claude + RAG','Hybrid search','Entity extraction','Auto-classification']}}},
+  {id:'ai2',rank:'A2',domain:'ai',title:'AI Code Review Assistant',stars:3,desc:'GitHub App que analiza PRs, detecta bugs, verifica seguridad y genera tests.',tags:[{t:'Claude API',c:'var(--ai)'},{t:'GitHub API',c:'var(--ai)'},{t:'AST Analysis',c:'var(--ai)'}],detail:'GitHub App que analiza diffs con tree-sitter (AST), detecta problemas OWASP Top 10 con Semgrep (OSS), sugiere refactoring y genera tests automáticamente con Claude.',stack:['Python + FastAPI (OSS)','Claude API','tree-sitter (OSS)','Semgrep (OSS)','GitHub REST + Webhooks (free)','PostgreSQL historial (OSS)'],challenges:['Contexto suficiente sin exceder context window','Reducir false positives < 5%','Analizar solo código relevante del diff','Aprender preferencias del equipo'],expandPath:{fe:{title:'← Review Dashboard',desc:'Diff view, historial y métricas de calidad.',stack:['React + diff view','Review history','Team analytics','False positive marking']},be:{title:'← GitHub App Backend',desc:'Webhooks, diff processor y posting de comentarios.',stack:['Node.js + GitHub Webhooks','PR diff processor','Comment posting API','Review history DB']},cl:{title:'← Deploy GitHub App',desc:'GitHub App con HA y secrets seguros.',stack:['AWS ECS + ALB','GitHub App registration','Secrets Manager','CloudWatch logs']},ai:{title:'AI Code Reviewer',desc:'Análisis AST + Claude para insights de alto nivel.',stack:['Claude + AST','Semgrep security','Test generation','Style learning']}}},
+  {id:'ai3',rank:'A3',domain:'ai',title:'Multimodal Content Studio',stars:4,desc:'Studio AI multimodal para texto, imágenes y audio con brand voice y flujos de aprobación.',tags:[{t:'Claude API',c:'var(--ai)'},{t:'Stable Diffusion',c:'var(--ai)'},{t:'Whisper',c:'var(--ai)'}],detail:'Claude para texto, Stable Diffusion XL (OSS) para imágenes, Whisper (OSS) para transcripciones, ElevenLabs para voz. Brand voice tuning y flujos de aprobación.',stack:['Python + FastAPI (OSS)','Claude API','Stable Diffusion XL (OSS)','Whisper (OSS, OpenAI)','ComfyUI (OSS)','Celery + Redis (OSS)'],challenges:['Consistencia de brand voice entre generaciones','Aprobación y versionado de assets','Cola de rendering con prioridades GPU','Derechos y auditoría de contenido AI'],expandPath:{fe:{title:'← Content Studio UI',desc:'Editor de texto, canvas de imagen y audio player.',stack:['React + rich text','Image canvas + masks','Audio waveform player','Approval workflow UI']},be:{title:'← Content API',desc:'Orquesta modelos y gestiona ciclo de vida de assets.',stack:['FastAPI + generation queue','Asset versioning','Workflow engine','Brand voice API']},cl:{title:'← GPU Infra',desc:'EC2 GPU con Spot instances para reducir costos.',stack:['AWS EC2 GPU Spot','S3 + CloudFront CDN','ECS GPU tasks']},ai:{title:'Multimodal Studio',desc:'Generación multimodal con coherencia de marca.',stack:['Claude + SD XL + Whisper','ControlNet consistency','Brand voice tuning','Style transfer']}}},
+  {id:'ai4',rank:'A4',domain:'ai',title:'Autonomous Research Agent',stars:4,desc:'Agente que navega la web, lee papers, sintetiza y genera reportes con citas.',tags:[{t:'LangGraph',c:'var(--ai)'},{t:'Claude API',c:'var(--ai)'},{t:'Browser Use',c:'var(--ai)'}],detail:'LangGraph para planificación multi-step, Tavily para búsqueda web, Browser Use (OSS) para scraping, Claude para síntesis, pgvector para memoria persistente.',stack:['Python + FastAPI (OSS)','LangGraph (OSS)','Claude API','Tavily API (free tier)','Browser Use (OSS)','PostgreSQL + pgvector (OSS)'],challenges:['Evaluar confiabilidad de fuentes','Loops infinitos y gestión de ciclos','Context window en research largo','Citar fuentes con precisión verificable'],expandPath:{fe:{title:'← Research UI',desc:'Thought trace en tiempo real y editor de reporte.',stack:['React + research feed','Agent trace viewer','Source graph viz','Report editor + export']},be:{title:'← Agent API',desc:'Streaming del estado, historial y tareas largas.',stack:['FastAPI + SSE','LangGraph state','Celery task queue','Research history DB']},cl:{title:'← Agent Infra',desc:'Workers con observabilidad completa de trazas.',stack:['ECS agent workers','LangSmith (OSS tracing)','S3 artifacts','SQS task queue']},ai:{title:'Autonomous Agent',desc:'Agente con memoria, reflexión y fact verification.',stack:['LangGraph multi-agent','Claude + web tools','Memory + reflection','Fact verification']}}},
+  {id:'ai5',rank:'A5',domain:'ai',title:'Personalized AI Tutor Platform',stars:5,desc:'Plataforma educativa con tutor adaptativo, spaced repetition y knowledge graph.',tags:[{t:'Claude API',c:'var(--ai)'},{t:'LangGraph',c:'var(--ai)'},{t:'Neo4j',c:'var(--ai)'}],detail:'Knowledge graph del dominio en Neo4j, evaluación diagnóstica con Claude, spaced repetition con algoritmo FSRS (OSS), tutor conversacional y analytics de progreso.',stack:['Python + FastAPI (OSS)','Claude API','LangGraph (OSS)','Neo4j Community (OSS)','PostgreSQL + Redis (OSS)','FSRS algorithm (OSS)'],challenges:['Modelar knowledge graph del dominio','Calibrar dificultad dinámicamente','Detectar misconceptions vs lagunas','Motivar con métricas de progreso'],expandPath:{fe:{title:'← Learning UI',desc:'Ejercicios interactivos, knowledge map y gamificación.',stack:['React + exercises','Knowledge map viz','Progress dashboard','Streak + gamification']},be:{title:'← Curriculum API',desc:'Engine de currículo adaptativo y scheduling FSRS.',stack:['FastAPI + FSRS','Spaced repetition','Assessment scoring','Progress analytics']},cl:{title:'← EdTech Infra',desc:'Escalable para miles de estudiantes concurrentes.',stack:['ECS scalable','RDS + Redis cluster','CloudFront assets','Analytics Redshift']},ai:{title:'Personalized Tutor',desc:'Tutor que adapta, detecta dificultades y personaliza.',stack:['Claude tutor','Knowledge graph','Adaptive difficulty','Learning style AI']}}},
+  {id:'all1',rank:'★',domain:'all',title:'AI-Powered SaaS Platform',stars:5,desc:'SaaS B2B full-stack: multi-tenant RLS, Stripe billing, Claude API y CI/CD completo.',tags:[{t:'Next.js',c:'var(--fe)'},{t:'FastAPI',c:'var(--be)'},{t:'AWS',c:'var(--cl)'},{t:'Claude API',c:'var(--ai)'}],detail:'La app canónica de clase mundial. UI React con real-time, FastAPI con colas async, PostgreSQL multi-tenant con RLS, Stripe billing, Claude API + RAG y AWS con CI/CD GitOps completo.',stack:['Next.js 14 App Router + TypeScript (OSS)','FastAPI + SQLAlchemy + Alembic (OSS)','PostgreSQL Aurora + Redis (OSS)','Stripe Billing + webhooks','Claude API + pgvector RAG (OSS DB)','AWS ECS Fargate + CloudFront + S3','GitHub Actions + ArgoCD (OSS)'],challenges:['Aislamiento datos multi-tenant con RLS','Streaming respuestas AI vía SSE','Usage metering y rate limiting por tenant','Colaboración real-time con Yjs CRDTs'],expandPath:{fe:{title:'Next.js UI',desc:'App Router, Tailwind, TanStack Query y animaciones.',stack:['Next.js 14 (OSS)','Tailwind CSS (OSS)','TanStack Query (OSS)','Framer Motion (OSS)']},be:{title:'FastAPI Core',desc:'API completa con RLS, billing y workers.',stack:['FastAPI (OSS)','PostgreSQL + RLS (OSS)','BullMQ (OSS)','Stripe (free dev)']},cl:{title:'AWS Deploy',desc:'ECS Fargate, Aurora, CloudFront y GitOps.',stack:['ECS Fargate','Aurora Serverless','CloudFront + S3','ArgoCD (OSS)']},ai:{title:'Claude Features',desc:'RAG pipeline, streaming y eval con RAGAS.',stack:['Claude API','pgvector (OSS)','LangGraph (OSS)','RAGAS eval (OSS)']}}},
+];
+
+const ROADMAP=[
+  {n:'01',title:'TypeScript Mastery',detail:'Tipos avanzados, generics, decorators, template literal types, programación a nivel de tipos.',status:'s-master',slabel:'Master'},
+  {n:'02',title:'System Design',detail:'Sistemas distribuidos, CAP theorem, sharding, estrategias de cache, event sourcing, CQRS.',status:'s-master',slabel:'Master'},
+  {n:'03',title:'React Patterns',detail:'RSC, Suspense, concurrent features, compound components, render props, custom hooks.',status:'s-master',slabel:'Master'},
+  {n:'04',title:'Database Design',detail:'Normalización, indexado, optimización de queries, ACID vs BASE, persistencia políglota.',status:'s-advanced',slabel:'Advanced'},
+  {n:'05',title:'API Design',detail:'REST best practices, GraphQL schema, tRPC, gRPC, OpenAPI/Swagger, versionado.',status:'s-advanced',slabel:'Advanced'},
+  {n:'06',title:'Cloud Architecture',detail:'Well-Architected Framework, serverless patterns, cost optimization, HA multi-región.',status:'s-advanced',slabel:'Advanced'},
+  {n:'07',title:'LLM Engineering',detail:'Prompt engineering, RAG pipelines, fine-tuning, eval frameworks, safety/guardrails.',status:'s-build',slabel:'Building'},
+  {n:'08',title:'DevSecOps',detail:'SAST/DAST, SBOM, zero-trust, secrets management, compliance automation.',status:'s-build',slabel:'Building'},
+  {n:'09',title:'ML Ops',detail:'Feature stores, model registries, A/B testing de modelos, drift detection, shadow deploys.',status:'s-explore',slabel:'Exploring'},
+  {n:'10',title:'WebAssembly',detail:'Rust/Go compilado a WASM para compute-heavy en browser y edge functions.',status:'s-explore',slabel:'Exploring'},
+];
+
+const PATTERNS=[
+  {id:'p1',domain:'be',title:'Clean Architecture',desc:'Arquitectura hexagonal para núcleos testables e independientes del framework.',chips:['Domain Layer','Use Cases','Adapters','Ports'],level:90},
+  {id:'p2',domain:'be',title:'CQRS + Event Sourcing',desc:'Read/write separados; eventos como fuente de verdad para auditoría y replay.',chips:['Commands','Queries','Event Store','Projections'],level:78},
+  {id:'p3',domain:'fe',title:'Atomic Design',desc:'Átomos → moléculas → organismos → templates → páginas sistemáticamente.',chips:['Design System','Storybook','Chromatic','Tokens'],level:88},
+  {id:'p4',domain:'cl',title:'GitOps',desc:'Git como única fuente de verdad para código e infraestructura.',chips:['ArgoCD','Flux','Pull-based CD','Drift Detection'],level:82},
+  {id:'p5',domain:'ai',title:'Agentic RAG',desc:'Agentes que deciden dinámicamente estrategias de recuperación y razonamiento.',chips:['LangGraph','Tool Use','ReAct','Reflection'],level:80},
+  {id:'p6',domain:'cl',title:'Zero Trust Security',desc:'Nunca confiar, siempre verificar. Micro-segmentación, mTLS, identidad.',chips:['Istio','SPIFFE','OPA','Vault'],level:75},
+];
+
+const SKILLS=[
+  {name:'Frontend (React / TS)',pct:95,color:'var(--fe)'},{name:'Backend (Node / Python)',pct:90,color:'var(--be)'},
+  {name:'Cloud (AWS / GCP)',pct:85,color:'var(--cl)'},{name:'AI / LLM Engineering',pct:88,color:'var(--ai)'},
+  {name:'DevOps / CI-CD',pct:80,color:'var(--cl)'},{name:'System Design',pct:87,color:'var(--gold)'},
+  {name:'Mobile (React Native)',pct:78,color:'var(--fe)'},{name:'ML / Data Science',pct:72,color:'var(--ai)'},
+];
+
+const RESOURCES=[
+  {label:'MDN Web Docs',url:'https://developer.mozilla.org',color:'var(--fe)'},
+  {label:'The Odin Project',url:'https://www.theodinproject.com',color:'var(--fe)'},
+  {label:'FastAPI Docs',url:'https://fastapi.tiangolo.com',color:'var(--be)'},
+  {label:'AWS Skill Builder (free)',url:'https://explore.skillbuilder.aws',color:'var(--cl)'},
+  {label:'Anthropic Docs',url:'https://docs.anthropic.com',color:'var(--ai)'},
+  {label:'HuggingFace Course',url:'https://huggingface.co/learn/nlp-course',color:'var(--ai)'},
+  {label:'Full Stack Open',url:'https://fullstackopen.com/en/',color:'var(--fe)'},
+  {label:'CNCF OSS Landscape',url:'https://landscape.cncf.io/',color:'var(--cl)'},
+];
+
+const TICKER_ITEMS=[
+  {t:'React 19 (OSS)',c:'var(--fe)'},{t:'Next.js 15 (OSS)',c:'var(--fe)'},{t:'TypeScript 5.5 (OSS)',c:'var(--fe)'},
+  {t:'FastAPI (OSS)',c:'var(--be)'},{t:'Node.js 22 LTS (OSS)',c:'var(--be)'},{t:'Prisma (OSS)',c:'var(--be)'},
+  {t:'ArgoCD (CNCF)',c:'var(--cl)'},{t:'Terraform (OSS)',c:'var(--cl)'},{t:'Kubernetes (CNCF)',c:'var(--cl)'},
+  {t:'LangGraph (OSS)',c:'var(--ai)'},{t:'pgvector (OSS)',c:'var(--ai)'},{t:'Ollama (OSS)',c:'var(--ai)'},
+  {t:'Grafana (OSS)',c:'var(--cl)'},{t:'OpenTelemetry (OSS)',c:'var(--cl)'},{t:'Prometheus (OSS)',c:'var(--cl)'},
+  {t:'Yjs CRDTs (OSS)',c:'var(--fe)'},{t:'Stable Diffusion (OSS)',c:'var(--ai)'},{t:'Whisper (OSS)',c:'var(--ai)'},
+];
+
+// ══════════════════════════════════════════════════════
+// LOCALSTORAGE PROGRESS SYSTEM
+// ══════════════════════════════════════════════════════
+function loadProgress(){
+  try{ return JSON.parse(localStorage.getItem(LS_KEY)||'{}'); }catch(e){return {};}
+}
+function saveProgress(data){
+  try{ localStorage.setItem(LS_KEY, JSON.stringify(data)); }catch(e){}
+}
+function getProjectProgress(pid){
+  const data=loadProgress();
+  const tasks=PROJECT_CHECKLIST[pid]||[];
+  const checked=data[pid]||[];
+  return {total:tasks.length, done:checked.length, pct:tasks.length?Math.round((checked.length/tasks.length)*100):0, checked};
+}
+function toggleTask(pid, idx){
+  const data=loadProgress();
+  if(!data[pid]) data[pid]=[];
+  const pos=data[pid].indexOf(idx);
+  if(pos>=0) data[pid].splice(pos,1);
+  else data[pid].push(idx);
+  saveProgress(data);
+  updateAllProgressDisplays();
+  // re-render checklist in modal
+  renderChecklistInModal(pid);
+}
+function resetProjectProgress(pid){
+  const data=loadProgress();
+  data[pid]=[];
+  saveProgress(data);
+  updateAllProgressDisplays();
+  renderChecklistInModal(pid);
+}
+function resetAllProgress(){
+  if(!confirm('¿Resetear TODO el progreso? No se puede deshacer.')) return;
+  localStorage.removeItem(LS_KEY);
+  updateAllProgressDisplays();
+  buildProjects(window.__currentFilter||'all');
+  buildMalla();
+}
+
+function updateAllProgressDisplays(){
+  // Overall ring
+  const allIds=PROJECTS.map(p=>p.id);
+  let totalTasks=0, doneTasks=0;
+  allIds.forEach(id=>{
+    const p=getProjectProgress(id);
+    totalTasks+=p.total; doneTasks+=p.done;
+  });
+  const pct=totalTasks?Math.round((doneTasks/totalTasks)*100):0;
+  document.getElementById('op-num').textContent=pct+'%';
+  document.getElementById('op-sub').textContent=doneTasks+' / '+totalTasks+' tasks';
+  const circ=163.4;
+  document.getElementById('op-ring-fill').style.strokeDashoffset=circ-(circ*(pct/100));
+
+  // Domain summary in sidebar
+  buildProgSummary();
+
+  // Refresh project list mini-bars
+  document.querySelectorAll('[data-proj-prog]').forEach(el=>{
+    const pid=el.dataset.projProg;
+    const {pct,done,total}=getProjectProgress(pid);
+    const fill=el.querySelector('.proj-prog-fill');
+    const pctEl=el.querySelector('.proj-prog-pct');
+    if(fill) fill.style.width=pct+'%';
+    if(pctEl) pctEl.textContent=pct+'%';
+  });
+
+  // Malla mini-bars
+  document.querySelectorAll('[data-mc-prog]').forEach(el=>{
+    const pid=el.dataset.mcProg;
+    const {pct}=getProjectProgress(pid);
+    const fill=el.querySelector('.mc-prog-fill');
+    if(fill) fill.style.width=pct+'%';
+  });
+}
+
+function buildProgSummary(){
+  const domains=['fe','be','cl','ai'];
+  const g=document.getElementById('prog-summary');
+  if(!g) return;
+  g.innerHTML=domains.map(d=>{
+    const dProjects=PROJECTS.filter(p=>p.domain===d);
+    let tot=0,dn=0;
+    dProjects.forEach(p=>{const {total,done}=getProjectProgress(p.id);tot+=total;dn+=done;});
+    const pct=tot?Math.round((dn/tot)*100):0;
+    const c=DC[d];
+    return `<div class="prog-dom-row">
+      <span class="prog-dom-label" style="color:${c}">${DI[d]} ${DL[d]}</span>
+      <div class="prog-dom-bar"><div class="prog-dom-fill" style="width:${pct}%;background:${c}"></div></div>
+      <span class="prog-dom-pct" style="color:${c}">${pct}%</span>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════════════
+// GET RESOURCES FOR A PROJECT'S STACK
+// ══════════════════════════════════════════════════════
+function getProjectResources(p){
+  const seen=new Set();
+  const result=[];
+  const techs=[...p.tags.map(t=>t.t), ...(p.stack||[]).map(s=>s.split(' ')[0].replace(/[+,\(\)]/g,'').trim())];
+  // Also check chips from techs directly
+  const extraKeys=['React','Next.js','TypeScript','Node.js','FastAPI','Python','PostgreSQL','Redis','Docker','Kubernetes','Terraform','GitHub Actions','ArgoCD','Grafana','Prometheus','OpenTelemetry','LangChain','LangGraph','pgvector','Hugging Face','MLflow','Claude API','Yjs','D3.js','Storybook','Radix UI','Prisma','Zod','BullMQ','Fastify','tRPC','Kafka','Istio','Vault','JWT','GraphQL','HLS.js','Canvas API','WebSockets'];
+  [...techs,...extraKeys].forEach(raw=>{
+    const key=Object.keys(TECH_RESOURCES).find(k=>raw.toLowerCase().includes(k.toLowerCase())||k.toLowerCase().includes(raw.toLowerCase()));
+    if(key&&TECH_RESOURCES[key]){
+      TECH_RESOURCES[key].forEach(r=>{
+        if(!seen.has(r.url)){seen.add(r.url);result.push({tech:key,...r});}
+      });
+    }
+  });
+  // deduplicate and limit
+  return result.slice(0,18);
+}
+
+// ══════════════════════════════════════════════════════
+// BUILD FUNCTIONS
+// ══════════════════════════════════════════════════════
+function buildTicker(){
+  const doubled=[...TICKER_ITEMS,...TICKER_ITEMS];
+  document.getElementById('ticker').innerHTML=doubled.map(i=>`<div class="tick-item"><div class="dot" style="background:${i.c}"></div>${i.t}</div>`).join('');
+}
+
+function buildStacks(f='all'){
+  const items=f==='all'?STACKS:STACKS.filter(s=>s.domain===f);
+  document.getElementById('stack-count').textContent=items.length+' stacks';
+  document.getElementById('stack-grid').innerHTML=items.map(s=>{
+    const c=DC[s.domain];
+    return `<div class="stack-card ${s.domain}-card" onclick="${safeClick(openStack,s)}">
+      <div class="card-head"><span class="card-domain ${s.domain}">${DL[s.domain]}</span><span style="font-size:.65rem;color:${c};background:${c}15;padding:2px 7px;border-radius:3px">OSS</span></div>
+      <div class="card-title">${s.title}</div>
+      <div class="card-desc">${s.desc}</div>
+      <div class="tech-chips">${s.chips.map(ch=>`<span class="chip">${ch}</span>`).join('')}</div>
+      <div class="card-level"><div class="level-bar"><div class="level-fill" style="width:${s.level}%;background:${c}"></div></div><span class="level-label">${s.level}%</span></div>
+    </div>`;
+  }).join('');
+}
+
+function buildProjects(f='all'){
+  window.__currentFilter=f;
+  const items=f==='all'?PROJECTS:PROJECTS.filter(p=>p.domain===f);
+  document.getElementById('proj-count').textContent=items.length+' projects';
+  document.getElementById('proj-list').innerHTML=items.map(p=>{
+    const {pct,done,total}=getProjectProgress(p.id);
+    const isDone=pct===100;
+    const barColor=DC[p.domain]||'var(--fe)';
+    return `<div class="proj-card${isDone?' done':''}" onclick="${safeClick(openProject,p)}">
+      <div class="proj-rank">${p.rank}</div>
+      <div class="proj-body">
+        <div class="proj-title">${p.title}${isDone?' ✓':''}</div>
+        <div class="proj-desc">${p.desc}</div>
+        <div class="proj-tags">${p.tags.map(t=>`<span class="proj-tag" style="color:${t.c};background:${t.c}18">${t.t}</span>`).join('')}</div>
+        <div class="proj-prog-wrap" data-proj-prog="${p.id}">
+          <div class="proj-prog-bar"><div class="proj-prog-fill" style="width:${pct}%;background:${barColor}"></div></div>
+          <span class="proj-prog-pct" style="color:${barColor}">${pct}%</span>
+        </div>
+      </div>
+      <div class="proj-stars">${'★'.repeat(p.stars)+'☆'.repeat(5-p.stars)}</div>
+    </div>`;
+  }).join('');
+}
+
+function buildMalla(){
+  const domains=['fe','be','cl','ai'];
+  const levels=['Starter','Interm.','Advanced','Expert','★ World'];
+  const byD={};domains.forEach(d=>{byD[d]=PROJECTS.filter(p=>p.domain===d)});
+  let h='<div></div>';
+  domains.forEach((d,i)=>{
+    h+=`<div class="malla-col-hd ${d}" style="grid-column:${i+2};grid-row:1">${DI[d]} ${DL[d]}</div>`;
+  });
+  for(let r=0;r<5;r++){
+    h+=`<div class="malla-row-lbl" style="grid-column:1;grid-row:${r+2}"><div class="lvl-num">0${r+1}</div><div class="lvl-name">${levels[r]}</div></div>`;
+    domains.forEach((d,di)=>{
+      const p=byD[d][r];
+      const nd={fe:'be',be:'cl',cl:'ai',ai:null}[d];
+      const {pct}=getProjectProgress(p.id);
+      const c=DC[d];
+      h+=`<div class="mc ${d}-c" style="grid-column:${di+2};grid-row:${r+2}" data-mc-prog="${p.id}" onclick="${safeClick(openProject,p)}">
+        <div class="mc-title">${p.title}</div>
+        <div class="mc-desc">${p.desc.substring(0,68)}…</div>
+        <div class="mc-chips">${p.tags.slice(0,2).map(t=>`<span class="mc-chip">${t.t}</span>`).join('')}</div>
+        <div class="expand-hint">
+          ${'★'.repeat(p.stars)+'☆'.repeat(5-p.stars)}
+          ${nd?`<span style="margin-left:auto;color:${DC[nd]};font-size:.5rem">→ ${DL[nd]}</span>`:'<span style="margin-left:auto;color:var(--gold);font-size:.5rem">✦ Full</span>'}
+        </div>
+        <div class="mc-prog"><div class="mc-prog-fill" style="width:${pct}%;background:${c}"></div></div>
+      </div>`;
+    });
+  }
+  document.getElementById('malla-grid').innerHTML=h;
+}
+
+function buildRoadmap(){
+  document.getElementById('roadmap-list').innerHTML=ROADMAP.map(r=>`
+    <div class="road-item">
+      <div class="road-num">${r.n}</div>
+      <div style="flex:1"><div class="road-title">${r.title}</div><div class="road-detail">${r.detail}</div></div>
+      <span class="road-status ${r.status}">${r.slabel}</span>
+    </div>`).join('');
+}
+
+function buildPatterns(f='all'){
+  const items=f==='all'?PATTERNS:PATTERNS.filter(p=>p.domain===f);
+  document.getElementById('patterns-grid').innerHTML=items.map(s=>{
+    const c=DC[s.domain];
+    return `<div class="stack-card ${s.domain}-card">
+      <div class="card-head"><span class="card-domain ${s.domain}">${DL[s.domain]}</span><span style="color:${c};font-size:.7rem">${s.level}%</span></div>
+      <div class="card-title">${s.title}</div><div class="card-desc">${s.desc}</div>
+      <div class="tech-chips">${s.chips.map(c=>`<span class="chip">${c}</span>`).join('')}</div>
+    </div>`;
+  }).join('');
+}
+
+function buildSkills(){
+  document.getElementById('skills-chart').innerHTML=SKILLS.map(s=>`
+    <div class="skill-row">
+      <div class="skill-name">${s.name}<span>${s.pct}%</span></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:${s.pct}%;background:${s.color}"></div></div>
+    </div>`).join('');
+}
+
+function buildResources(){
+  document.getElementById('resources-list').innerHTML=RESOURCES.map(r=>`
+    <a href="${r.url}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;font-size:.63rem;color:var(--muted);text-decoration:none;padding:5px 0;border-bottom:1px solid var(--border);transition:color .15s"
+      onmouseover="this.style.color='${r.color}'" onmouseout="this.style.color='var(--muted)'">
+      <span style="color:${r.color}">→</span>${r.label}
+    </a>`).join('');
+}
+
+// ══════════════════════════════════════════════════════
+// TASK GUIDE RENDERER (inside modal) — macOS Tahoe aware
+// ══════════════════════════════════════════════════════
+function copyCmd(btn, text){
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='✓ copiado';
+    setTimeout(()=>{ btn.textContent='copiar'; }, 1500);
+  });
+}
+
+
+// ══════════════════════════════════════════════════════
+// VERIFY DATA — indexed by [pid][taskIndex]
+// ══════════════════════════════════════════════════════
+const VERIFY_DATA={"fe1": [["ls my-ds/src && cat my-ds/package.json | grep vite", "Ves main.tsx en src/ y vite en devDependencies"], ["ls src/tokens/", "Ves index.css e index.ts listados"], ["grep -r forwardRef src/components/ | wc -l", "Numero > 0 — al menos un componente usa forwardRef"], ["node -e \"require('@axe-core/react'); console.log('axe ok')\"", "Ves axe ok sin errores"], ["pnpm storybook --version", "Ves un numero de version, ej: 8.x.x"], ["pnpm test -- --reporter=verbose 2>&1 | tail -5", "Ves Tests passed o resumen verde sin errores"], ["cat package.json | grep name", "Ves name, version, main, module — listo para publicar"], ["pnpm dlx chromatic --version", "Ves la version de Chromatic CLI instalada"]], "fe2": [["bun --version && node --version", "Dos lineas: version Bun >= 1.1 y version Node"], ["pnpm dlx vitest --version", "Ves la version de Vitest, ej: 2.x.x"], ["pnpm dlx playwright --version", "Ves Version x.x.x — Playwright disponible"], ["cat biome.json | grep linter", "Ves linter con enabled: true"], ["ls dist/ | grep stats.html || echo corre pnpm build primero", "Ves stats.html — visualizador generado junto al build"], ["time pnpm dev 2>&1 | grep -i ready | head -1", "Ves Local: http://localhost:5173 en menos de 200ms"], ["ls dist/ | grep .js", "Ves archivos .js .cjs y .d.ts — build de libreria completo"]], "fe3": [["ls MyApp/ && cat MyApp/package.json | grep expo", "Ves la estructura del proyecto y expo en dependencias"], ["cat tailwind.config.js | grep content", "Ves la propiedad content con los paths de tus archivos"], ["cat babel.config.js | grep reanimated", "Ves react-native-reanimated/plugin — es obligatorio que este"], ["cat .env | head -5", "Ves tus variables de entorno definidas"], ["eas build:list --limit 1", "Ves el estado del ultimo build o No builds found"], ["eas update:list --branch production --limit 1", "Ves el ultimo update publicado con su timestamp"]], "fe4": [["grep -r setTransform src/ | wc -l", "Numero > 0 — zoom/pan implementado. Prueba scroll en el canvas"], ["node -e \"require('yjs'); require('y-webrtc'); console.log('OK')\"", "Ves OK — Yjs y y-webrtc importan sin error"], ["node -e \"require('perfect-freehand'); console.log('OK')\"", "Ves OK"], ["node -e \"const Y=require('yjs');const doc=new Y.Doc();const arr=doc.getArray('s');arr.insert(0,['rect']);console.log('shapes:',arr.length)\"", "Ves shapes: 1 — Yjs guarda elementos correctamente"], ["node -e \"require('y-undomanager'); console.log('UndoManager ok')\"", "Ves UndoManager ok"], ["grep -r awareness src/ | wc -l", "Numero > 0 — presencia de usuarios implementada"], ["node -e \"require('jspdf'); console.log('jsPDF ok')\"", "Ves jsPDF ok"]], "fe5": [["node -e \"const H=require('hls.js');console.log('HLS.js version:',H.version)\"", "Ves la version de HLS.js instalada"], ["grep -r currentLevel src/ | wc -l", "Numero > 0 — selector ABR implementado"], ["grep -r requestFullscreen src/ | wc -l", "Numero > 0 — codigo de fullscreen existe"], ["ls public/*.vtt 2>/dev/null || grep -r .vtt src/ | wc -l", "Ves archivos .vtt o referencias — subtitulos configurados"], ["ls public/thumbnails.jpg 2>/dev/null | head -1", "Ves el sprite thumbnails.jpg generado con FFmpeg"], ["grep -r requestPictureInPicture src/ | wc -l", "Numero > 0 — PiP implementado en el player"], ["pnpm dlx lighthouse http://localhost:3000 --only-categories=performance --output=json 2>/dev/null | python3 -c \"import sys,json;d=json.load(sys.stdin);lcp=d['audits']['largest-contentful-paint']['numericValue'];print('LCP:',round(lcp),'ms','ok' if lcp<2500 else 'optimizar')\"", "Ves LCP: XXXX ms ok — debe ser menor a 2500ms"]], "be1": [["cd auth-service && node -e \"require('fastify');console.log('Fastify ok')\"", "Ves Fastify ok sin errores"], ["node -e \"const a=require('argon2');a.hash('test').then(h=>console.log('algorithm:',h.split('$')[1]))\"", "Ves algorithm: argon2id — confirma el algoritmo correcto"], ["node -e \"require('@fastify/jwt');require('@fastify/cookie');console.log('JWT+Cookie ok')\"", "Ves JWT+Cookie ok"], ["node -e \"require('@fastify/oauth2');console.log('oauth2 ok')\"", "Ves oauth2 ok"], ["node -e \"const s=require('speakeasy');const sec=s.generateSecret();const tok=s.totp({secret:sec.base32,encoding:'base32'});console.log('TOTP digits:',tok.length===6?'6 ok':'error')\"", "Ves TOTP digits: 6 ok"], ["grep -rE ADMIN src/ | wc -l", "Numero > 0 — roles RBAC definidos en el codigo"], ["redis-cli ping", "PONG — Redis corriendo. Si no: brew services start redis"], ["pnpm test 2>&1 | grep -E passed", "Ves X passed, 0 failed — todos los tests de auth son verdes"]], "be2": [["node -e \"require('bullmq');console.log('BullMQ ok')\" && redis-cli ping", "Ves BullMQ ok y PONG — BullMQ necesita Redis corriendo"], ["curl -s http://localhost:8025 2>/dev/null | grep -i mailhog | head -1 || echo inicia: mailhog", "Ves HTML de MailHog en http://localhost:8025"], ["node -e \"const a=require('firebase-admin');console.log('firebase-admin:',a.SDK_VERSION)\"", "Ves la version de firebase-admin, ej: 12.x.x"], ["node -e \"const H=require('handlebars');const t=H.compile('Hola {{name}}');console.log(t({name:'Mundo'})==='Hola Mundo'?'ok':'error')\"", "Ves ok — Handlebars renderiza plantillas correctamente"], ["redis-cli SET test:dedup:1 1 EX 10 NX && redis-cli SET test:dedup:1 1 EX 10 NX", "Primera respuesta: OK. Segunda: (nil) — deduplicacion funciona"], ["redis-cli SET test:dedup:2 1 EX 10 NX && redis-cli SET test:dedup:2 1 EX 10 NX", "Primera: OK. Segunda: (nil) — patron NX correcto"], ["redis-cli SET test:dedup:3 1 EX 10 NX && redis-cli SET test:dedup:3 1 EX 10 NX", "Primera: OK. Segunda: (nil) — idempotencia confirmada"], ["curl -s http://localhost:3000/bull-board 2>/dev/null | grep -i bull | head -1", "Ves HTML del panel Bull Board — dashboard accesible"]], "be3": [["curl -s -X POST http://localhost:4000/graphql -H Content-Type:application/json -d '{\"query\":\"{__typename}\"}' | grep __typename", "Ves __typename en la respuesta — servidor GraphQL responde"], ["curl -s http://localhost:4000/graphql -X POST -H Content-Type:application/json -d '{\"query\":\"{__schema{types{name}}}\"}' | python3 -c \"import sys,json;d=json.load(sys.stdin);print('tipos:',len(d['data']['__schema']['types']))\"", "Ves tipos: N donde N > 5 — schema tiene tus tipos"], ["grep -r DataLoader src/ | wc -l", "Numero > 0 — DataLoader en uso"], ["grep -r graphql-shield src/ | wc -l", "Numero > 0 — GraphQL Shield configurado"], ["redis-cli keys apq:* | wc -l", "Numero > 0 tras ejecutar queries — queries persistidas en Redis"], ["grep -r asyncIterator src/ | wc -l", "Numero > 0 — subscriptions implementadas"], ["node -e \"require('graphql-query-complexity');console.log('complexity ok')\"", "Ves complexity ok"], ["curl -s http://localhost:4000/graphql | grep -o Apollo | head -1", "Ves Apollo — Sandbox disponible en el browser"]], "be4": [["psql $DATABASE_URL -c \"SELECT tablename FROM pg_tables WHERE rowsecurity=true;\"", "Ves tus tablas listadas — RLS activo en cada una"], ["psql $DATABASE_URL -c \"SELECT policyname FROM pg_policies WHERE schemaname='public';\"", "Ves las policies con sus nombres — tenant isolation policy existe"], ["stripe products list --limit 3 2>/dev/null | grep name | head -3", "Ves tus productos Free Pro Enterprise listados"], ["grep -rE hmac src/ | wc -l", "Numero > 0 — firma HMAC de webhooks implementada"], ["psql $DATABASE_URL -c \"SELECT COUNT(*) FROM usage_events;\"", "Numero > 0 — el metering registra eventos en la tabla"], ["curl -s -o /dev/null -w %{http_code} http://localhost:3000/api/limite", "Ves 402 — Payment Required cuando se excede el plan"], ["curl -s http://localhost:3000/admin/tenants | python3 -c \"import sys,json;d=json.load(sys.stdin);print('tenants:',len(d) if isinstance(d,list) else d)\"", "Ves tenants: N — admin panel devuelve la lista"], ["pnpm test -- --grep isolation 2>&1 | grep -E passed", "Ves X passed, 0 failed — tests de aislamiento verdes"]], "be5": [["grep -rE OrderPlaced src/ | wc -l", "Numero > 3 — eventos de dominio definidos como tipos"], ["psql $DATABASE_URL -c \"SELECT event_type, COUNT(*) FROM events GROUP BY event_type;\"", "Ves distribucion de eventos por tipo — event store tiene datos"], ["docker exec kafka kafka-topics.sh --list --bootstrap-server localhost:9092", "Ves tus topics listados — Kafka activo con los topics creados"], ["psql $DATABASE_URL -c \"SELECT order_id, status FROM saga_state ORDER BY created_at DESC LIMIT 5;\"", "Ves sagas recientes con su estado — orchestrator persiste progreso"], ["grep -rE compensat src/ | wc -l", "Numero > 0 — compensating transactions en el codigo"], ["redis-cli SET idem:msg-001 1 EX 86400 NX && redis-cli SET idem:msg-001 1 EX 86400 NX", "Primera: OK. Segunda: (nil) — idempotencia funciona"], ["curl -s http://localhost:16686/api/services | python3 -c \"import sys,json;print('Jaeger:',json.load(sys.stdin).get('data'))\"", "Ves los nombres de tus servicios en Jaeger"], ["pnpm test -- --grep chaos 2>&1 | grep -E passed", "Ves X passed, 0 failed — chaos tests pasan"]], "cl1": [["gh run list --limit 3 --json status,conclusion,name 2>/dev/null | python3 -c \"import sys,json;[print(r['name'][:40],r.get('conclusion')) for r in json.load(sys.stdin)]\"", "Ves los ultimos 3 runs con success — pipeline CI pasando"], ["docker images | grep mi-app | head -3", "Ves la imagen con su tag y tamano — build Docker exitoso"], ["helm lint . && echo chart valido", "Ves chart valido sin errores ni warnings"], ["kubectl get pods -n argocd | grep Running | wc -l", "Numero > 0 — pods de ArgoCD en Running"], ["argocd app get mi-app 2>/dev/null | grep -E Sync", "Ves Sync Status: Synced y Health Status: Healthy"], ["kubectl get namespaces | grep pr- | wc -l", "Numero > 0 si hay PRs abiertos — preview envs creados"], ["kubectl argo rollouts list rollouts 2>/dev/null | head -5", "Ves tu rollout listado con estado Healthy o Paused"], ["argocd app history mi-app 2>/dev/null | head -5", "Ves historial de deployments — rollbacks apareceran si hubo fallos"]], "ai1": [["python3 -c \"from unstructured.partition.pdf import partition_pdf; print('ok')\" 2>&1 | tail -1", "Ves ok. Si hay error: brew install poppler tesseract"], ["python3 -c \"from langchain_text_splitters import RecursiveCharacterTextSplitter as R;s=R(chunk_size=512,chunk_overlap=50);c=s.split_text('x '*300);print('chunks:',len(c))\"", "Ves chunks: N donde N > 1 — splitter genera fragmentos"], ["ollama list 2>/dev/null | grep nomic || echo Falta: ollama pull nomic-embed-text", "Ves nomic-embed-text en la lista. Si no: ollama pull nomic-embed-text"], ["psql $DATABASE_URL -c \"\\\\dx\" 2>/dev/null | grep vector || echo pgvector no activo", "Ves vector en las extensiones — pgvector instalado y activo"], ["psql $DATABASE_URL -c \"SELECT COUNT(*) FROM documents;\" 2>/dev/null", "Numero > 0 — hay documentos indexados con sus vectores"], ["curl -s -X POST http://localhost:8000/api/chat -H Content-Type:application/json -d '{\"query\":\"resumen\"}' | python3 -c \"import sys,json;r=json.load(sys.stdin);print('respuesta ok:',len(r.get('answer',''))>10)\"", "Ves respuesta ok: True — el RAG responde con contenido coherente"], ["python3 -c \"from ragas.metrics import faithfulness,answer_relevancy;print('RAGAS ok')\"", "Ves RAGAS ok"], ["curl -N -s http://localhost:8000/api/chat/stream?query=test 2>/dev/null | head -c 150", "Ves fragmentos SSE: data: {chunk:...} — streaming funciona"]], "ai4": [["python3 -c \"from langgraph.graph import StateGraph;print('LangGraph ok')\"", "Ves LangGraph ok"], ["python3 -c \"from tavily import TavilyClient;print('Tavily ok')\" 2>&1 | tail -1", "Ves Tavily ok"], ["python3 -c \"from browser_use import Agent;print('Browser Use ok')\"", "Ves Browser Use ok. Si no: playwright install chromium"], ["python3 -c \"from langgraph.checkpoint.postgres import PostgresSaver;print('PostgresSaver ok')\"", "Ves PostgresSaver ok — checkpointer de memoria disponible"], ["grep -rE critique src/ | wc -l", "Numero > 0 — nodo de reflexion esta en el grafo"], ["python3 -c \"import semanticscholar;print('SemanticScholar ok')\"", "Ves SemanticScholar ok"], ["curl -N -s http://localhost:8000/api/research/stream?query=test 2>/dev/null | head -c 200", "Ves eventos SSE: data: {type:planning...} — thought trace streaming"], ["python3 -c \"import weave;print('Weave ok:',weave.__version__)\"", "Ves Weave ok: x.x.x — framework de evaluacion listo"]], "all1": [["ls apps/ packages/ && cat turbo.json | python3 -c \"import sys,json;t=json.load(sys.stdin);print('pipelines:',list(t.get('tasks',{}).keys()))\"", "Ves apps/ packages/ y los pipelines build test lint de Turborepo"], ["curl -s http://localhost:3000 | grep -o title | head -1", "Ves el title de tu app Next.js — UI corriendo en :3000"], ["curl -s -X POST http://localhost:8000/api/auth/login -H Content-Type:application/json -d '{\"email\":\"test@test.com\",\"password\":\"test\"}' | python3 -c \"import sys,json;r=json.load(sys.stdin);print('JWT ok' if r.get('access_token') else 'sin token')\"", "Ves JWT ok — login multi-tenant devuelve access token"], ["curl -s http://localhost:8000/openapi.json | python3 -c \"import sys,json;d=json.load(sys.stdin);print('endpoints:',len(d.get('paths',{})))\"", "Ves endpoints: N donde N > 5 — FastAPI genero el schema OpenAPI"], ["stripe --version 2>/dev/null || echo Instala: brew install stripe/stripe-cli/stripe", "Ves la version del Stripe CLI — herramienta lista para webhooks"], ["curl -s -X POST http://localhost:8000/api/chat -H Content-Type:application/json -d '{\"query\":\"resumen\"}' | python3 -c \"import sys,json;r=json.load(sys.stdin);print('RAG ok:',len(r.get('answer',''))>20)\"", "Ves RAG ok: True — pipeline RAG responde con contenido"], ["terraform plan -detailed-exitcode 2>&1 | tail -3", "Ves Plan: N to add y exit code 2 (cambios) o 0 (sin cambios) — nunca exit code 1"], ["gh run list --workflow=ci.yml --limit 2 --json conclusion 2>/dev/null | python3 -c \"import sys,json;[print(r['conclusion']) for r in json.load(sys.stdin)]\"", "Ves success — pipeline CI/CD completo esta verde"]]};
+function buildVerifyHTML(pid, i){
+  var d = VERIFY_DATA[pid];
+  if(!d || !d[i]) return '';
+  var v = d[i];
+  var vid = 'tg-verify-'+pid+'-'+i;
+  var cmdEsc = v[0].replace(/\\/g,'\\\\').replace(/"/g,'\\"');
+  return '<div class="tg-verify" id="'+vid+'">'
+    +'<div class="tg-verify-hd" onclick="document.getElementById(\''+vid+'\').classList.toggle(\'open\')">'
+    +'<span class="tg-verify-icon">🧪</span>'
+    +'<span class="tg-verify-label">¿Cómo sé que llegué? — corre esto en Terminal</span>'
+    +'<span class="tg-verify-toggle">▶</span>'
+    +'</div>'
+    +'<div class="tg-verify-body">'
+    +'<div class="tg-verify-cmd">'
+    +'<span class="tg-verify-cmd-text">$ '+v[0]+'</span>'
+    +'<button class="tg-copy" onclick="copyCmd(this,\"'+cmdEsc+'\")">copiar</button>'
+    +'</div>'
+    +'<div class="tg-verify-expect-lbl">Salida esperada en tu Terminal</div>'
+    +'<div class="tg-verify-expect">✔ '+v[1]+'</div>'
+    +'</div>'
+    +'</div>';
+}
+
+function toggleGuidePanel(pid, idx){
+  const row = document.getElementById(`tg-row-${pid}-${idx}`);
+  if(!row) return;
+  row.classList.toggle('open');
+}
+
+function renderChecklistInModal(pid){
+  const box=document.getElementById('modal-checklist');
+  if(!box) return;
+  const guide=TASK_GUIDE[pid]||[];
+  const {done,total,pct,checked}=getProjectProgress(pid);
+  const domainColor = (function(){
+    const p=PROJECTS.find(x=>x.id===pid);
+    if(!p) return 'var(--fe)';
+    return {fe:'var(--fe)',be:'var(--be)',cl:'var(--cl)',ai:'var(--ai)',all:'var(--gold)'}[p.domain]||'var(--fe)';
+  })();
+
+  box.innerHTML=`
+    <div class="checklist-header">
+      <h4>🗂️ Step-by-Step Guide</h4>
+      <div class="checklist-prog">
+        <div class="checklist-prog-bar"><div class="checklist-prog-fill" style="width:${pct}%;background:${domainColor}"></div></div>
+        <span class="checklist-prog-txt" style="color:${domainColor}">${done}/${total} · ${pct}%</span>
+        <button class="cl-reset" onclick="resetProjectProgress('${pid}')">reset</button>
+      </div>
+    </div>
+    <div class="checklist-items">
+      ${guide.map((task,i)=>{
+        const ck=checked.includes(i);
+        const stepsHTML=(task.how||[]).map((s,si)=>`
+          <div class="tg-step">
+            <div class="tg-step-num">${si+1}</div>
+            <span>${s}</span>
+          </div>`).join('');
+        const cmdHTML=task.cmd?`
+          <div class="tg-cmd-wrap">
+            <span class="tg-cmd-text">$ ${task.cmd}</span>
+            <button class="tg-copy" onclick="copyCmd(this,'${task.cmd.replace(/'/g,"\'")}')">copiar</button>
+          </div>`:'';
+        const linksHTML=(task.links||[]).length?`
+          <div class="tg-links">
+            ${task.links.map(lk=>`<a href="${lk.u}" target="_blank" rel="noopener" class="tg-link">📎 ${lk.l}</a>`).join('')}
+          </div>`:'';
+        return `<div class="tg-row${ck?' checked':''}" id="tg-row-${pid}-${i}">
+          <div class="tg-header">
+            <div class="tg-checkbox" onclick="event.stopPropagation();toggleTask('${pid}',${i})">${ck?'✓':''}</div>
+            <span class="tg-title">${task.title}</span>
+            <span class="tg-toggle" onclick="toggleGuidePanel('${pid}',${i})">▶</span>
+          </div>
+          <div class="tg-panel">
+            ${task.why?`<div class="tg-why"><strong>¿Por qué?</strong> ${task.why}</div>`:''}
+            ${stepsHTML?`<div class="tg-steps">${stepsHTML}</div>`:''}
+            ${task.tip?`<div class="tg-tip">${task.tip}</div>`:''}
+            ${cmdHTML}
+            ${linksHTML}
+            ${buildVerifyHTML(pid,i)}
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`;
+}
+
+// ══════════════════════════════════════════════════════
+// MODAL FUNCTIONS
+// ══════════════════════════════════════════════════════
+function openStack(s){
+  const c=DC[s.domain];
+  // collect resources for this stack's chips
+  const techRes=[];
+  const seen=new Set();
+  (s.chips||[]).forEach(ch=>{
+    const key=Object.keys(TECH_RESOURCES).find(k=>ch.toLowerCase().includes(k.toLowerCase())||k.toLowerCase().includes(ch.toLowerCase().split(' ')[0]));
+    if(key&&TECH_RESOURCES[key]) TECH_RESOURCES[key].forEach(r=>{if(!seen.has(r.url)){seen.add(r.url);techRes.push({tech:key,...r});}});
+  });
+  const resHTML=techRes.length?`<div class="modal-section">
+    <h4>📚 Free Learning Resources</h4>
+    <div class="resources-grid">${techRes.slice(0,12).map(r=>`
+      <a href="${r.url}" target="_blank" rel="noopener" class="res-item" style="text-decoration:none">
+        <span class="res-tech">${r.tech}</span>
+        <span class="res-name">${r.name}</span>
+        <span class="res-type res-${r.type}">${r.type}</span>
+      </a>`).join('')}</div>
+  </div>`:'';
+  document.getElementById('modal-body').innerHTML=`
+    <span class="modal-domain-tag" style="color:${c};background:${c}18">${DL[s.domain]} · OSS</span>
+    <h2>${s.title}</h2>
+    <p class="modal-desc">${s.detail}</p>
+    <div class="modal-section"><h4>Technologies</h4><div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:4px">${s.chips.map(ch=>`<span class="chip" style="border-color:${c}44;color:${c}">${ch}</span>`).join('')}</div></div>
+    ${s.tips?`<div class="modal-section"><h4>Pro Tips</h4><ul>${s.tips.map(t=>`<li>${t}</li>`).join('')}</ul></div>`:''}
+    ${resHTML}
+    <button class="cta-btn cta-${s.domain}" onclick="closeModalDirect()" style="margin-top:18px">← Back</button>`;
+  document.getElementById('modal-ov').classList.add('open');
+}
+
+function openProject(p){
+  window.__currentModalProject=p;
+  const ep=p.expandPath;
+  const domains=['fe','be','cl','ai'];
+  // Expand path HTML
+  let expandHTML='';
+  if(ep){
+    const keys=domains.filter(d=>ep[d]);
+    expandHTML=`<div class="modal-section"><h4>🔲 Ruta de Expansión — click en cada paso</h4>
+      <div class="expand-track">
+        ${keys.map((d,i)=>`${i>0?'<div class="expand-arrow">→</div>':''}<div class="expand-step" id="ms-${d}" style="color:${DC[d]};border-color:${DC[d]};background:${DC[d]}10" onclick="showExpand('${p.id}','${d}')">${DI[d]}<div style="font-size:.5rem;margin-top:2px;opacity:.7">${DL[d]}</div>${ep[d].title}</div>`).join('')}
+      </div>
+      <div id="exp-detail"></div>
+    </div>`;
+  }
+  // Free resources for this project's stack
+  const techRes=getProjectResources(p);
+  const resHTML=techRes.length?`<div class="modal-section">
+    <h4>📚 Free Learning Resources para este proyecto</h4>
+    <div class="resources-grid">${techRes.map(r=>`
+      <a href="${r.url}" target="_blank" rel="noopener" class="res-item" style="text-decoration:none">
+        <span class="res-tech">${r.tech}</span>
+        <span class="res-name">${r.name}</span>
+        <span class="res-type res-${r.type}">${r.type}</span>
+      </a>`).join('')}</div>
+  </div>`:'';
+
+  document.getElementById('modal-body').innerHTML=`
+    <div style="font-size:.58rem;color:var(--muted);margin-bottom:5px">Proyecto ${p.rank} · OSS First</div>
+    <h2>${p.title}</h2>
+    <p class="modal-desc">${p.detail}</p>
+    <div class="modal-section"><h4>Stack Completo (Open Source)</h4><ul>${(p.stack||[]).map(s=>`<li>${s}</li>`).join('')}</ul></div>
+    <div class="modal-section"><h4>Desafíos Clave</h4><ul>${(p.challenges||[]).map(c=>`<li>${c}</li>`).join('')}</ul></div>
+    ${expandHTML}
+    ${resHTML}
+    <div class="checklist-wrap" id="modal-checklist"></div>
+    <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:5px">${p.tags.map(t=>`<span class="proj-tag" style="color:${t.c};background:${t.c}18;padding:3px 9px;border-radius:3px;font-size:.58rem">${t.t}</span>`).join('')}</div>
+    <button class="cta-btn" style="color:var(--gold);border-color:var(--gold);margin-top:16px" onclick="closeModalDirect()">← Back</button>`;
+  renderChecklistInModal(p.id);
+  document.getElementById('modal-ov').classList.add('open');
+}
+
+function showExpand(projId, domain){
+  const p=window.__currentModalProject;
+  if(!p||!p.expandPath||!p.expandPath[domain]) return;
+  const step=p.expandPath[domain];
+  const c=DC[domain];
+  ['fe','be','cl','ai'].forEach(d=>{const el=document.getElementById('ms-'+d);if(el)el.classList.remove('active-step');});
+  const el=document.getElementById('ms-'+domain);
+  if(el) el.classList.add('active-step');
+  document.getElementById('exp-detail').innerHTML=`
+    <div class="expand-detail" style="border-left:3px solid ${c}">
+      <h5 style="color:${c}">${DL[domain]}: ${step.title}</h5>
+      ${step.desc?`<p style="font-size:.65rem;color:var(--muted);margin-bottom:9px;line-height:1.65">${step.desc}</p>`:''}
+      <ul>${step.stack.map(s=>`<li>${s}</li>`).join('')}</ul>
+    </div>`;
+}
+
+// ══════════════════════════════════════════════════════
+// FILTER & TABS
+// ══════════════════════════════════════════════════════
+function setFilter(el,f,label,count){
+  document.querySelectorAll('.dom-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('focus-display')?document.getElementById('focus-display').textContent=label:null;
+  document.getElementById('count-display')?document.getElementById('count-display').textContent=count:null;
+  buildStacks(f);buildProjects(f);buildPatterns(f);
+}
+function switchTab(el,name){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+function closeModal(e){if(e.target===document.getElementById('modal-ov'))closeModalDirect();}
+function closeModalDirect(){document.getElementById('modal-ov').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModalDirect();});
+
+// Helper
+function safeClick(fn,o){
+  const k='__p'+Math.random().toString(36).slice(2);
+  window[k]=function(){fn(o);delete window[k];};
+  return `window['${k}']()`;
+}
+
+// ══════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════
+buildTicker();buildStacks();buildProjects();buildMalla();buildRoadmap();buildPatterns();buildSkills();buildResources();
+buildProgSummary();updateAllProgressDisplays();
+</script>
+</body>
+</html>
